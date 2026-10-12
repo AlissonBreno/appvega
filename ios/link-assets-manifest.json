@@ -1,0 +1,53 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "assets/fonts/CircularStd-Black.ttf",
+      "sha1": "b28281624afe633b6f5c368e93cdee2a2d6fdd74"
+    },
+    {
+      "path": "assets/fonts/CircularStd-BlackItalic.ttf",
+      "sha1": "f6f05268a8a1d5a3ae0352e02abd8cc14962fdda"
+    },
+    {
+      "path": "assets/fonts/CircularStd-Bold.ttf",
+      "sha1": "879abb2579e83ab43c09aad8fa78f2d614ace077"
+    },
+    {
+      "path": "assets/fonts/CircularStd-BoldItalic.ttf",
+      "sha1": "54c57cf3d367645b6094154718beb59f448d1220"
+    },
+    {
+      "path": "assets/fonts/CircularStd-Book.ttf",
+      "sha1": "e41d5d04155f6233cdec9176a8a7eb3e0cd2b70a"
+    },
+    {
+      "path": "assets/fonts/CircularStd-BookItalic.ttf",
+      "sha1": "7052714ec71a5450b6a9a4f77f77d8bdbeb43f3d"
+    },
+    {
+      "path": "assets/fonts/CircularStd-Medium.ttf",
+      "sha1": "262e6e5742420716834bb6584a03e8310690e041"
+    },
+    {
+      "path": "assets/fonts/CircularStd-MediumItalic.ttf",
+      "sha1": "144f9d100e2d7b85df57f36463cfc05915a8de9b"
+    },
+    {
+      "path": "assets/fonts/FontAwesome5_Pro_Brands.ttf",
+      "sha1": "2d11531e8faddfa08208c424a9ac4a60940f9f74"
+    },
+    {
+      "path": "assets/fonts/FontAwesome5_Pro_Light.ttf",
+      "sha1": "282e553f05d3e515904ae12adfa761618b0eae93"
+    },
+    {
+      "path": "assets/fonts/FontAwesome5_Pro_Regular.ttf",
+      "sha1": "bf647ecda6fcfbeeb5a11f5fea071792a481ae40"
+    },
+    {
+      "path": "assets/fonts/FontAwesome5_Pro_Solid.ttf",
+      "sha1": "7c902c3fee89e512cd6ebedd479e0a6854d9a8a5"
+    }
+  ]
+}
