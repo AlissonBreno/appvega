@@ -19,7 +19,6 @@ export const darkTheme: Theme = {
   colors: {
     primary: '#10B37D', // brand/green
     secondary: '#6366F1', // accent/carb
-    rgb: '16, 179, 125', // brand/green em rgb
     error: '#FF5878', // state/above
     primaryText: '#F8FAFC', // text/primary
     secondaryText: '#7F8DA2', // text/muted
@@ -40,7 +39,6 @@ export const lightTheme: Theme = {
   colors: {
     primary: '#10B37D', // brand/green
     secondary: '#6366F1', // accent/carb
-    rgb: '16, 179, 125', // brand/green em rgb
     error: '#FF5878', // state/above
     primaryText: '#0F172A', // text/primary
     secondaryText: '#64748B', // text/muted

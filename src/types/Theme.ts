@@ -30,7 +30,6 @@ interface ToastColors {
 export interface Colors {
   primary: string;
   secondary: string;
-  rgb: string;
   error: string;
   primaryText: string;
   secondaryText: string;
