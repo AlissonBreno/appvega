@@ -1,8 +1,8 @@
 import { StyleSheet } from 'react-native';
 
-/** Círculo ativo. Maior que a pílula para extrapolar a barra, centrado nela. */
-const ACTIVE_SIZE = 64;
-/** Altura da pílula. O excedente do círculo fica 8px (sm) acima e abaixo. */
+/** Disco ativo. 4px para fora da pílula, em cima e em baixo. */
+const ACTIVE_SIZE = 72;
+/** Altura da pílula. */
 const PILL_HEIGHT = 64;
 
 export const styles = StyleSheet.create({
@@ -11,15 +11,12 @@ export const styles = StyleSheet.create({
     left: 0,
     right: 0,
     alignItems: 'center',
+    overflow: 'visible',
     zIndex: 1,
   },
   pill: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
     height: ACTIVE_SIZE,
-    paddingHorizontal: 16,
-    gap: 8,
+    justifyContent: 'center',
   },
   track: {
     position: 'absolute',
@@ -28,10 +25,14 @@ export const styles = StyleSheet.create({
     top: (ACTIVE_SIZE - PILL_HEIGHT) / 2,
     height: PILL_HEIGHT,
     borderRadius: 9999,
-    shadowOffset: { width: 0, height: 8 },
-    shadowOpacity: 0.16,
-    shadowRadius: 16,
-    elevation: 6,
+    borderWidth: 1,
+    zIndex: 0,
+  },
+  icons: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    zIndex: 1,
+    elevation: 1,
   },
   item: {
     width: ACTIVE_SIZE,
@@ -45,9 +46,6 @@ export const styles = StyleSheet.create({
     borderRadius: 9999,
     alignItems: 'center',
     justifyContent: 'center',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.2,
-    shadowRadius: 8,
-    elevation: 8,
+    zIndex: 1,
   },
 });

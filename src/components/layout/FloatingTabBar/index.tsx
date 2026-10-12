@@ -8,7 +8,7 @@ import type { TabParamList } from '~/types/Navigation';
 
 import { styles } from './styles';
 
-const ICON_SIZE = 24;
+const ICON_SIZE = 22;
 
 function isTabRoute(name: string): name is keyof TabParamList {
   return Object.prototype.hasOwnProperty.call(tabIcons, name);
@@ -29,10 +29,8 @@ function FloatingTabBarContent({
   navigation,
   insets,
 }: BottomTabBarProps) {
-  const { isDark, theme } = useNavigationTheme();
+  const { theme } = useNavigationTheme();
   const { colors } = theme;
-  const activeIconColor = isDark ? colors.background : colors.foreground;
-  const shadowColor = isDark ? colors.background : colors.primaryText;
 
   return (
     <View
@@ -44,7 +42,10 @@ function FloatingTabBarContent({
           pointerEvents="none"
           style={[
             styles.track,
-            { backgroundColor: colors.foreground, shadowColor },
+            {
+              backgroundColor: colors.foreground,
+              borderColor: colors.border,
+            },
           ]}
         />
         {state.routes.map((route, index) => {
@@ -91,12 +92,12 @@ function FloatingTabBarContent({
                 <View
                   style={[
                     styles.activeCircle,
-                    { backgroundColor: colors.primaryText, shadowColor },
+                    { backgroundColor: colors.primaryText },
                   ]}
                 >
                   <Icon
                     name={tabIcons[route.name]}
-                    color={activeIconColor}
+                    color={colors.foreground}
                     size={ICON_SIZE}
                   />
                 </View>
