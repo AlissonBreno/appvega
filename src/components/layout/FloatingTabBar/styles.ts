@@ -15,8 +15,9 @@ export const styles = StyleSheet.create({
     zIndex: 1,
   },
   pill: {
+    flexDirection: 'row',
+    alignItems: 'center',
     height: ACTIVE_SIZE,
-    justifyContent: 'center',
   },
   track: {
     position: 'absolute',
@@ -28,17 +29,12 @@ export const styles = StyleSheet.create({
     borderWidth: 1,
     zIndex: 0,
   },
-  icons: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    zIndex: 1,
-    elevation: 1,
-  },
   item: {
     width: ACTIVE_SIZE,
     height: ACTIVE_SIZE,
     alignItems: 'center',
     justifyContent: 'center',
+    zIndex: 1,
   },
   activeCircle: {
     width: ACTIVE_SIZE,
