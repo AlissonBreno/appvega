@@ -9,10 +9,11 @@ import { profileSummaryStyles } from './styles';
 function ProfileSummary() {
   const { isDark, theme } = useNavigationTheme();
   const styles = profileSummaryStyles[isDark ? 'dark' : 'light'];
+  
   const stats = [
-    { value: '2500', label: 'meta kcal' },
-    { value: '26', label: 'idade' },
-    { value: '75kg', label: 'kilos' },
+    { value: '2500', label: 'meta kcal', color: theme.colors.secondary },
+    { value: '26', label: 'idade', color: theme.colors.primaryText },
+    { value: '75kg', label: 'kilos', color: theme.colors.primary },
   ];
 
   return (
@@ -35,7 +36,7 @@ function ProfileSummary() {
       <View style={styles.stats}>
         {stats.map(stat => (
           <View key={stat.label} style={styles.stat}>
-            <Text style={styles.statValue}>{stat.value}</Text>
+            <Text style={[styles.statValue, { color: stat.color }]}>{stat.value}</Text>
             <Text style={styles.caption}>{stat.label}</Text>
           </View>
         ))}

@@ -82,10 +82,9 @@ function createStyles(theme: Theme) {
       gap: 4,
     },
     statValue: {
-      fontSize: 16,
+      fontSize: 18,
       lineHeight: 21,
-      color: colors.primaryText,
-      ...fonts.bold,
+      ...fonts.medium,
     },
     caption: {
       fontSize: 12,
