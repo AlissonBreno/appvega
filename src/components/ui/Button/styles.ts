@@ -10,7 +10,7 @@ const createStyles = (theme: Theme) => {
     root: {
       borderRadius: 12,
       borderWidth: 1,
-      minHeight: 48,
+      minHeight: 60,
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'center',
