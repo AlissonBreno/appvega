@@ -41,7 +41,7 @@ const DailyGoals = () => {
 
   return (
     <Card.Root>
-      <Card.SectionTitle title="Metas Diárias" />
+      <Card.SectionTitle title="🎯 Metas Diárias" />
       {goals.map(goal => (
         <GoalRow key={goal.label} {...goal} />
       ))}
