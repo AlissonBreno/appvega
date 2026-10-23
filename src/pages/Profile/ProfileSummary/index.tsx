@@ -1,6 +1,6 @@
 import { Text, View } from 'react-native';
 
-import Card from '~/components/ui/Card';
+import { Card } from '~/components/ui/Card';
 import Icon from '~/components/ui/Icon';
 import { useNavigationTheme } from '~/hooks/useNavigationTheme';
 
@@ -17,7 +17,7 @@ const ProfileSummary = () => {
   ];
 
   return (
-    <Card>
+    <Card.Root>
       <View style={styles.identity}>
         <View style={styles.avatarGlow}>
           <View style={styles.avatar}>
@@ -41,7 +41,7 @@ const ProfileSummary = () => {
           </View>
         ))}
       </View>
-    </Card>
+    </Card.Root>
   );
 };
 

@@ -4,7 +4,7 @@ import { themes } from '~/styles/theme';
 import type { Theme } from '~/types/Theme';
 
 const createStyles = (theme: Theme) => {
-  const { colors } = theme;
+  const { colors, fonts } = theme;
 
   return StyleSheet.create({
     card: {
@@ -13,6 +13,12 @@ const createStyles = (theme: Theme) => {
       backgroundColor: colors.foreground,
       padding: 24,
       gap: 16,
+    },
+    sectionTitle: {
+      fontSize: 16,
+      lineHeight: 21,
+      color: colors.primaryText,
+      ...fonts.bold,
     },
   });
 };

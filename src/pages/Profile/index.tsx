@@ -2,8 +2,7 @@ import { ScrollView, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import ScreenHeader from '~/components/shared/ScreenHeader';
-import SectionTitle from '~/components/shared/SectionTitle';
-import Card from '~/components/ui/Card';
+import { Card } from '~/components/ui/Card';
 import Icon, { type IconName } from '~/components/ui/Icon';
 import { useNavigationTheme } from '~/hooks/useNavigationTheme';
 import type { Theme } from '~/types/Theme';
@@ -85,8 +84,8 @@ const DailyGoals = () => {
   ];
 
   return (
-    <Card>
-      <SectionTitle title="Metas Diárias" />
+    <Card.Root>
+      <Card.SectionTitle title="Metas Diárias" />
       {goals.map(goal => (
         <GoalRow key={goal.label} {...goal} />
       ))}
@@ -107,7 +106,7 @@ const DailyGoals = () => {
           Sem alterações
         </Text>
       </View>
-    </Card>
+    </Card.Root>
   );
 };
 

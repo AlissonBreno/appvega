@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { View, type StyleProp, type ViewStyle } from 'react-native';
+import { Text, View, type StyleProp, type ViewStyle } from 'react-native';
 
 import { useNavigationTheme } from '~/hooks/useNavigationTheme';
 
@@ -10,11 +10,25 @@ type CardProps = {
   style?: StyleProp<ViewStyle>;
 };
 
-const Card = ({ children, style }: CardProps) => {
+const Root = ({ children, style }: CardProps) => {
   const { isDark } = useNavigationTheme();
   const styles = cardStyles[isDark ? 'dark' : 'light'];
 
   return <View style={[styles.card, style]}>{children}</View>;
 };
 
-export default Card;
+type SectionTitleProps = {
+  title: string;
+};
+
+const SectionTitle = ({ title }: SectionTitleProps) => {
+  const { isDark } = useNavigationTheme();
+  const styles = cardStyles[isDark ? 'dark' : 'light'];
+
+  return <Text style={styles.sectionTitle}>{title}</Text>;
+};
+
+export const Card = {
+  Root,
+  SectionTitle,
+};
