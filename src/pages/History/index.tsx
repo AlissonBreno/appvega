@@ -5,7 +5,7 @@ import ScreenHeader from '~/components/shared/ScreenHeader';
 import { Card } from '~/components/ui/Card';
 import { useNavigationTheme } from '~/hooks/useNavigationTheme';
 
-import InfoCards from './InfoCards';
+import GamifiedGoals from './GamifiedGoals';
 import { styles } from './styles';
 
 const TAB_CLEARANCE = 72 + 16 + 24;
@@ -30,7 +30,7 @@ const History = () => {
         ]}
         showsVerticalScrollIndicator={false}
       >
-        <InfoCards />
+        <GamifiedGoals />
         <Card.Root>
           <Card.SectionTitle title="Calorias por dia" />
         </Card.Root>

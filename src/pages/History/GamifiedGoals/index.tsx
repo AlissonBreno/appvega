@@ -4,7 +4,7 @@ import { Card } from '~/components/ui/Card';
 
 import { styles } from './styles';
 
-const InfoCards = () => {
+const GamifiedGoals = () => {
   return (
     <View style={styles.row}>
       <Card.Root style={styles.card}>{null}</Card.Root>
@@ -14,4 +14,4 @@ const InfoCards = () => {
   );
 };
 
-export default InfoCards;
+export default GamifiedGoals;
