@@ -163,52 +163,51 @@ function Profile() {
   ];
 
   return (
-    <ScrollView
-      style={[styles.screen, { backgroundColor: colors.background }]}
-      contentContainerStyle={[
-        styles.content,
-        {
-          paddingTop: insets.top + 16,
-          paddingBottom: insets.bottom + TAB_CLEARANCE,
-        },
-      ]}
-    >
+    <View style={[styles.screen, { backgroundColor: colors.background }]}>
       <ScreenHeader
         icon="user-cog"
         title="Perfil & metas"
         subtitle="Configure suas metas nutricionais"
       />
-      <ProfileSummary theme={theme} />
-      <View
-        style={[
-          styles.card,
-          { backgroundColor: colors.foreground, borderColor: colors.border },
+      <ScrollView
+        style={styles.scroll}
+        contentContainerStyle={[
+          styles.content,
+          { paddingBottom: insets.bottom + TAB_CLEARANCE },
         ]}
       >
-        <Text
-          style={[styles.sectionTitle, fonts.bold, { color: colors.primaryText }]}
-        >
-          Metas Diárias
-        </Text>
-        {goals.map(goal => (
-          <GoalRow key={goal.label} {...goal} />
-        ))}
+        <ProfileSummary theme={theme} />
         <View
           style={[
-            styles.idleButton,
-            { borderColor: colors.border, backgroundColor: colors.background },
+            styles.card,
+            { backgroundColor: colors.foreground, borderColor: colors.border },
           ]}
         >
-          <Icon name="save" color={colors.secondaryText} size={16} />
           <Text
-            style={[styles.idleLabel, fonts.medium, { color: colors.secondaryText }]}
+            style={[styles.sectionTitle, fonts.bold, { color: colors.primaryText }]}
           >
-            Sem alterações
+            Metas Diárias
           </Text>
+          {goals.map(goal => (
+            <GoalRow key={goal.label} {...goal} />
+          ))}
+          <View
+            style={[
+              styles.idleButton,
+              { borderColor: colors.border, backgroundColor: colors.background },
+            ]}
+          >
+            <Icon name="save" color={colors.secondaryText} size={16} />
+            <Text
+              style={[styles.idleLabel, fonts.medium, { color: colors.secondaryText }]}
+            >
+              Sem alterações
+            </Text>
+          </View>
         </View>
-      </View>
-      <AppAbout theme={theme} />
-    </ScrollView>
+        <AppAbout theme={theme} />
+      </ScrollView>
+    </View>
   );
 }
 

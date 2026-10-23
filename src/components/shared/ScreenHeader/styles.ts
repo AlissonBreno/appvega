@@ -11,6 +11,9 @@ function createStyles(theme: Theme) {
       flexDirection: 'row',
       alignItems: 'center',
       gap: 16,
+      paddingBottom: 16,
+      paddingHorizontal: 16,
+      backgroundColor: colors.foreground,
     },
     headerIcon: {
       width: 48,
