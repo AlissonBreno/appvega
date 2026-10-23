@@ -1,17 +1,17 @@
 export interface Font {
   fontFamily: string;
   fontWeight?:
-    | 'normal'
-    | 'bold'
-    | '100'
-    | '200'
-    | '300'
-    | '400'
-    | '500'
-    | '600'
-    | '700'
-    | '800'
-    | '900';
+  | 'normal'
+  | 'bold'
+  | '100'
+  | '200'
+  | '300'
+  | '400'
+  | '500'
+  | '600'
+  | '700'
+  | '800'
+  | '900';
 }
 
 export interface Fonts {
@@ -30,6 +30,7 @@ interface ToastColors {
 export interface Colors {
   primary: string;
   secondary: string;
+  tertiary: string;
   error: string;
   primaryText: string;
   secondaryText: string;
@@ -37,10 +38,10 @@ export interface Colors {
   foreground: string;
   formsBackground: string;
   border: string;
-  fat: string;
-  avatarStart: string;
-  avatarEnd: string;
   toast: ToastColors;
+  carb: string;
+  protein: string;
+  fat: string;
 }
 
 export interface Theme {
