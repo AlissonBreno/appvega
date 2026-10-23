@@ -119,6 +119,7 @@ function Profile() {
           styles.content,
           { paddingBottom: insets.bottom + TAB_CLEARANCE },
         ]}
+        showsVerticalScrollIndicator={false}
       >
         <ProfileSummary />
         <View
