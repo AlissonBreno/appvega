@@ -18,16 +18,18 @@ function ProfileSummary() {
   return (
     <Card>
       <View style={styles.identity}>
-        <View style={styles.avatar}>
-          <View style={[styles.avatarBand, styles.avatarBandStart]} />
-          <View style={[styles.avatarBand, styles.avatarBandEnd]} />
-          <View style={styles.avatarShine}>
-            <Icon name="sparkles" color={theme.colors.primaryText} size={14} />
+        <View style={styles.avatarGlow}>
+          <View style={styles.avatar}>
+            <View style={styles.avatarShine}>
+              <Icon name="sparkles" color={theme.colors.primaryText} size={28} />
+            </View>
           </View>
         </View>
         <View style={styles.identityCopy}>
           <Text style={styles.name}>Alisson Goulart</Text>
-          <Text style={styles.subtitle}>Rastreando há 7 dias</Text>
+          <View style={styles.subtitleRow}>
+            <Text style={styles.subtitle}>Rastreando há 7 dias 🔥</Text>
+          </View>
         </View>
       </View>
       <View style={styles.stats}>
