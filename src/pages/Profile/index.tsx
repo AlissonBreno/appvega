@@ -120,7 +120,7 @@ function Profile() {
           { paddingBottom: insets.bottom + TAB_CLEARANCE },
         ]}
       >
-        <ProfileSummary theme={theme} />
+        <ProfileSummary />
         <View
           style={[
             styles.card,
