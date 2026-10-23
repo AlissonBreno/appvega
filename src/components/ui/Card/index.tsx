@@ -10,11 +10,11 @@ type CardProps = {
   style?: StyleProp<ViewStyle>;
 };
 
-function Card({ children, style }: CardProps) {
+const Card = ({ children, style }: CardProps) => {
   const { isDark } = useNavigationTheme();
   const styles = cardStyles[isDark ? 'dark' : 'light'];
 
   return <View style={[styles.card, style]}>{children}</View>;
-}
+};
 
 export default Card;

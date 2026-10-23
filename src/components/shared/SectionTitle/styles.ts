@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 import { themes } from '~/styles/theme';
 import type { Theme } from '~/types/Theme';
 
-function createStyles(theme: Theme) {
+const createStyles = (theme: Theme) => {
   const { colors, fonts } = theme;
 
   return StyleSheet.create({
@@ -14,7 +14,7 @@ function createStyles(theme: Theme) {
       ...fonts.bold,
     },
   });
-}
+};
 
 export const sectionTitleStyles = {
   dark: createStyles(themes.dark),

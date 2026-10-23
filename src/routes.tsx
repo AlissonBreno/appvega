@@ -13,24 +13,24 @@ import { navigationRef } from '~/utils/RootNavigation';
 const Stack = createStackNavigator<StackParamList>();
 const Tab = createBottomTabNavigator<TabParamList>();
 
-function MainTabs() {
+const MainTabs = () => {
   return (
     <Tab.Navigator screenOptions={tabNavigatorOptions} tabBar={FloatingTabBar}>
       <Tab.Screen name="Home" component={Home} />
       <Tab.Screen name="Profile" component={Profile} />
     </Tab.Navigator>
   );
-}
+};
 
 /**
  * Regra de rota inicial centralizada. Placeholder: começa em `Main`.
  * Deve evoluir para depender de estados globais (ex.: usuário autenticado).
  */
-function getInitialRouteName(): keyof StackParamList {
+const getInitialRouteName = (): keyof StackParamList => {
   return 'Main';
-}
+};
 
-function Routes() {
+const Routes = () => {
   return (
     <NavigationContainer ref={navigationRef}>
       <Stack.Navigator
@@ -50,6 +50,6 @@ function Routes() {
       </Stack.Navigator>
     </NavigationContainer>
   );
-}
+};
 
 export default Routes;

@@ -6,7 +6,7 @@ import { useNavigationTheme } from '~/hooks/useNavigationTheme';
 
 import { profileSummaryStyles } from './styles';
 
-function ProfileSummary() {
+const ProfileSummary = () => {
   const { isDark, theme } = useNavigationTheme();
   const styles = profileSummaryStyles[isDark ? 'dark' : 'light'];
   
@@ -43,6 +43,6 @@ function ProfileSummary() {
       </View>
     </Card>
   );
-}
+};
 
 export default ProfileSummary;

@@ -12,11 +12,11 @@ type NavigationTheme = {
  * Tema resolvido para a navegação (barra, header). Lê o esquema do sistema
  * e devolve o slot Dark ou Light já existente em `styles/theme`.
  */
-export function useNavigationTheme(): NavigationTheme {
+export const useNavigationTheme = (): NavigationTheme => {
   const isDark = useColorScheme() === 'dark';
 
   return {
     isDark,
     theme: themes[isDark ? 'dark' : 'light'],
   };
-}
+};

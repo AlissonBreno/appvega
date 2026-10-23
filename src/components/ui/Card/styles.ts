@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 import { themes } from '~/styles/theme';
 import type { Theme } from '~/types/Theme';
 
-function createStyles(theme: Theme) {
+const createStyles = (theme: Theme) => {
   const { colors } = theme;
 
   return StyleSheet.create({
@@ -15,7 +15,7 @@ function createStyles(theme: Theme) {
       gap: 16,
     },
   });
-}
+};
 
 export const cardStyles = {
   dark: createStyles(themes.dark),

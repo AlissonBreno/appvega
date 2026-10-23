@@ -21,7 +21,7 @@ type GoalRowProps = {
   totalColor: string;
 };
 
-function GoalRow({ icon, label, value, unit, totalColor }: GoalRowProps) {
+const GoalRow = ({ icon, label, value, unit, totalColor }: GoalRowProps) => {
   const { theme } = useNavigationTheme();
   const { colors, fonts } = theme;
 
@@ -47,9 +47,9 @@ function GoalRow({ icon, label, value, unit, totalColor }: GoalRowProps) {
       </View>
     </View>
   );
-}
+};
 
-function DailyGoals() {
+const DailyGoals = () => {
   const { theme } = useNavigationTheme();
   const { colors, fonts } = theme;
 
@@ -109,9 +109,9 @@ function DailyGoals() {
       </View>
     </Card>
   );
-}
+};
 
-function AppAbout({ theme }: { theme: Theme }) {
+const AppAbout = ({ theme }: { theme: Theme }) => {
   const { colors, fonts } = theme;
 
   return (
@@ -132,9 +132,9 @@ function AppAbout({ theme }: { theme: Theme }) {
       </Text>
     </View>
   );
-}
+};
 
-function Profile() {
+const Profile = () => {
   const insets = useSafeAreaInsets();
   const { theme } = useNavigationTheme();
   const { colors } = theme;
@@ -160,6 +160,6 @@ function Profile() {
       </ScrollView>
     </View>
   );
-}
+};
 
 export default Profile;

@@ -12,15 +12,15 @@ import { ACTIVE_SIZE, styles } from './styles';
 const ICON_SIZE = 22;
 const DISC_SLIDE_MS = 200;
 
-function isTabRoute(name: string): name is keyof TabParamList {
+const isTabRoute = (name: string): name is keyof TabParamList => {
   return Object.prototype.hasOwnProperty.call(tabIcons, name);
-}
+};
 
 /** Posição visual do foco, contando só rotas que a pílula desenha. */
-function tabSlot(
+const tabSlot = (
   routes: ReadonlyArray<{ name: string }>,
   index: number,
-): number | null {
+): number | null => {
   let slot = 0;
 
   for (let position = 0; position < routes.length; position += 1) {
@@ -36,23 +36,23 @@ function tabSlot(
   }
 
   return null;
-}
+};
 
 /**
  * O navigator chama `tabBar(props)` como função, dentro do callback de um
  * Context.Consumer. Hooks aqui quebram as Rules of Hooks; o elemento abaixo
  * é o componente de verdade.
  */
-function FloatingTabBar(props: BottomTabBarProps) {
+const FloatingTabBar = (props: BottomTabBarProps) => {
   return <FloatingTabBarContent {...props} />;
-}
+};
 
-function FloatingTabBarContent({
+const FloatingTabBarContent = ({
   state,
   descriptors,
   navigation,
   insets,
-}: BottomTabBarProps) {
+}: BottomTabBarProps) => {
   const { theme } = useNavigationTheme();
   const { colors } = theme;
   const slot = tabSlot(state.routes, state.index);
@@ -179,6 +179,6 @@ function FloatingTabBarContent({
       </View>
     </View>
   );
-}
+};
 
 export default FloatingTabBar;

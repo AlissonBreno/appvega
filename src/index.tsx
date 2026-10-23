@@ -5,7 +5,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import Routes from '~/routes';
 
-function App() {
+const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
 
   return (
@@ -14,6 +14,6 @@ function App() {
       <Routes />
     </SafeAreaProvider>
   );
-}
+};
 
 export default App;

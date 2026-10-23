@@ -12,7 +12,7 @@ type ScreenHeaderProps = {
   subtitle: string;
 };
 
-function ScreenHeader({ icon, title, subtitle }: ScreenHeaderProps) {
+const ScreenHeader = ({ icon, title, subtitle }: ScreenHeaderProps) => {
   const insets = useSafeAreaInsets();
   const { isDark, theme } = useNavigationTheme();
   const styles = screenHeaderStyles[isDark ? 'dark' : 'light'];
@@ -26,6 +26,6 @@ function ScreenHeader({ icon, title, subtitle }: ScreenHeaderProps) {
       <Text style={styles.subtitle}>{subtitle}</Text>
     </View>
   );
-}
+};
 
 export default ScreenHeader;

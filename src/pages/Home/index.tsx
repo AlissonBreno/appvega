@@ -4,7 +4,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { styles } from './styles';
 
-function Home() {
+const Home = () => {
   const safeAreaInsets = useSafeAreaInsets();
 
   return (
@@ -12,6 +12,6 @@ function Home() {
       <NewAppScreen templateFileName="App.tsx" safeAreaInsets={safeAreaInsets} />
     </View>
   );
-}
+};
 
 export default Home;

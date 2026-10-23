@@ -24,7 +24,7 @@ type IconProps = {
   style?: StyleProp<TextStyle>;
 };
 
-function Icon({ name, color, size = 24, style }: IconProps) {
+const Icon = ({ name, color, size = 24, style }: IconProps) => {
   return (
     <Text
       accessible={false}
@@ -35,6 +35,6 @@ function Icon({ name, color, size = 24, style }: IconProps) {
       {GLYPHS[name]}
     </Text>
   );
-}
+};
 
 export default Icon;
