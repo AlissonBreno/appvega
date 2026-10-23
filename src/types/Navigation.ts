@@ -5,5 +5,6 @@ export type StackParamList = {
 
 export type TabParamList = {
   Home: undefined;
+  History: undefined;
   Profile: undefined;
 };

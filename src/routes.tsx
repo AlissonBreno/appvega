@@ -4,6 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import FloatingTabBar from '~/components/layout/FloatingTabBar';
 import { stackScreenOptions, tabNavigatorOptions } from '~/config/navigation';
+import History from '~/pages/History';
 import Home from '~/pages/Home';
 import Login from '~/pages/Login';
 import Profile from '~/pages/Profile';
@@ -17,6 +18,7 @@ const MainTabs = () => {
   return (
     <Tab.Navigator screenOptions={tabNavigatorOptions} tabBar={FloatingTabBar}>
       <Tab.Screen name="Home" component={Home} />
+      <Tab.Screen name="History" component={History} />
       <Tab.Screen name="Profile" component={Profile} />
     </Tab.Navigator>
   );

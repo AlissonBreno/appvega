@@ -29,6 +29,7 @@ export const stackScreenOptions: StackNavigationOptions = {
 
 export const tabIcons: Record<keyof TabParamList, IconName> = {
   Home: 'home',
+  History: 'chart-bar',
   Profile: 'user-cog',
 };
 
