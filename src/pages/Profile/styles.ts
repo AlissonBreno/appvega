@@ -18,10 +18,6 @@ export const styles = StyleSheet.create({
     padding: 24,
     gap: 16,
   },
-  sectionTitle: {
-    fontSize: 16,
-    lineHeight: 21,
-  },
   goalRow: {
     flexDirection: 'row',
     alignItems: 'center',
