@@ -33,6 +33,7 @@ export const tabIcons: Record<keyof TabParamList, IconName> = {
 };
 
 export const tabNavigatorOptions: BottomTabNavigationOptions = {
+  headerShown: false,
   headerStyle: {
     backgroundColor: palette.surfaceHeader,
   },

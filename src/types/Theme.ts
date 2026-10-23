@@ -37,6 +37,9 @@ export interface Colors {
   foreground: string;
   formsBackground: string;
   border: string;
+  fat: string;
+  avatarStart: string;
+  avatarEnd: string;
   toast: ToastColors;
 }
 

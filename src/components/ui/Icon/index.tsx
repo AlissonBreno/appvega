@@ -5,6 +5,14 @@ import { styles } from './styles';
 const GLYPHS = {
   home: '\uF015',
   'user-cog': '\uF4FE',
+  fire: '\uF06D',
+  'bread-slice': '\uF7EC',
+  egg: '\uF7FB',
+  cheese: '\uF7EF',
+  minus: '\uF068',
+  plus: '\uF067',
+  save: '\uF0C7',
+  sparkles: '\uF890',
 } as const;
 
 export type IconName = keyof typeof GLYPHS;

@@ -26,6 +26,9 @@ export const darkTheme: Theme = {
     foreground: '#0F172A', // surface/card
     formsBackground: '#0F172A', // surface/header
     border: '#1E293B', // border/subtle
+    fat: '#F2C614', // accent/fat
+    avatarStart: '#38BDF8', // avatar/gradient-start
+    avatarEnd: '#10B981', // avatar/gradient-end
     toast: {
       danger: '#FF5878', // state/above
       success: '#10B37D', // brand/green
@@ -46,6 +49,9 @@ export const lightTheme: Theme = {
     foreground: '#FFFFFF', // surface/card
     formsBackground: '#FFFFFF', // surface/header
     border: '#E2E8F0', // border/subtle
+    fat: '#F2C614', // accent/fat
+    avatarStart: '#38BDF8', // avatar/gradient-start
+    avatarEnd: '#10B981', // avatar/gradient-end
     toast: {
       danger: '#FF5878', // state/above
       success: '#10B37D', // brand/green
