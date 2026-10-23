@@ -8,46 +8,56 @@ const createStyles = (theme: Theme) => {
 
   return StyleSheet.create({
     goalRow: {
+      flexDirection: 'column',
+      gap: 12,
+    },
+    goalRowLabel: {
       flexDirection: 'row',
       alignItems: 'center',
-      gap: 12,
+      gap: 8,
     },
     emoji: {
       fontSize: 18,
       lineHeight: 22,
     },
-    goalCopy: {
-      flex: 1,
-      gap: 4,
-    },
     goalLabel: {
-      fontSize: 14,
+      flex: 1,
+      fontSize: 16,
       lineHeight: 21,
       color: colors.primaryText,
       ...fonts.medium,
     },
     goalTotal: {
-      fontSize: 14,
+      fontSize: 16,
       lineHeight: 21,
-      ...fonts.light,
+      ...fonts.bold,
     },
     stepper: {
       flexDirection: 'row',
       alignItems: 'center',
+      gap: 8,
+    },
+    stepperButton: {
+      width: 44,
+      height: 44,
+      borderRadius: 12,
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: colors.border,
+    },
+    stepperInput: {
+      flex: 1,
+      height: 44,
       borderRadius: 12,
       borderWidth: 1,
-      paddingHorizontal: 8,
-      paddingVertical: 8,
-      gap: 8,
-      borderColor: colors.border,
-    },
-    stepperValue: {
-      minWidth: 40,
-      fontSize: 13,
-      lineHeight: 20,
+      padding: 0,
       textAlign: 'center',
+      textAlignVertical: 'center',
+      fontSize: 16,
       color: colors.primaryText,
-      ...fonts.light,
+      backgroundColor: colors.background,
+      borderColor: colors.border,
+      ...fonts.medium,
     },
   });
 };

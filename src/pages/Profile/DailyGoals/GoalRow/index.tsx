@@ -1,4 +1,4 @@
-import { Text, View } from 'react-native';
+import { Text, TextInput, View } from 'react-native';
 
 import Icon from '~/components/ui/Icon';
 import { useNavigationTheme } from '~/hooks/useNavigationTheme';
@@ -19,17 +19,21 @@ const GoalRow = ({ emoji, label, value, unit, totalColor }: GoalRowProps) => {
 
   return (
     <View style={styles.goalRow}>
-      <Text style={styles.emoji}>{emoji}</Text>
-      <View style={styles.goalCopy}>
+      <View style={styles.goalRowLabel}>
+        <Text style={styles.emoji}>{emoji}</Text>
         <Text style={styles.goalLabel}>{label}</Text>
         <Text style={[styles.goalTotal, { color: totalColor }]}>
-          {value} / {value} {unit}
+          {value} {unit}
         </Text>
       </View>
       <View style={styles.stepper}>
-        <Icon name="minus" color={theme.colors.secondaryText} size={12} />
-        <Text style={styles.stepperValue}>{value}</Text>
-        <Icon name="plus" color={theme.colors.secondaryText} size={12} />
+        <View style={styles.stepperButton}>
+          <Icon name="minus" color={theme.colors.secondaryText} size={14} />
+        </View>
+        <TextInput style={styles.stepperInput} value={value} editable={false} />
+        <View style={styles.stepperButton}>
+          <Icon name="plus" color={theme.colors.secondaryText} size={14} />
+        </View>
       </View>
     </View>
   );
