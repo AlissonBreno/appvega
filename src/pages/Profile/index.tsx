@@ -2,6 +2,7 @@ import { ScrollView, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import ScreenHeader from '~/components/shared/ScreenHeader';
+import { Button } from '~/components/ui/Button';
 import { Card } from '~/components/ui/Card';
 import Icon, { type IconName } from '~/components/ui/Icon';
 import { useNavigationTheme } from '~/hooks/useNavigationTheme';
@@ -50,7 +51,7 @@ const GoalRow = ({ icon, label, value, unit, totalColor }: GoalRowProps) => {
 
 const DailyGoals = () => {
   const { theme } = useNavigationTheme();
-  const { colors, fonts } = theme;
+  const { colors } = theme;
 
   const goals: GoalRowProps[] = [
     {
@@ -89,23 +90,10 @@ const DailyGoals = () => {
       {goals.map(goal => (
         <GoalRow key={goal.label} {...goal} />
       ))}
-      <View
-        style={[
-          styles.idleButton,
-          { borderColor: colors.border, backgroundColor: colors.background },
-        ]}
-      >
-        <Icon name="save" color={colors.secondaryText} size={16} />
-        <Text
-          style={[
-            styles.idleLabel,
-            fonts.medium,
-            { color: colors.secondaryText },
-          ]}
-        >
-          Sem alterações
-        </Text>
-      </View>
+      <Button.Root>
+        <Button.Icon name="save" />
+        <Button.Text>Sem alterações</Button.Text>
+      </Button.Root>
     </Card.Root>
   );
 };

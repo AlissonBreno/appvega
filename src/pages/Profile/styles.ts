@@ -50,20 +50,6 @@ export const styles = StyleSheet.create({
     lineHeight: 20,
     textAlign: 'center',
   },
-  idleButton: {
-    borderRadius: 12,
-    borderWidth: 1,
-    minHeight: 48,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 8,
-    opacity: 0.55,
-  },
-  idleLabel: {
-    fontSize: 16,
-    lineHeight: 21,
-  },
   aboutTitle: {
     fontSize: 16,
     lineHeight: 21,
