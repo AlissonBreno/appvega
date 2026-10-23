@@ -12,6 +12,10 @@ const createStyles = (theme: Theme) => {
       alignItems: 'center',
       gap: 12,
     },
+    emoji: {
+      fontSize: 18,
+      lineHeight: 22,
+    },
     goalCopy: {
       flex: 1,
       gap: 4,

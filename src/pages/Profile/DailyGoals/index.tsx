@@ -10,28 +10,28 @@ const DailyGoals = () => {
 
   const goals: GoalRowProps[] = [
     {
-      icon: 'fire',
+      emoji: '🔥',
       label: 'Calorias',
       value: '2000',
       unit: 'kcal',
       totalColor: colors.error,
     },
     {
-      icon: 'bread-slice',
+      emoji: '🍞',
       label: 'Carboidratos',
       value: '250',
       unit: 'g',
       totalColor: colors.secondary,
     },
     {
-      icon: 'egg',
+      emoji: '🥚',
       label: 'Proteínas',
       value: '150',
       unit: 'g',
       totalColor: colors.primary,
     },
     {
-      icon: 'cheese',
+      emoji: '🥑',
       label: 'Gordura',
       value: '65',
       unit: 'g',

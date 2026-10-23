@@ -1,25 +1,25 @@
 import { Text, View } from 'react-native';
 
-import Icon, { type IconName } from '~/components/ui/Icon';
+import Icon from '~/components/ui/Icon';
 import { useNavigationTheme } from '~/hooks/useNavigationTheme';
 
 import { goalRowStyles } from './styles';
 
 export type GoalRowProps = {
-  icon: IconName;
+  emoji: string;
   label: string;
   value: string;
   unit: string;
   totalColor: string;
 };
 
-const GoalRow = ({ icon, label, value, unit, totalColor }: GoalRowProps) => {
+const GoalRow = ({ emoji, label, value, unit, totalColor }: GoalRowProps) => {
   const { isDark, theme } = useNavigationTheme();
   const styles = goalRowStyles[isDark ? 'dark' : 'light'];
 
   return (
     <View style={styles.goalRow}>
-      <Icon name={icon} color={totalColor} size={18} />
+      <Text style={styles.emoji}>{emoji}</Text>
       <View style={styles.goalCopy}>
         <Text style={styles.goalLabel}>{label}</Text>
         <Text style={[styles.goalTotal, { color: totalColor }]}>
