@@ -1,6 +1,7 @@
 import { ScrollView, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import ScreenHeader from '~/components/shared/ScreenHeader';
 import Icon, { type IconName } from '~/components/ui/Icon';
 import { useNavigationTheme } from '~/hooks/useNavigationTheme';
 import type { Theme } from '~/types/Theme';
@@ -16,33 +17,6 @@ type GoalRowProps = {
   unit: string;
   totalColor: string;
 };
-
-function ScreenHeader({ theme }: { theme: Theme }) {
-  const { colors, fonts } = theme;
-
-  return (
-    <View style={styles.header}>
-      <View
-        style={[
-          styles.headerIcon,
-          { backgroundColor: colors.foreground, borderColor: colors.border },
-        ]}
-      >
-        <Icon name="user-cog" color={colors.primaryText} size={22} />
-      </View>
-      <View style={styles.headerCopy}>
-        <Text style={[styles.title, fonts.bold, { color: colors.primaryText }]}>
-          Perfil & metas
-        </Text>
-        <Text
-          style={[styles.subtitle, fonts.light, { color: colors.secondaryText }]}
-        >
-          Configure suas metas nutricionais
-        </Text>
-      </View>
-    </View>
-  );
-}
 
 function ProfileSummary({ theme }: { theme: Theme }) {
   const { colors, fonts } = theme;
@@ -199,7 +173,11 @@ function Profile() {
         },
       ]}
     >
-      <ScreenHeader theme={theme} />
+      <ScreenHeader
+        icon="user-cog"
+        title="Perfil & metas"
+        subtitle="Configure suas metas nutricionais"
+      />
       <ProfileSummary theme={theme} />
       <View
         style={[
