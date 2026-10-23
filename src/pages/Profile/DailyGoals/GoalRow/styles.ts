@@ -9,7 +9,8 @@ const createStyles = (theme: Theme) => {
   return StyleSheet.create({
     goalRow: {
       flexDirection: 'column',
-      gap: 12,
+      gap: 8,
+      paddingVertical: 12,
     },
     goalRowLabel: {
       flexDirection: 'row',
@@ -25,12 +26,12 @@ const createStyles = (theme: Theme) => {
       fontSize: 16,
       lineHeight: 21,
       color: colors.primaryText,
-      ...fonts.medium,
+      ...fonts.light,
     },
     goalTotal: {
       fontSize: 16,
       lineHeight: 21,
-      ...fonts.bold,
+      ...fonts.medium,
     },
     stepper: {
       flexDirection: 'row',
