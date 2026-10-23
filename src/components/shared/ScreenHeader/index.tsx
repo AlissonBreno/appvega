@@ -19,13 +19,11 @@ function ScreenHeader({ icon, title, subtitle }: ScreenHeaderProps) {
 
   return (
     <View style={[styles.header, { paddingTop: Math.max(insets.top, 16) }]}>
-      <View style={styles.headerIcon}>
-        <Icon name={icon} color={theme.colors.primary} size={22} />
-      </View>
-      <View style={styles.headerCopy}>
+      <View style={styles.titleRow}>
+        <Icon name={icon} color={theme.colors.primary} size={24} />
         <Text style={styles.title}>{title}</Text>
-        <Text style={styles.subtitle}>{subtitle}</Text>
       </View>
+      <Text style={styles.subtitle}>{subtitle}</Text>
     </View>
   );
 }

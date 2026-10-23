@@ -8,22 +8,17 @@ function createStyles(theme: Theme) {
 
   return StyleSheet.create({
     header: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      gap: 16,
+      flexDirection: 'column',
+      alignItems: 'stretch',
+      gap: 8,
       paddingBottom: 16,
       paddingHorizontal: 16,
       backgroundColor: colors.foreground,
     },
-    headerIcon: {
-      width: 48,
-      height: 48,
+    titleRow: {
+      flexDirection: 'row',
       alignItems: 'center',
-      justifyContent: 'center',
-    },
-    headerCopy: {
-      flex: 1,
-      gap: 4,
+      gap: 16,
     },
     title: {
       fontSize: 20,
