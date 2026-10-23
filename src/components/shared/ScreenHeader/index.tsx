@@ -3,7 +3,7 @@ import { Text, View } from 'react-native';
 import Icon, { type IconName } from '~/components/ui/Icon';
 import { useNavigationTheme } from '~/hooks/useNavigationTheme';
 
-import { styles } from './styles';
+import { screenHeaderStyles } from './styles';
 
 type ScreenHeaderProps = {
   icon: IconName;
@@ -12,28 +12,17 @@ type ScreenHeaderProps = {
 };
 
 function ScreenHeader({ icon, title, subtitle }: ScreenHeaderProps) {
-  const { theme } = useNavigationTheme();
-  const { colors, fonts } = theme;
+  const { isDark, theme } = useNavigationTheme();
+  const styles = screenHeaderStyles[isDark ? 'dark' : 'light'];
 
   return (
     <View style={styles.header}>
-      <View
-        style={[
-          styles.headerIcon,
-          { backgroundColor: colors.foreground, borderColor: colors.border },
-        ]}
-      >
-        <Icon name={icon} color={colors.primaryText} size={22} />
+      <View style={styles.headerIcon}>
+        <Icon name={icon} color={theme.colors.primaryText} size={22} />
       </View>
       <View style={styles.headerCopy}>
-        <Text style={[styles.title, fonts.bold, { color: colors.primaryText }]}>
-          {title}
-        </Text>
-        <Text
-          style={[styles.subtitle, fonts.light, { color: colors.secondaryText }]}
-        >
-          {subtitle}
-        </Text>
+        <Text style={styles.title}>{title}</Text>
+        <Text style={styles.subtitle}>{subtitle}</Text>
       </View>
     </View>
   );
