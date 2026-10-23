@@ -1,16 +1,14 @@
 import { Text, View } from 'react-native';
 
+import Card from '~/components/ui/Card';
 import Icon from '~/components/ui/Icon';
-import type { Theme } from '~/types/Theme';
+import { useNavigationTheme } from '~/hooks/useNavigationTheme';
 
-import { styles } from './styles';
+import { profileSummaryStyles } from './styles';
 
-type ProfileSummaryProps = {
-  theme: Theme;
-};
-
-function ProfileSummary({ theme }: ProfileSummaryProps) {
-  const { colors, fonts } = theme;
+function ProfileSummary() {
+  const { isDark, theme } = useNavigationTheme();
+  const styles = profileSummaryStyles[isDark ? 'dark' : 'light'];
   const stats = [
     { value: '2500', label: 'meta kcal' },
     { value: '26', label: 'idade' },
@@ -18,51 +16,29 @@ function ProfileSummary({ theme }: ProfileSummaryProps) {
   ];
 
   return (
-    <View
-      style={[
-        styles.card,
-        { backgroundColor: colors.foreground, borderColor: colors.border },
-      ]}
-    >
+    <Card>
       <View style={styles.identity}>
         <View style={styles.avatar}>
-          <View style={[styles.avatarBand, { backgroundColor: colors.avatarStart }]} />
-          <View style={[styles.avatarBand, { backgroundColor: colors.avatarEnd }]} />
+          <View style={[styles.avatarBand, styles.avatarBandStart]} />
+          <View style={[styles.avatarBand, styles.avatarBandEnd]} />
           <View style={styles.avatarShine}>
-            <Icon name="sparkles" color={colors.primaryText} size={14} />
+            <Icon name="sparkles" color={theme.colors.primaryText} size={14} />
           </View>
         </View>
         <View style={styles.identityCopy}>
-          <Text style={[styles.name, fonts.medium, { color: colors.primaryText }]}>
-            Alisson Goulart
-          </Text>
-          <Text
-            style={[styles.subtitle, fonts.light, { color: colors.secondaryText }]}
-          >
-            Rastreando há 7 dias
-          </Text>
+          <Text style={styles.name}>Alisson Goulart</Text>
+          <Text style={styles.subtitle}>Rastreando há 7 dias</Text>
         </View>
       </View>
       <View style={styles.stats}>
         {stats.map(stat => (
-          <View
-            key={stat.label}
-            style={[styles.stat, { borderColor: colors.border }]}
-          >
-            <Text
-              style={[styles.statValue, fonts.bold, { color: colors.primaryText }]}
-            >
-              {stat.value}
-            </Text>
-            <Text
-              style={[styles.caption, fonts.medium, { color: colors.secondaryText }]}
-            >
-              {stat.label}
-            </Text>
+          <View key={stat.label} style={styles.stat}>
+            <Text style={styles.statValue}>{stat.value}</Text>
+            <Text style={styles.caption}>{stat.label}</Text>
           </View>
         ))}
       </View>
-    </View>
+    </Card>
   );
 }
 
