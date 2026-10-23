@@ -87,7 +87,7 @@ const createStyles = (theme: Theme) => {
       ...fonts.medium,
     },
     caption: {
-      fontSize: 12,
+      fontSize: 14,
       lineHeight: 17,
       textAlign: 'center',
       color: colors.secondaryText,
