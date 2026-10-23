@@ -1,38 +1,15 @@
-import { ScrollView, Text, View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import ScreenHeader from '~/components/shared/ScreenHeader';
 import { useNavigationTheme } from '~/hooks/useNavigationTheme';
-import type { Theme } from '~/types/Theme';
 
+import AppAbout from './AppAbout';
 import DailyGoals from './DailyGoals';
 import ProfileSummary from './ProfileSummary';
 import { styles } from './styles';
 
 const TAB_CLEARANCE = 72 + 16 + 24;
-
-const AppAbout = ({ theme }: { theme: Theme }) => {
-  const { colors, fonts } = theme;
-
-  return (
-    <View
-      style={[
-        styles.card,
-        { backgroundColor: colors.foreground, borderColor: colors.border },
-      ]}
-    >
-      <Text style={[styles.aboutTitle, fonts.medium, { color: colors.primaryText }]}>
-        VEGA · Nutrição fácil
-      </Text>
-      <Text style={[styles.version, fonts.light, { color: colors.secondaryText }]}>
-        v1.0.0 · by Alisson Goulart
-      </Text>
-      <Text style={[styles.aboutBody, fonts.light, { color: colors.secondaryText }]}>
-        Auxilia o monitoramento nutricional e não substitui acompanhamento clínico.
-      </Text>
-    </View>
-  );
-};
 
 const Profile = () => {
   const insets = useSafeAreaInsets();
@@ -56,7 +33,7 @@ const Profile = () => {
       >
         <ProfileSummary />
         <DailyGoals />
-        <AppAbout theme={theme} />
+        <AppAbout />
       </ScrollView>
     </View>
   );

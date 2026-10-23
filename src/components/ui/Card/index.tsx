@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { Text, View, type StyleProp, type ViewStyle } from 'react-native';
+import { Text, View, type StyleProp, type ViewStyle, type TextStyle } from 'react-native';
 
 import { useNavigationTheme } from '~/hooks/useNavigationTheme';
 
@@ -19,13 +19,14 @@ const Root = ({ children, style }: CardProps) => {
 
 type SectionTitleProps = {
   title: string;
+  style?: StyleProp<TextStyle>;
 };
 
-const SectionTitle = ({ title }: SectionTitleProps) => {
+const SectionTitle = ({ title, style }: SectionTitleProps) => {
   const { isDark } = useNavigationTheme();
   const styles = cardStyles[isDark ? 'dark' : 'light'];
 
-  return <Text style={styles.sectionTitle}>{title}</Text>;
+  return <Text style={[styles.sectionTitle, style]}>{title}</Text>;
 };
 
 export const Card = {
