@@ -1,17 +1,41 @@
 import type { BottomTabBarProps } from '@react-navigation/bottom-tabs';
-import { Pressable, View } from 'react-native';
+import { useEffect, useRef } from 'react';
+import { Animated, Pressable, View } from 'react-native';
 
 import Icon from '~/components/ui/Icon';
 import { tabIcons } from '~/config/navigation';
 import { useNavigationTheme } from '~/hooks/useNavigationTheme';
 import type { TabParamList } from '~/types/Navigation';
 
-import { styles } from './styles';
+import { ACTIVE_SIZE, styles } from './styles';
 
 const ICON_SIZE = 22;
+const DISC_SLIDE_MS = 200;
 
 function isTabRoute(name: string): name is keyof TabParamList {
   return Object.prototype.hasOwnProperty.call(tabIcons, name);
+}
+
+/** Posição visual do foco, contando só rotas que a pílula desenha. */
+function tabSlot(
+  routes: ReadonlyArray<{ name: string }>,
+  index: number,
+): number | null {
+  let slot = 0;
+
+  for (let position = 0; position < routes.length; position += 1) {
+    if (!isTabRoute(routes[position].name)) {
+      continue;
+    }
+
+    if (position === index) {
+      return slot;
+    }
+
+    slot += 1;
+  }
+
+  return null;
 }
 
 /**
@@ -31,6 +55,43 @@ function FloatingTabBarContent({
 }: BottomTabBarProps) {
   const { theme } = useNavigationTheme();
   const { colors } = theme;
+  const slot = tabSlot(state.routes, state.index);
+  const translateX = useRef(
+    new Animated.Value((slot ?? 0) * ACTIVE_SIZE),
+  ).current;
+  const skipInitialSlide = useRef(true);
+
+  useEffect(() => {
+    if (slot == null) {
+      return;
+    }
+
+    const toValue = slot * ACTIVE_SIZE;
+
+    if (skipInitialSlide.current) {
+      skipInitialSlide.current = false;
+      translateX.setValue(toValue);
+      return;
+    }
+
+    const animation = Animated.timing(translateX, {
+      toValue,
+      duration: DISC_SLIDE_MS,
+      useNativeDriver: true,
+    });
+
+    animation.start();
+
+    return () => {
+      animation.stop();
+    };
+  }, [slot, translateX]);
+
+  const focusedRoute = state.routes[state.index];
+  const activeIcon =
+    focusedRoute && isTabRoute(focusedRoute.name)
+      ? tabIcons[focusedRoute.name]
+      : null;
 
   return (
     <View
@@ -88,29 +149,33 @@ function FloatingTabBarContent({
               onLongPress={onLongPress}
               style={styles.item}
             >
-              {focused ? (
-                <View
-                  style={[
-                    styles.activeCircle,
-                    { backgroundColor: colors.primaryText },
-                  ]}
-                >
-                  <Icon
-                    name={tabIcons[route.name]}
-                    color={colors.foreground}
-                    size={ICON_SIZE}
-                  />
-                </View>
-              ) : (
-                <Icon
-                  name={tabIcons[route.name]}
-                  color={colors.secondaryText}
-                  size={ICON_SIZE}
-                />
-              )}
+              <Icon
+                name={tabIcons[route.name]}
+                color={colors.secondaryText}
+                size={ICON_SIZE}
+              />
             </Pressable>
           );
         })}
+        {activeIcon ? (
+          <Animated.View
+            accessible={false}
+            pointerEvents="none"
+            style={[
+              styles.activeCircle,
+              {
+                backgroundColor: colors.primaryText,
+                transform: [{ translateX }],
+              },
+            ]}
+          >
+            <Icon
+              name={activeIcon}
+              color={colors.foreground}
+              size={ICON_SIZE}
+            />
+          </Animated.View>
+        ) : null}
       </View>
     </View>
   );

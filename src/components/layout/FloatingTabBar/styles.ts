@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 
 /** Disco ativo. 4px para fora da pílula, em cima e em baixo. */
-const ACTIVE_SIZE = 72;
+export const ACTIVE_SIZE = 72;
 /** Altura da pílula. */
 const PILL_HEIGHT = 64;
 
@@ -37,11 +37,14 @@ export const styles = StyleSheet.create({
     zIndex: 1,
   },
   activeCircle: {
+    position: 'absolute',
+    left: 0,
+    top: 0,
     width: ACTIVE_SIZE,
     height: ACTIVE_SIZE,
     borderRadius: 9999,
     alignItems: 'center',
     justifyContent: 'center',
-    zIndex: 1,
+    zIndex: 2,
   },
 });

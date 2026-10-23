@@ -17,6 +17,7 @@ const palette = {
 };
 
 export const stackScreenOptions: StackNavigationOptions = {
+  gestureEnabled: false,
   headerStyle: {
     backgroundColor: palette.surfaceHeader,
   },
