@@ -8,11 +8,13 @@ const createStyles = (theme: Theme) => {
 
   return StyleSheet.create({
     list: {
+      alignSelf: 'stretch',
       gap: 12,
     },
     row: {
       flexDirection: 'row',
       alignItems: 'center',
+      alignSelf: 'stretch',
       gap: 12,
     },
     day: {
@@ -25,13 +27,15 @@ const createStyles = (theme: Theme) => {
     },
     bar: {
       flex: 1,
+      justifyContent: 'center',
     },
     kcal: {
-      width: 96,
+      width: 72,
       flexShrink: 0,
       flexDirection: 'row',
       alignItems: 'baseline',
-      gap: 4,
+      justifyContent: 'flex-end',
+      gap: 2,
     },
     kcalValue: {
       fontSize: 16,
