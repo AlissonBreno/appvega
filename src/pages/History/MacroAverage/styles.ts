@@ -10,6 +10,8 @@ const createStyles = (theme: Theme) => {
     row: {
       flexDirection: 'row',
       gap: 16,
+      paddingTop: 24,
+      paddingBottom: 24,
     },
     column: {
       flex: 1,
