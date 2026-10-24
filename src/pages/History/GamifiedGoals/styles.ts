@@ -9,7 +9,7 @@ const createStyles = (theme: Theme) => {
   return StyleSheet.create({
     row: {
       flexDirection: 'row',
-      gap: 8,
+      gap: 12,
     },
     card: {
       flex: 1,
@@ -20,8 +20,7 @@ const createStyles = (theme: Theme) => {
       width: 48,
       height: 48,
       borderRadius: 9999,
-      borderWidth: 1,
-      borderColor: colors.border,
+      backgroundColor: colors.border,
       alignItems: 'center',
       justifyContent: 'center',
     },
@@ -37,14 +36,14 @@ const createStyles = (theme: Theme) => {
       ...fonts.bold,
     },
     unit: {
-      fontSize: 12,
+      fontSize: 14,
       lineHeight: 17,
       textAlign: 'center',
       color: colors.secondaryText,
-      ...fonts.medium,
+      ...fonts.light,
     },
     caption: {
-      fontSize: 14,
+      fontSize: 12,
       lineHeight: 21,
       textAlign: 'center',
       color: colors.primaryText,
