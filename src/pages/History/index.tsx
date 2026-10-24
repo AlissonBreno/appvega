@@ -2,9 +2,9 @@ import { ScrollView, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import ScreenHeader from '~/components/shared/ScreenHeader';
-import { Card } from '~/components/ui/Card';
 import { useNavigationTheme } from '~/hooks/useNavigationTheme';
 
+import DailyCalories from './DailyCalories';
 import GamifiedGoals from './GamifiedGoals';
 import MacroAverage from './MacroAverage';
 import WeeklyPerformance from './WeeklyPerformance';
@@ -33,9 +33,7 @@ const History = () => {
         showsVerticalScrollIndicator={false}
       >
         <GamifiedGoals />
-        <Card.Root>
-          <Card.SectionTitle title="Calorias por dia" />
-        </Card.Root>
+        <DailyCalories />
         <WeeklyPerformance />
         <MacroAverage />
       </ScrollView>
