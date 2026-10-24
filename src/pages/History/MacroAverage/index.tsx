@@ -1,31 +1,10 @@
 import { Text, View } from 'react-native';
 
+import MacroProgress from '~/components/shared/MacroProgress';
 import { Card } from '~/components/ui/Card';
 import { useNavigationTheme } from '~/hooks/useNavigationTheme';
 
 import { macroAverageStyles } from './styles';
-
-type MacroProgressProps = {
-  progress: number;
-  color: string;
-};
-
-const MacroProgress = ({ progress, color }: MacroProgressProps) => {
-  const { isDark } = useNavigationTheme();
-  const styles = macroAverageStyles[isDark ? 'dark' : 'light'];
-  const clamped = Math.min(1, Math.max(0, progress));
-
-  return (
-    <View style={styles.track}>
-      <View
-        style={[
-          styles.fill,
-          { width: `${clamped * 100}%`, backgroundColor: color },
-        ]}
-      />
-    </View>
-  );
-};
 
 type MacroColumnProps = {
   emoji: string;

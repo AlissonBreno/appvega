@@ -39,17 +39,6 @@ const createStyles = (theme: Theme) => {
       color: colors.secondaryText,
       ...fonts.light,
     },
-    track: {
-      height: 6,
-      borderRadius: 9999,
-      alignSelf: 'stretch',
-      backgroundColor: colors.border,
-      overflow: 'hidden',
-    },
-    fill: {
-      height: 6,
-      borderRadius: 9999,
-    },
   });
 };
 
