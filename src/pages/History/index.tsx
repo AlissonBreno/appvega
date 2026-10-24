@@ -6,6 +6,7 @@ import { Card } from '~/components/ui/Card';
 import { useNavigationTheme } from '~/hooks/useNavigationTheme';
 
 import GamifiedGoals from './GamifiedGoals';
+import MacroAverage from './MacroAverage';
 import { styles } from './styles';
 
 const TAB_CLEARANCE = 72 + 16 + 24;
@@ -37,9 +38,7 @@ const History = () => {
         <Card.Root>
           <Card.SectionTitle title="Desempenho semanal" />
         </Card.Root>
-        <Card.Root>
-          <Card.SectionTitle title="Média de macros (7 dias)" />
-        </Card.Root>
+        <MacroAverage />
       </ScrollView>
     </View>
   );
