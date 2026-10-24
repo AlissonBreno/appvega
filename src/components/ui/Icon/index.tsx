@@ -4,6 +4,7 @@ import { styles } from './styles';
 
 const GLYPHS = {
   home: '\uF015',
+  heartbeat: '\uF21E',
   'chart-bar': '\uF080',
   'user-cog': '\uF4FE',
   fire: '\uF06D',

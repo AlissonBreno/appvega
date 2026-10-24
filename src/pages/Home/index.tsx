@@ -1,15 +1,65 @@
-import { NewAppScreen } from '@react-native/new-app-screen';
-import { View } from 'react-native';
+import { ScrollView, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { styles } from './styles';
+import ScreenHeader from '~/components/shared/ScreenHeader';
+import { Card } from '~/components/ui/Card';
+import { useNavigationTheme } from '~/hooks/useNavigationTheme';
+
+import CircularNutritionalGoal from './CircularNutritionalGoal';
+import WelcomeText from './WelcomeText';
+import { homeStyles } from './styles';
+
+const TAB_CLEARANCE = 72 + 16 + 24;
+
+const meals = [
+  { title: 'Café da manhã' },
+  { title: 'Almoço' },
+  { title: 'Café da tarde' },
+  { title: 'Jantar' },
+];
+
+const formatToday = (date: Date) => {
+  const formatted = date.toLocaleDateString('pt-BR', {
+    weekday: 'long',
+    day: 'numeric',
+    month: 'long',
+  });
+
+  return formatted.charAt(0).toLocaleUpperCase('pt-BR') + formatted.slice(1);
+};
 
 const Home = () => {
-  const safeAreaInsets = useSafeAreaInsets();
+  const insets = useSafeAreaInsets();
+  const { isDark, theme } = useNavigationTheme();
+  const { colors } = theme;
+  const styles = homeStyles[isDark ? 'dark' : 'light'];
 
   return (
-    <View style={styles.container}>
-      <NewAppScreen templateFileName="App.tsx" safeAreaInsets={safeAreaInsets} />
+    <View style={[styles.screen, { backgroundColor: colors.background }]}>
+      <ScreenHeader
+        icon="heartbeat"
+        title="VEGA"
+        subtitle={formatToday(new Date())}
+      />
+      <ScrollView
+        style={styles.scroll}
+        contentContainerStyle={[
+          styles.content,
+          { paddingBottom: insets.bottom + TAB_CLEARANCE },
+        ]}
+        showsVerticalScrollIndicator={false}
+      >
+        <WelcomeText />
+        <CircularNutritionalGoal />
+        <View style={styles.meals}>
+          <Text style={styles.mealsTitle}>Refeições</Text>
+          {meals.map(meal => (
+            <Card.Root key={meal.title}>
+              <Card.SectionTitle title={meal.title} />
+            </Card.Root>
+          ))}
+        </View>
+      </ScrollView>
     </View>
   );
 };
