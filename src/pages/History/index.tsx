@@ -7,6 +7,7 @@ import { useNavigationTheme } from '~/hooks/useNavigationTheme';
 
 import GamifiedGoals from './GamifiedGoals';
 import MacroAverage from './MacroAverage';
+import WeeklyPerformance from './WeeklyPerformance';
 import { styles } from './styles';
 
 const TAB_CLEARANCE = 72 + 16 + 24;
@@ -35,9 +36,7 @@ const History = () => {
         <Card.Root>
           <Card.SectionTitle title="Calorias por dia" />
         </Card.Root>
-        <Card.Root>
-          <Card.SectionTitle title="Desempenho semanal" />
-        </Card.Root>
+        <WeeklyPerformance />
         <MacroAverage />
       </ScrollView>
     </View>
