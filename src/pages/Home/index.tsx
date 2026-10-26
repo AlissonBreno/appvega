@@ -5,7 +5,7 @@ import ScreenHeader from '~/components/shared/ScreenHeader';
 import { Card } from '~/components/ui/Card';
 import { useNavigationTheme } from '~/hooks/useNavigationTheme';
 
-import CircularNutritionalGoal from './CircularNutritionalGoal';
+import DailyProgress from './DailyProgress';
 import WelcomeText from './WelcomeText';
 import { homeStyles } from './styles';
 
@@ -50,7 +50,7 @@ const Home = () => {
         showsVerticalScrollIndicator={false}
       >
         <WelcomeText />
-        <CircularNutritionalGoal />
+        <DailyProgress />
         <View style={styles.meals}>
           <Text style={styles.mealsTitle}>Refeições</Text>
           {meals.map(meal => (

@@ -1,6 +1,6 @@
 import { Card } from '~/components/ui/Card';
 
-const CircularNutritionalGoal = () => {
+const DailyProgress = () => {
   return (
     <Card.Root>
       <Card.SectionTitle title="Meta diária" />
@@ -8,4 +8,4 @@ const CircularNutritionalGoal = () => {
   );
 };
 
-export default CircularNutritionalGoal;
+export default DailyProgress;
