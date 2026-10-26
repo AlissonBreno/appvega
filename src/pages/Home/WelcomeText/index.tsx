@@ -25,7 +25,7 @@ const WelcomeText = () => {
   const { label, emoji } = getGreeting(new Date());
 
   return (
-    <View style={styles.copy}>
+    <View>
       <Text style={styles.title}>
         {label}, {USER_NAME} {emoji}
       </Text>

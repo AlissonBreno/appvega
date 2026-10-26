@@ -7,12 +7,9 @@ const createStyles = (theme: Theme) => {
   const { colors, fonts } = theme;
 
   return StyleSheet.create({
-    copy: {
-      gap: 4,
-    },
     title: {
-      fontSize: 32,
-      lineHeight: 37,
+      fontSize: 24,
+      lineHeight: 32,
       color: colors.primaryText,
       ...fonts.bold,
     },
