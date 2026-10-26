@@ -15,14 +15,12 @@ const createStyles = (theme: Theme) => {
       alignItems: 'center',
       gap: 16,
     },
-    circularProgressChart: {
-      width: 128,
-      height: 128,
-      borderRadius: 9999,
-      borderWidth: 8,
-      borderColor: colors.border,
+    goal: {
+      flex: 1,
+      minWidth: 0,
     },
     goalTitle: {
+      width: '100%',
       fontSize: 24,
       lineHeight: 32,
       color: colors.primaryText,
@@ -61,7 +59,7 @@ const createStyles = (theme: Theme) => {
       fontSize: 12,
       lineHeight: 17,
       color: colors.secondaryText,
-      ...fonts.medium,
+      ...fonts.light,
     },
   });
 };
