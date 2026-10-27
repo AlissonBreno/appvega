@@ -5,6 +5,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import { ThemeProvider } from '~/contexts/ThemeContext';
+import { ToastProvider } from '~/contexts/ToastContext';
 import { useThemePreference } from '~/hooks/useThemePreference';
 import Routes from '~/routes';
 
@@ -19,8 +20,10 @@ const App = () => {
     <GestureHandlerRootView style={{ flex: 1 }}>
       <SafeAreaProvider>
         <ThemeProvider>
-          <ThemedStatusBar />
-          <Routes />
+          <ToastProvider>
+            <ThemedStatusBar />
+            <Routes />
+          </ToastProvider>
         </ThemeProvider>
       </SafeAreaProvider>
     </GestureHandlerRootView>

@@ -2,6 +2,8 @@ import { StyleSheet } from 'react-native';
 
 /** Disco ativo. 4px para fora da pílula, em cima e em baixo. */
 export const ACTIVE_SIZE = 72;
+/** Folga entre a pílula e a safe area inferior. O toast reutiliza o mesmo valor. */
+export const TAB_BOTTOM_OFFSET = 16;
 /** Altura da pílula. */
 const PILL_HEIGHT = 64;
 

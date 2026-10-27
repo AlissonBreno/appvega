@@ -7,7 +7,7 @@ import { tabIcons } from '~/config/navigation';
 import { useNavigationTheme } from '~/hooks/useNavigationTheme';
 import type { TabParamList } from '~/types/Navigation';
 
-import { ACTIVE_SIZE, styles } from './styles';
+import { ACTIVE_SIZE, TAB_BOTTOM_OFFSET, styles } from './styles';
 
 const ICON_SIZE = 22;
 const DISC_SLIDE_MS = 200;
@@ -96,7 +96,7 @@ const FloatingTabBarContent = ({
   return (
     <View
       pointerEvents="box-none"
-      style={[styles.host, { bottom: insets.bottom + 16 }]}
+      style={[styles.host, { bottom: insets.bottom + TAB_BOTTOM_OFFSET }]}
     >
       <View accessibilityRole="tabbar" style={styles.pill}>
         <View

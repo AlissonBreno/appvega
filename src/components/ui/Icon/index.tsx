@@ -26,11 +26,19 @@ const GLYPHS = {
   lightbulb: '\uF0EB',
   'lightbulb-on': '\uF672',
   'sign-out-alt': '\uF2F5',
+  envelope: '\uF0E0',
+  lock: '\uF023',
+  'arrow-right': '\uF061',
+  google: '\uF1A0',
+  check: '\uF00C',
+  'exclamation-circle': '\uF06A',
+  'exclamation-triangle': '\uF071',
 } as const;
 
 export type IconName = keyof typeof GLYPHS;
 
 const REGULAR_ICONS = new Set<IconName>(['heart-rate']);
+const BRAND_ICONS = new Set<IconName>(['google']);
 
 type IconProps = {
   name: IconName;
@@ -48,6 +56,7 @@ const Icon = ({ name, color, size = 24, style }: IconProps) => {
       style={[
         styles.glyph,
         REGULAR_ICONS.has(name) ? styles.regularGlyph : null,
+        BRAND_ICONS.has(name) ? styles.brandGlyph : null,
         { color, fontSize: size, lineHeight: size },
         style,
       ]}

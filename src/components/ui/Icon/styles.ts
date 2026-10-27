@@ -16,6 +16,12 @@ const regularFontFamily = Platform.select({
   default: 'FontAwesome5Pro-Regular',
 });
 
+const brandsFontFamily = Platform.select({
+  ios: 'FontAwesome5Brands-Regular',
+  android: 'FontAwesome5_Pro_Brands',
+  default: 'FontAwesome5Brands-Regular',
+});
+
 export const styles = StyleSheet.create({
   glyph: {
     fontFamily,
@@ -24,5 +30,8 @@ export const styles = StyleSheet.create({
   },
   regularGlyph: {
     fontFamily: regularFontFamily,
+  },
+  brandGlyph: {
+    fontFamily: brandsFontFamily,
   },
 });

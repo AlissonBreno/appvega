@@ -10,6 +10,7 @@ import {
 import { Card } from '~/components/ui/Card';
 import Icon from '~/components/ui/Icon';
 import { useNavigationTheme } from '~/hooks/useNavigationTheme';
+import { useToast } from '~/hooks/useToast';
 
 import MacroProgressBar from '../MacroProgressBar';
 import { mealTotals } from '../mealTotals';
@@ -225,6 +226,7 @@ type MealCollapseCardProps = {
 
 const MealCollapseCard = ({ meal, onAddFood }: MealCollapseCardProps) => {
   const { isDark } = useNavigationTheme();
+  const { showToast } = useToast();
   const styles = mealCollapseCardStyles[isDark ? 'dark' : 'light'];
   const [foods, setFoods] = useState(meal.foods);
   const totals =
@@ -273,11 +275,15 @@ const MealCollapseCard = ({ meal, onAddFood }: MealCollapseCardProps) => {
               {index >= 0 ? <View style={styles.separator} /> : null}
               <FoodRow
                 food={food}
-                onDelete={() =>
+                onDelete={() => {
                   setFoods(current =>
                     current.filter(item => item.id !== food.id),
-                  )
-                }
+                  );
+                  showToast({
+                    message: 'Exclusão realizada com sucesso',
+                    variant: 'success',
+                  });
+                }}
               />
             </View>
           ))}
