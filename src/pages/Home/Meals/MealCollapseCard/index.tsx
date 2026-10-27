@@ -189,7 +189,7 @@ const MealCollapseCard = ({ meal, onAddFood }: MealCollapseCardProps) => {
         <View>
           {meal.foods.map((food, index) => (
             <View key={food.id}>
-              {index > 0 ? <View style={styles.separator} /> : null}
+              {index >= 0 ? <View style={styles.separator} /> : null}
               <FoodRow food={food} />
             </View>
           ))}
