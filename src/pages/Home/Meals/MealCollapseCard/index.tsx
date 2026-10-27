@@ -107,6 +107,9 @@ const FoodRow = ({ food }: FoodRowProps) => {
 
   return (
     <View style={styles.foodRow}>
+      <View style={styles.foodEmoji}>
+        <Text style={styles.foodEmojiGlyph}>{food.emoji}</Text>
+      </View>
       <View style={styles.foodBody}>
         <View style={styles.foodTitleRow}>
           <Text style={styles.title}>{food.name}</Text>

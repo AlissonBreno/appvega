@@ -74,6 +74,16 @@ const createStyles = (theme: Theme) => {
       gap: 16,
       paddingVertical: 12,
     },
+    foodEmoji: {
+      width: 32,
+      height: 32,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    foodEmojiGlyph: {
+      fontSize: 24,
+      lineHeight: 28,
+    },
     foodBody: {
       flex: 1,
       gap: 4,

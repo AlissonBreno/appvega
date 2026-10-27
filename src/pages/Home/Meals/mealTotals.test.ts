@@ -5,6 +5,7 @@ const food = (
   overrides: Partial<MealFood> & Pick<MealFood, 'id'>,
 ): MealFood => ({
   name: 'Alimento',
+  emoji: '🍽️',
   grams: 0,
   kcal: 0,
   carb: 0,

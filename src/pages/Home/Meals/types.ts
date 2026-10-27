@@ -1,6 +1,7 @@
 export type MealFood = {
   id: string;
   name: string;
+  emoji: string;
   grams: number;
   kcal: number;
   carb: number;
