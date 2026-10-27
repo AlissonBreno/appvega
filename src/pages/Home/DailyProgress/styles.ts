@@ -7,6 +7,10 @@ const createStyles = (theme: Theme) => {
   const { colors, fonts } = theme;
 
   return StyleSheet.create({
+    card: {
+      marginHorizontal: -16,
+      borderRadius: 0,
+    },
     viewColumn: {
       gap: 24,
     },

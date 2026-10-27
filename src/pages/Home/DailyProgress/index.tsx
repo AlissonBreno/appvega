@@ -75,7 +75,7 @@ const DailyProgress = () => {
     rowWidth == null ? CHART_MAX_SIZE : chartSizeForRow(rowWidth);
 
   return (
-    <Card.Root>
+    <Card.Root style={styles.card}>
       <View style={styles.viewColumn}>
         <View
           style={styles.view}
