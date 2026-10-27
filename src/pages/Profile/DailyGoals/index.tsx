@@ -47,7 +47,7 @@ const DailyGoals = () => {
       ))}
       <Button.Root>
         <Button.Icon name="save" />
-        <Button.Text>Sem alterações</Button.Text>
+        <Button.Label>Sem alterações</Button.Label>
       </Button.Root>
     </Card.Root>
   );

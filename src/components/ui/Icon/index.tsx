@@ -22,6 +22,10 @@ const GLYPHS = {
   'grip-lines-vertical': '\uF7A5',
   pencil: '\uF040',
   trash: '\uF1F8',
+  cog: '\uF013',
+  lightbulb: '\uF0EB',
+  'lightbulb-on': '\uF672',
+  'sign-out-alt': '\uF2F5',
 } as const;
 
 export type IconName = keyof typeof GLYPHS;

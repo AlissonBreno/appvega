@@ -7,6 +7,7 @@ import { useNavigationTheme } from '~/hooks/useNavigationTheme';
 import AppAbout from './AppAbout';
 import DailyGoals from './DailyGoals';
 import ProfileSummary from './ProfileSummary';
+import Tools from './Tools';
 import { styles } from './styles';
 
 const TAB_CLEARANCE = 72 + 16 + 24;
@@ -33,6 +34,7 @@ const Profile = () => {
       >
         <ProfileSummary />
         <DailyGoals />
+        <Tools />
         <AppAbout />
       </ScrollView>
     </View>
