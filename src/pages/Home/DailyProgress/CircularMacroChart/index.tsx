@@ -23,6 +23,9 @@ type CircularMacroChartProps = {
 // engrossar ou afinar o anel.
 const STROKE_RATIO = 0.066;
 const MIN_STROKE = 4;
+// Espaço visível entre as pontas, o mesmo gap da MacroProgressBar.
+// O traço redondo ocupa `strokeWidth` antes desse vão aparecer.
+const MACRO_GAP = 2;
 
 const formatThousands = (value: number) =>
   Math.round(value)
@@ -52,7 +55,7 @@ const layoutMacroArcs = (
     return [];
   }
 
-  const jointGap = strokeWidth;
+  const jointGap = strokeWidth + MACRO_GAP;
   const spans = segments.map((segment, index) => {
     const covered = segments
       .slice(0, index)
