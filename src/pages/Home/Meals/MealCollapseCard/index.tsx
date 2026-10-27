@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Pressable, Text, View } from 'react-native';
+import { Pressable, Text, TouchableOpacity, View } from 'react-native';
 
 import { Card } from '~/components/ui/Card';
 import Icon from '~/components/ui/Icon';
@@ -102,7 +102,7 @@ type FoodRowProps = {
 };
 
 const FoodRow = ({ food }: FoodRowProps) => {
-  const { isDark, theme } = useNavigationTheme();
+  const { isDark } = useNavigationTheme();
   const styles = mealCollapseCardStyles[isDark ? 'dark' : 'light'];
 
   return (
@@ -149,24 +149,32 @@ const MealCollapseCard = ({ meal, onAddFood }: MealCollapseCardProps) => {
   const totals = mealTotals(meal);
   const [expanded, setExpanded] = useState(false);
   const showFoods = expanded && meal.foods.length > 0;
+  const toggleExpanded = () => setExpanded(current => !current);
 
   return (
     <Card.Root style={styles.card}>
       <View style={styles.row}>
-        <Text style={styles.emoji}>{meal.emoji}</Text>
-        <View style={styles.titleColumn}>
-          <Text style={styles.title}>{meal.title}</Text>
-          <Text style={styles.caption}>{totals.itemCount} itens</Text>
-        </View>
+        <TouchableOpacity
+          accessibilityRole="button"
+          accessibilityLabel={
+            expanded ? 'Recolher refeição' : 'Expandir refeição'
+          }
+          accessibilityState={{ expanded }}
+          onPress={toggleExpanded}
+          style={styles.summary}
+        >
+          <Text style={styles.emoji}>{meal.emoji}</Text>
+          <View style={styles.titleColumn}>
+            <Text style={styles.title}>{meal.title}</Text>
+            <Text style={styles.caption}>{totals.itemCount} itens</Text>
+          </View>
+        </TouchableOpacity>
         <View style={styles.kcalColumn}>
           <Text style={styles.value}>{totals.kcal}</Text>
           <Text style={styles.caption}>kcal</Text>
         </View>
         <AddNewFood onPress={onAddFood} />
-        <CollapseButton
-          expanded={expanded}
-          onPress={() => setExpanded(current => !current)}
-        />
+        <CollapseButton expanded={expanded} onPress={toggleExpanded} />
       </View>
       <MacroProgressBar macros={totals.macros} macroGoal={totals.macroGoal} />
       {showFoods ? (
