@@ -102,7 +102,7 @@ type FoodRowProps = {
 };
 
 const FoodRow = ({ food }: FoodRowProps) => {
-  const { isDark } = useNavigationTheme();
+  const { isDark, theme } = useNavigationTheme();
   const styles = mealCollapseCardStyles[isDark ? 'dark' : 'light'];
 
   return (
@@ -121,6 +121,11 @@ const FoodRow = ({ food }: FoodRowProps) => {
         <Text style={styles.value}>{food.kcal}</Text>
         <Text style={styles.caption}>kcal</Text>
       </View>
+      <Icon
+        name="grip-lines-vertical"
+        size={16}
+        color={theme.colors.secondaryText}
+      />
     </View>
   );
 };
