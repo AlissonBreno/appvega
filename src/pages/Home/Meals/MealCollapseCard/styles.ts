@@ -68,11 +68,38 @@ const createStyles = (theme: Theme) => {
     collapseButtonExpanded: {
       transform: [{ rotate: '180deg' }],
     },
+    foodSwipe: {
+      overflow: 'hidden',
+    },
+    foodTrack: {
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+    foodActions: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 8,
+      paddingLeft: 8,
+    },
+    foodAction: {
+      width: 44,
+      height: 44,
+      borderRadius: 12,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    foodActionEdit: {
+      backgroundColor: colors.primaryText,
+    },
+    foodActionDelete: {
+      backgroundColor: colors.error,
+    },
     foodRow: {
       flexDirection: 'row',
       alignItems: 'center',
       gap: 16,
       paddingVertical: 12,
+      backgroundColor: colors.foreground,
     },
     foodEmoji: {
       width: 32,

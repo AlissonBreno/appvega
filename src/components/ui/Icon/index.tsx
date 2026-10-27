@@ -20,6 +20,8 @@ const GLYPHS = {
   'chevron-down': '\uF078',
   'ellipsis-v': '\uF142',
   'grip-lines-vertical': '\uF7A5',
+  pencil: '\uF040',
+  trash: '\uF1F8',
 } as const;
 
 export type IconName = keyof typeof GLYPHS;
