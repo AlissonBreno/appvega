@@ -1,8 +1,7 @@
 import { useRef, useState } from 'react';
 import {
-  Animated,
-  PanResponder,
   Pressable,
+  ScrollView,
   Text,
   TouchableOpacity,
   View,
@@ -117,52 +116,18 @@ type FoodRowProps = {
 const FoodRow = ({ food, onEdit, onDelete }: FoodRowProps) => {
   const { isDark, theme } = useNavigationTheme();
   const styles = mealCollapseCardStyles[isDark ? 'dark' : 'light'];
-  const translateX = useRef(new Animated.Value(0)).current;
-  const opened = useRef(false);
+  const scrollRef = useRef<ScrollView>(null);
   const [rowWidth, setRowWidth] = useState(0);
-  const panResponder = useRef(
-    PanResponder.create({
-      onMoveShouldSetPanResponder: (_, gesture) =>
-        Math.abs(gesture.dx) > 12 &&
-        Math.abs(gesture.dx) > Math.abs(gesture.dy),
-      onPanResponderMove: (_, gesture) => {
-        const base = opened.current ? -FOOD_ACTIONS_WIDTH : 0;
-        const next = Math.min(
-          0,
-          Math.max(-FOOD_ACTIONS_WIDTH, base + gesture.dx),
-        );
-        translateX.setValue(next);
-      },
-      onPanResponderRelease: (_, gesture) => {
-        const base = opened.current ? -FOOD_ACTIONS_WIDTH : 0;
-        const projected = base + gesture.dx + gesture.vx * 40;
-        opened.current = projected < -FOOD_ACTIONS_WIDTH / 2;
-        Animated.spring(translateX, {
-          toValue: opened.current ? -FOOD_ACTIONS_WIDTH : 0,
-          useNativeDriver: true,
-          speed: 20,
-          bounciness: 0,
-        }).start();
-      },
-      onPanResponderTerminate: () => {
-        Animated.spring(translateX, {
-          toValue: opened.current ? -FOOD_ACTIONS_WIDTH : 0,
-          useNativeDriver: true,
-          speed: 20,
-          bounciness: 0,
-        }).start();
-      },
-    }),
-  ).current;
 
-  const closeActions = () => {
-    opened.current = false;
-    Animated.spring(translateX, {
-      toValue: 0,
-      useNativeDriver: true,
-      speed: 20,
-      bounciness: 0,
-    }).start();
+  const handleOnEdit = () => {
+    console.log(`Editar ${food.name}`);
+    scrollRef.current?.scrollTo({ x: 0, animated: true });
+    onEdit?.();
+  };
+
+  const handleOnExclude = () => {
+    console.log(`Excluir ${food.name}`);
+    onDelete();
   };
 
   return (
@@ -170,11 +135,24 @@ const FoodRow = ({ food, onEdit, onDelete }: FoodRowProps) => {
       style={styles.foodSwipe}
       onLayout={({ nativeEvent }) => setRowWidth(nativeEvent.layout.width)}
     >
-      <Animated.View
-        style={[styles.foodTrack, { transform: [{ translateX }] }]}
-        {...panResponder.panHandlers}
+      <ScrollView
+        ref={scrollRef}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        bounces
+        alwaysBounceHorizontal
+        overScrollMode="always"
+        directionalLockEnabled
+        nestedScrollEnabled
+        snapToOffsets={[0, FOOD_ACTIONS_WIDTH]}
+        snapToEnd
+        disableIntervalMomentum
+        decelerationRate="fast"
+        contentContainerStyle={styles.foodTrack}
       >
-        <View style={[styles.foodRow, rowWidth > 0 ? { width: rowWidth } : null]}>
+        <View
+          style={[styles.foodRow, rowWidth > 0 ? { width: rowWidth } : null]}
+        >
           <View style={styles.foodEmoji}>
             <Text style={styles.foodEmojiGlyph}>{food.emoji}</Text>
           </View>
@@ -195,14 +173,11 @@ const FoodRow = ({ food, onEdit, onDelete }: FoodRowProps) => {
             color={theme.colors.secondaryText}
           />
         </View>
-        <View style={styles.foodActions}>
+        <View style={[styles.foodActions, { width: FOOD_ACTIONS_WIDTH }]}>
           <Pressable
             accessibilityRole="button"
             accessibilityLabel={`Editar ${food.name}`}
-            onPress={() => {
-              closeActions();
-              onEdit?.();
-            }}
+            onPress={handleOnEdit}
             style={[styles.foodAction, styles.foodActionEdit]}
           >
             <Icon name="pencil" size={16} color={theme.colors.foreground} />
@@ -210,17 +185,19 @@ const FoodRow = ({ food, onEdit, onDelete }: FoodRowProps) => {
           <Pressable
             accessibilityRole="button"
             accessibilityLabel={`Excluir ${food.name}`}
-            onPress={onDelete}
+            onPress={handleOnExclude}
             style={[styles.foodAction, styles.foodActionDelete]}
           >
             <Icon
               name="trash"
               size={16}
-              color={isDark ? theme.colors.primaryText : theme.colors.foreground}
+              color={
+                isDark ? theme.colors.primaryText : theme.colors.foreground
+              }
             />
           </Pressable>
         </View>
-      </Animated.View>
+      </ScrollView>
     </View>
   );
 };

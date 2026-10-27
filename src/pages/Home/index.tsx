@@ -41,6 +41,7 @@ const Home = () => {
           styles.content,
           { paddingBottom: insets.bottom + TAB_CLEARANCE },
         ]}
+        directionalLockEnabled
         showsVerticalScrollIndicator={false}
       >
         <WelcomeText />
