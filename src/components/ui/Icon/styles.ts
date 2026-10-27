@@ -10,10 +10,19 @@ const fontFamily = Platform.select({
   default: 'FontAwesome5Pro-Light',
 });
 
+const regularFontFamily = Platform.select({
+  ios: 'FontAwesome5Pro-Regular',
+  android: 'FontAwesome5_Pro_Regular',
+  default: 'FontAwesome5Pro-Regular',
+});
+
 export const styles = StyleSheet.create({
   glyph: {
     fontFamily,
     textAlign: 'center',
     includeFontPadding: false,
+  },
+  regularGlyph: {
+    fontFamily: regularFontFamily,
   },
 });

@@ -31,7 +31,7 @@ const Home = () => {
   return (
     <View style={[styles.screen, { backgroundColor: colors.background }]}>
       <ScreenHeader
-        icon="heartbeat"
+        icon="heart-rate"
         title="VEGA"
         subtitle={formatToday(new Date())}
       />

@@ -4,7 +4,7 @@ import { styles } from './styles';
 
 const GLYPHS = {
   home: '\uF015',
-  heartbeat: '\uF21E',
+  'heart-rate': '\uF5F8',
   'chart-bar': '\uF080',
   'user-cog': '\uF4FE',
   fire: '\uF06D',
@@ -23,6 +23,8 @@ const GLYPHS = {
 
 export type IconName = keyof typeof GLYPHS;
 
+const REGULAR_ICONS = new Set<IconName>(['heart-rate']);
+
 type IconProps = {
   name: IconName;
   color: string;
@@ -36,7 +38,12 @@ const Icon = ({ name, color, size = 24, style }: IconProps) => {
       accessible={false}
       allowFontScaling={false}
       importantForAccessibility="no"
-      style={[styles.glyph, { color, fontSize: size, lineHeight: size }, style]}
+      style={[
+        styles.glyph,
+        REGULAR_ICONS.has(name) ? styles.regularGlyph : null,
+        { color, fontSize: size, lineHeight: size },
+        style,
+      ]}
     >
       {GLYPHS[name]}
     </Text>
