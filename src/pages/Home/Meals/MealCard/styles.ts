@@ -7,6 +7,10 @@ const createStyles = (theme: Theme) => {
   const { colors, fonts } = theme;
 
   return StyleSheet.create({
+    card: {
+      borderWidth: 1,
+      borderColor: colors.border,
+    },
     row: {
       flexDirection: 'row',
       alignItems: 'center',

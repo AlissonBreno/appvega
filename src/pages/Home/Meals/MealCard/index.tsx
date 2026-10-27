@@ -72,7 +72,7 @@ const MealCard = ({
   const totals = mealTotals(meal);
 
   return (
-    <Card.Root>
+    <Card.Root style={styles.card}>
       <View style={styles.row}>
         <Text style={styles.emoji}>{meal.emoji}</Text>
         <View style={styles.titleColumn}>

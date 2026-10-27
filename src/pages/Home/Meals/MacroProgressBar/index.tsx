@@ -24,24 +24,21 @@ const MacroProgressBar = ({ macros, macroGoal }: MacroProgressBarProps) => {
     { key: 'carb', fraction: carb, color: theme.colors.carb },
     { key: 'protein', fraction: protein, color: theme.colors.protein },
     { key: 'fat', fraction: fat, color: theme.colors.fat },
-  ];
+  ].filter(segment => segment.fraction > 0);
+  const remainder = Math.max(0, 1 - (carb + protein + fat));
 
   return (
     <View style={styles.track}>
-      {segments
-        .filter(segment => segment.fraction > 0)
-        .map(segment => (
-          <View
-            key={segment.key}
-            style={[
-              styles.segment,
-              {
-                width: `${segment.fraction * 100}%`,
-                backgroundColor: segment.color,
-              },
-            ]}
-          />
-        ))}
+      {segments.map(segment => (
+        <View
+          key={segment.key}
+          style={[
+            styles.segment,
+            { flex: segment.fraction, backgroundColor: segment.color },
+          ]}
+        />
+      ))}
+      {remainder > 0 ? <View style={{ flex: remainder }} /> : null}
     </View>
   );
 };
