@@ -36,6 +36,18 @@ const createStyles = (theme: Theme) => {
       color: colors.secondaryText,
       ...fonts.medium,
     },
+    logout: {
+      opacity: 1,
+      borderColor: colors.error,
+      backgroundColor: 'transparent',
+    },
+    logoutIcon: {
+      color: colors.error,
+    },
+    logoutLabel: {
+      color: colors.error,
+      ...fonts.light,
+    },
   });
 };
 

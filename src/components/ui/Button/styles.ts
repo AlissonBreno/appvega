@@ -15,26 +15,15 @@ const createStyles = (theme: Theme) => {
       alignItems: 'center',
       justifyContent: 'center',
       gap: 8,
-    },
-    muted: {
       opacity: 0.55,
       borderColor: colors.border,
       backgroundColor: colors.background,
     },
-    danger: {
-      borderColor: colors.error,
-      backgroundColor: 'transparent',
-    },
     label: {
       fontSize: 16,
       lineHeight: 21,
-      ...fonts.medium,
-    },
-    labelMuted: {
       color: colors.secondaryText,
-    },
-    labelDanger: {
-      color: colors.error,
+      ...fonts.medium,
     },
   });
 };

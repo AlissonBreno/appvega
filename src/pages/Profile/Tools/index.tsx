@@ -43,12 +43,12 @@ const Tools = () => {
         />
       </View>
       <Button.Root
-        tone="danger"
         accessibilityLabel="Sair da conta"
         onPress={() => replace('Login')}
+        style={styles.logout}
       >
-        <Button.Icon name="sign-out-alt" />
-        <Button.Label>Sair da conta</Button.Label>
+        <Button.Icon name="sign-out-alt" style={styles.logoutIcon} />
+        <Button.Label style={styles.logoutLabel}>Sair da conta</Button.Label>
       </Button.Root>
     </Card.Root>
   );
