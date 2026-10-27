@@ -2,21 +2,15 @@ import { ScrollView, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import ScreenHeader from '~/components/shared/ScreenHeader';
-import { Card } from '~/components/ui/Card';
 import { useNavigationTheme } from '~/hooks/useNavigationTheme';
 
 import DailyProgress from './DailyProgress';
+import MealCard from './Meals/MealCard';
+import { meals } from './Meals/meals';
 import WelcomeText from './WelcomeText';
 import { homeStyles } from './styles';
 
 const TAB_CLEARANCE = 72 + 16 + 24;
-
-const meals = [
-  { title: 'Café da manhã' },
-  { title: 'Almoço' },
-  { title: 'Café da tarde' },
-  { title: 'Jantar' },
-];
 
 const formatToday = (date: Date) => {
   const formatted = date.toLocaleDateString('pt-BR', {
@@ -54,9 +48,7 @@ const Home = () => {
         <View style={styles.meals}>
           <Text style={styles.mealsTitle}>Refeições</Text>
           {meals.map(meal => (
-            <Card.Root key={meal.title}>
-              <Card.SectionTitle title={meal.title} />
-            </Card.Root>
+            <MealCard key={meal.id} meal={meal} />
           ))}
         </View>
       </ScrollView>

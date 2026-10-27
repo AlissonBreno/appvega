@@ -16,7 +16,8 @@ const GLYPHS = {
   save: '\uF0C7',
   sparkles: '\uF890',
   award: '\uF559',
-  analytics: '\uF643', 
+  analytics: '\uF643',
+  'chevron-down': '\uF078',
 } as const;
 
 export type IconName = keyof typeof GLYPHS;
