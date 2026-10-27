@@ -5,7 +5,7 @@ import ScreenHeader from '~/components/shared/ScreenHeader';
 import { useNavigationTheme } from '~/hooks/useNavigationTheme';
 
 import DailyProgress from './DailyProgress';
-import MealCard from './Meals/MealCard';
+import MealCollapseCard from './Meals/MealCollapseCard';
 import { meals } from './Meals/meals';
 import WelcomeText from './WelcomeText';
 import { homeStyles } from './styles';
@@ -48,7 +48,7 @@ const Home = () => {
         <View style={styles.meals}>
           <Text style={styles.mealsTitle}>Refeições</Text>
           {meals.map(meal => (
-            <MealCard key={meal.id} meal={meal} />
+            <MealCollapseCard key={meal.id} meal={meal} />
           ))}
         </View>
       </ScrollView>

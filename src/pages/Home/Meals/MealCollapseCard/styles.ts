@@ -10,6 +10,7 @@ const createStyles = (theme: Theme) => {
     card: {
       borderWidth: 1,
       borderColor: colors.border,
+      overflow: 'hidden',
     },
     row: {
       flexDirection: 'row',
@@ -61,10 +62,66 @@ const createStyles = (theme: Theme) => {
     collapseButtonExpanded: {
       transform: [{ rotate: '180deg' }],
     },
+    foodRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 16,
+      paddingVertical: 12,
+    },
+    foodBody: {
+      flex: 1,
+      gap: 4,
+    },
+    foodTitleRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 8,
+    },
+    quantity: {
+      fontSize: 16,
+      lineHeight: 21,
+      color: colors.secondaryText,
+      ...fonts.light,
+    },
+    macros: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 12,
+    },
+    macro: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 4,
+    },
+    macroLetter: {
+      fontSize: 12,
+      lineHeight: 17,
+      color: colors.secondaryText,
+      ...fonts.medium,
+    },
+    macroValue: {
+      fontSize: 12,
+      lineHeight: 17,
+      ...fonts.medium,
+    },
+    separator: {
+      height: 1,
+      backgroundColor: colors.border,
+    },
+    subtotal: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      marginHorizontal: -24,
+      marginBottom: -24,
+      paddingHorizontal: 24,
+      paddingVertical: 16,
+      backgroundColor: colors.background,
+    },
   });
 };
 
-export const mealCardStyles = {
+export const mealCollapseCardStyles = {
   dark: createStyles(themes.dark),
   light: createStyles(themes.light),
 };

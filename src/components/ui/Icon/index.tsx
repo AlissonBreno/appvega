@@ -18,6 +18,7 @@ const GLYPHS = {
   award: '\uF559',
   analytics: '\uF643',
   'chevron-down': '\uF078',
+  'ellipsis-v': '\uF142',
 } as const;
 
 export type IconName = keyof typeof GLYPHS;
