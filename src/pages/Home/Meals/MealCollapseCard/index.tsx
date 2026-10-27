@@ -118,7 +118,6 @@ const FoodRow = ({ food }: FoodRowProps) => {
         <Text style={styles.value}>{food.kcal}</Text>
         <Text style={styles.caption}>kcal</Text>
       </View>
-      <Icon name="ellipsis-v" size={16} color={theme.colors.secondaryText} />
     </View>
   );
 };
