@@ -112,6 +112,7 @@ const createStyles = (theme: Theme) => {
     },
     separator: {
       height: 1,
+      marginHorizontal: -24,
       backgroundColor: colors.border,
     },
     subtotal: {
