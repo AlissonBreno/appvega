@@ -96,13 +96,13 @@ const createStyles = (theme: Theme) => {
     macroLetter: {
       fontSize: 12,
       lineHeight: 17,
-      color: colors.secondaryText,
       ...fonts.medium,
     },
     macroValue: {
       fontSize: 12,
       lineHeight: 17,
-      ...fonts.medium,
+      color: colors.secondaryText,
+      ...fonts.light,
     },
     separator: {
       height: 1,
@@ -116,7 +116,7 @@ const createStyles = (theme: Theme) => {
       marginBottom: -24,
       paddingHorizontal: 24,
       paddingVertical: 16,
-      backgroundColor: colors.background,
+      backgroundColor: colors.border,
     },
   });
 };

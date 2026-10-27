@@ -87,10 +87,10 @@ const MacroGrams = ({ macros }: MacroGramsProps) => {
     <View style={styles.macros}>
       {items.map(item => (
         <View key={item.key} style={styles.macro}>
-          <Text style={styles.macroLetter}>{item.letter}</Text>
-          <Text style={[styles.macroValue, { color: item.color }]}>
-            {formatGrams(item.grams)}
+          <Text style={[styles.macroLetter, { color: item.color }]}>
+            {item.letter}
           </Text>
+          <Text style={styles.macroValue}>{formatGrams(item.grams)}</Text>
         </View>
       ))}
     </View>
