@@ -3,6 +3,9 @@ import type {
 } from '@react-navigation/bottom-tabs';
 import type { StackNavigationOptions } from '@react-navigation/stack';
 
+import type { IconName } from '~/components/ui/Icon';
+import type { TabParamList } from '~/types/Navigation';
+
 /**
  * Tokens visuais derivados do design system (VEGA). Mantidos aqui para
  * centralizar a aparência da navegação. Slot Light por ora; tema dinâmico
@@ -11,12 +14,10 @@ import type { StackNavigationOptions } from '@react-navigation/stack';
 const palette = {
   surfaceHeader: '#FFFFFF',
   textPrimary: '#0F172A',
-  navActive: '#0F172A',
-  textMuted: '#64748B',
-  borderSubtle: '#E2E8F0',
 };
 
 export const stackScreenOptions: StackNavigationOptions = {
+  gestureEnabled: false,
   headerStyle: {
     backgroundColor: palette.surfaceHeader,
   },
@@ -26,15 +27,24 @@ export const stackScreenOptions: StackNavigationOptions = {
   },
 };
 
+export const tabIcons: Record<keyof TabParamList, IconName> = {
+  Home: 'home',
+  History: 'chart-bar',
+  Profile: 'user-cog',
+};
+
 export const tabNavigatorOptions: BottomTabNavigationOptions = {
+  headerShown: false,
   headerStyle: {
     backgroundColor: palette.surfaceHeader,
   },
   headerTintColor: palette.textPrimary,
-  tabBarActiveTintColor: palette.navActive,
-  tabBarInactiveTintColor: palette.textMuted,
+  tabBarLabelVisibilityMode: 'unlabeled',
   tabBarStyle: {
-    backgroundColor: palette.surfaceHeader,
-    borderTopColor: palette.borderSubtle,
+    position: 'absolute',
+    backgroundColor: 'transparent',
+    borderTopWidth: 0,
+    elevation: 0,
+    shadowOpacity: 0,
   },
 };

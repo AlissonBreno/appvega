@@ -7,24 +7,48 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0AD7D845A529400F84BC088C /* CircularStd-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 74F74782A3B04A2E937DD577 /* CircularStd-Medium.ttf */; };
 		0C80B921A6F3F58F76C31292 /* libPods-appvega.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCACB8F33CDC322A6C60F78 /* libPods-appvega.a */; };
+		0FB617CC535C45468E57C5ED /* FontAwesome5_Pro_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F02541130121437AA1C22164 /* FontAwesome5_Pro_Brands.ttf */; };
+		122793DBEEA74ACA8BF8A958 /* CircularStd-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B5DE5AAA4B6A453C9B920797 /* CircularStd-Bold.ttf */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
+		1BCCD7CD11D94D3F800FB363 /* CircularStd-Book.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8D81F178FA614C159A0C3291 /* CircularStd-Book.ttf */; };
+		1C60B6F3D62643D28A187A7F /* CircularStd-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4A78101EE1E24AD6BD998108 /* CircularStd-BlackItalic.ttf */; };
+		2F9B08C9802A4A9A9238D78E /* CircularStd-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F847AE418F8E4CADB4E00879 /* CircularStd-BoldItalic.ttf */; };
+		501F8CBD61E1457FB6685A8A /* FontAwesome5_Pro_Solid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F212CC68DABB4F4B9866D808 /* FontAwesome5_Pro_Solid.ttf */; };
+		6A91787629BA439680963973 /* FontAwesome5_Pro_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CA7511122FCD4124B5B20DEA /* FontAwesome5_Pro_Regular.ttf */; };
 		761780ED2CA45674006654EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761780EC2CA45674006654EE /* AppDelegate.swift */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		9F3E63B73CE947C697FBB6E5 /* CircularStd-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 86E6C82D453140B2960B7D35 /* CircularStd-MediumItalic.ttf */; };
+		B052D83527D049E5AF54F4DB /* FontAwesome5_Pro_Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 00F1199BF0864598912F710C /* FontAwesome5_Pro_Light.ttf */; };
 		BB91454A63069F712CCF0185 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */; };
+		C39069AF5A294BD9846737A2 /* CircularStd-BookItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 653BD602B1024788BAAEC8A8 /* CircularStd-BookItalic.ttf */; };
+		D9D1D747D1E44297AEF854E3 /* CircularStd-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A38CEB93256348DB915BA7E6 /* CircularStd-Black.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		00F1199BF0864598912F710C /* FontAwesome5_Pro_Light.ttf */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = file; name = FontAwesome5_Pro_Light.ttf; path = ../assets/fonts/FontAwesome5_Pro_Light.ttf; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* appvega.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = appvega.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = appvega/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = appvega/Info.plist; sourceTree = "<group>"; };
 		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = appvega/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		3B4392A12AC88292D35C810B /* Pods-appvega.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-appvega.debug.xcconfig"; path = "Target Support Files/Pods-appvega/Pods-appvega.debug.xcconfig"; sourceTree = "<group>"; };
+		4A78101EE1E24AD6BD998108 /* CircularStd-BlackItalic.ttf */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = file; name = "CircularStd-BlackItalic.ttf"; path = "../assets/fonts/CircularStd-BlackItalic.ttf"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-appvega.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-appvega.release.xcconfig"; path = "Target Support Files/Pods-appvega/Pods-appvega.release.xcconfig"; sourceTree = "<group>"; };
 		5DCACB8F33CDC322A6C60F78 /* libPods-appvega.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-appvega.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		653BD602B1024788BAAEC8A8 /* CircularStd-BookItalic.ttf */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = file; name = "CircularStd-BookItalic.ttf"; path = "../assets/fonts/CircularStd-BookItalic.ttf"; sourceTree = "<group>"; };
+		74F74782A3B04A2E937DD577 /* CircularStd-Medium.ttf */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = file; name = "CircularStd-Medium.ttf"; path = "../assets/fonts/CircularStd-Medium.ttf"; sourceTree = "<group>"; };
 		761780EC2CA45674006654EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = appvega/AppDelegate.swift; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = appvega/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		86E6C82D453140B2960B7D35 /* CircularStd-MediumItalic.ttf */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = file; name = "CircularStd-MediumItalic.ttf"; path = "../assets/fonts/CircularStd-MediumItalic.ttf"; sourceTree = "<group>"; };
+		8D81F178FA614C159A0C3291 /* CircularStd-Book.ttf */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = file; name = "CircularStd-Book.ttf"; path = "../assets/fonts/CircularStd-Book.ttf"; sourceTree = "<group>"; };
+		A38CEB93256348DB915BA7E6 /* CircularStd-Black.ttf */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = file; name = "CircularStd-Black.ttf"; path = "../assets/fonts/CircularStd-Black.ttf"; sourceTree = "<group>"; };
+		B5DE5AAA4B6A453C9B920797 /* CircularStd-Bold.ttf */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = file; name = "CircularStd-Bold.ttf"; path = "../assets/fonts/CircularStd-Bold.ttf"; sourceTree = "<group>"; };
+		CA7511122FCD4124B5B20DEA /* FontAwesome5_Pro_Regular.ttf */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = file; name = FontAwesome5_Pro_Regular.ttf; path = ../assets/fonts/FontAwesome5_Pro_Regular.ttf; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		F02541130121437AA1C22164 /* FontAwesome5_Pro_Brands.ttf */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = file; name = FontAwesome5_Pro_Brands.ttf; path = ../assets/fonts/FontAwesome5_Pro_Brands.ttf; sourceTree = "<group>"; };
+		F212CC68DABB4F4B9866D808 /* FontAwesome5_Pro_Solid.ttf */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = file; name = FontAwesome5_Pro_Solid.ttf; path = ../assets/fonts/FontAwesome5_Pro_Solid.ttf; sourceTree = "<group>"; };
+		F847AE418F8E4CADB4E00879 /* CircularStd-BoldItalic.ttf */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = file; name = "CircularStd-BoldItalic.ttf"; path = "../assets/fonts/CircularStd-BoldItalic.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +99,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
+				A47D1E4F0F4346FEA6C97F94 /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -87,6 +112,25 @@
 				13B07F961A680F5B00A75B9A /* appvega.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		A47D1E4F0F4346FEA6C97F94 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				F847AE418F8E4CADB4E00879 /* CircularStd-BoldItalic.ttf */,
+				86E6C82D453140B2960B7D35 /* CircularStd-MediumItalic.ttf */,
+				4A78101EE1E24AD6BD998108 /* CircularStd-BlackItalic.ttf */,
+				00F1199BF0864598912F710C /* FontAwesome5_Pro_Light.ttf */,
+				8D81F178FA614C159A0C3291 /* CircularStd-Book.ttf */,
+				A38CEB93256348DB915BA7E6 /* CircularStd-Black.ttf */,
+				653BD602B1024788BAAEC8A8 /* CircularStd-BookItalic.ttf */,
+				B5DE5AAA4B6A453C9B920797 /* CircularStd-Bold.ttf */,
+				74F74782A3B04A2E937DD577 /* CircularStd-Medium.ttf */,
+				F212CC68DABB4F4B9866D808 /* FontAwesome5_Pro_Solid.ttf */,
+				CA7511122FCD4124B5B20DEA /* FontAwesome5_Pro_Regular.ttf */,
+				F02541130121437AA1C22164 /* FontAwesome5_Pro_Brands.ttf */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
@@ -161,6 +205,18 @@
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				BB91454A63069F712CCF0185 /* PrivacyInfo.xcprivacy in Resources */,
+				2F9B08C9802A4A9A9238D78E /* CircularStd-BoldItalic.ttf in Resources */,
+				9F3E63B73CE947C697FBB6E5 /* CircularStd-MediumItalic.ttf in Resources */,
+				1C60B6F3D62643D28A187A7F /* CircularStd-BlackItalic.ttf in Resources */,
+				B052D83527D049E5AF54F4DB /* FontAwesome5_Pro_Light.ttf in Resources */,
+				1BCCD7CD11D94D3F800FB363 /* CircularStd-Book.ttf in Resources */,
+				D9D1D747D1E44297AEF854E3 /* CircularStd-Black.ttf in Resources */,
+				C39069AF5A294BD9846737A2 /* CircularStd-BookItalic.ttf in Resources */,
+				122793DBEEA74ACA8BF8A958 /* CircularStd-Bold.ttf in Resources */,
+				0AD7D845A529400F84BC088C /* CircularStd-Medium.ttf in Resources */,
+				501F8CBD61E1457FB6685A8A /* FontAwesome5_Pro_Solid.ttf in Resources */,
+				6A91787629BA439680963973 /* FontAwesome5_Pro_Regular.ttf in Resources */,
+				0FB617CC535C45468E57C5ED /* FontAwesome5_Pro_Brands.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

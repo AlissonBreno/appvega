@@ -17,42 +17,48 @@ const fonts: Fonts = {
 
 export const darkTheme: Theme = {
   colors: {
-    primary: '#10B37D', // brand/green
-    secondary: '#6366F1', // accent/carb
-    rgb: '16, 179, 125', // brand/green em rgb
-    error: '#FF5878', // state/above
-    primaryText: '#F8FAFC', // text/primary
-    secondaryText: '#7F8DA2', // text/muted
-    background: '#020617', // surface/app
-    foreground: '#0F172A', // surface/card
-    formsBackground: '#0F172A', // surface/header
-    border: '#1E293B', // border/subtle
+    primary: '#10B37D',
+    secondary: '#38BDF8',
+    tertiary: '#6366F1',
+    error: '#FF5878',
+    primaryText: '#F8FAFC',
+    secondaryText: '#7F8DA2',
+    background: '#020617',
+    foreground: '#0F172A',
+    formsBackground: '#0F172A',
+    border: '#1E293B',
     toast: {
-      danger: '#FF5878', // state/above
-      success: '#10B37D', // brand/green
-      warning: '#F2C614', // accent/fat
+      danger: '#FF5878',
+      success: '#10B37D',
+      warning: '#F2C614',
     },
+    carb: '#6366F1',
+    protein: '#10B37D',
+    fat: '#F2C614',
   },
   fonts,
 };
 
 export const lightTheme: Theme = {
   colors: {
-    primary: '#10B37D', // brand/green
-    secondary: '#6366F1', // accent/carb
-    rgb: '16, 179, 125', // brand/green em rgb
-    error: '#FF5878', // state/above
-    primaryText: '#0F172A', // text/primary
-    secondaryText: '#64748B', // text/muted
-    background: '#F5F5F5', // surface/app
-    foreground: '#FFFFFF', // surface/card
-    formsBackground: '#FFFFFF', // surface/header
-    border: '#E2E8F0', // border/subtle
+    primary: '#10B37D',
+    secondary: '#38BDF8',
+    tertiary: '#6366F1',
+    error: '#FF5878',
+    primaryText: '#0F172A',
+    secondaryText: '#64748B',
+    background: '#F5F5F5',
+    foreground: '#FFFFFF',
+    formsBackground: '#FFFFFF',
+    border: '#E2E8F0',
     toast: {
-      danger: '#FF5878', // state/above
-      success: '#10B37D', // brand/green
-      warning: '#F2C614', // accent/fat
+      danger: '#FF5878',
+      success: '#10B37D',
+      warning: '#F2C614',
     },
+    carb: '#6366F1',
+    protein: '#10B37D',
+    fat: '#F2C614',
   },
   fonts,
 };

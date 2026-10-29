@@ -1,19 +1,33 @@
 import 'react-native-gesture-handler';
 
-import { StatusBar, useColorScheme } from 'react-native';
+import { StatusBar } from 'react-native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
+import { ThemeProvider } from '~/contexts/ThemeContext';
+import { ToastProvider } from '~/contexts/ToastContext';
+import { useThemePreference } from '~/hooks/useThemePreference';
 import Routes from '~/routes';
 
-function App() {
-  const isDarkMode = useColorScheme() === 'dark';
+const ThemedStatusBar = () => {
+  const { isDark } = useThemePreference();
 
+  return <StatusBar barStyle={isDark ? 'light-content' : 'dark-content'} />;
+};
+
+const App = () => {
   return (
-    <SafeAreaProvider>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <Routes />
-    </SafeAreaProvider>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <SafeAreaProvider>
+        <ThemeProvider>
+          <ToastProvider>
+            <ThemedStatusBar />
+            <Routes />
+          </ToastProvider>
+        </ThemeProvider>
+      </SafeAreaProvider>
+    </GestureHandlerRootView>
   );
-}
+};
 
 export default App;
