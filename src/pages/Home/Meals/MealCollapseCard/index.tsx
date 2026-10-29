@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react';
 import {
+  Alert,
   Pressable,
   ScrollView,
   Text,
@@ -127,8 +128,14 @@ const FoodRow = ({ food, onEdit, onDelete }: FoodRowProps) => {
   };
 
   const handleOnExclude = () => {
-    console.log(`Excluir ${food.name}`);
-    onDelete();
+    Alert.alert(
+      'Excluir alimento',
+      `Confirma a exclusão de ${food.name}?`,
+      [
+        { text: 'Cancelar', style: 'cancel' },
+        { text: 'Excluir', style: 'destructive', onPress: onDelete },
+      ],
+    );
   };
 
   return (
