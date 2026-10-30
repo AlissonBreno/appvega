@@ -8,6 +8,7 @@ import History from '~/pages/History';
 import Home from '~/pages/Home';
 import Login from '~/pages/Login';
 import Profile from '~/pages/Profile';
+import SearchFood from '~/pages/SearchFood';
 import type { StackParamList, TabParamList } from '~/types/Navigation';
 import { navigationRef } from '~/utils/RootNavigation';
 
@@ -47,6 +48,11 @@ const Routes = () => {
         <Stack.Screen
           name="Main"
           component={MainTabs}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="SearchFood"
+          component={SearchFood}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>
