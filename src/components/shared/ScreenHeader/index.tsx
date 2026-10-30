@@ -1,31 +1,109 @@
-import { Text, View } from 'react-native';
+import type { ReactNode } from 'react';
+import { Pressable, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import Icon, { type IconName } from '~/components/ui/Icon';
+import IconGlyph, { type IconName } from '~/components/ui/Icon';
 import { useNavigationTheme } from '~/hooks/useNavigationTheme';
 
 import { screenHeaderStyles } from './styles';
 
-type ScreenHeaderProps = {
-  icon: IconName;
-  title: string;
-  subtitle: string;
+type RootProps = {
+  children: ReactNode;
 };
 
-const ScreenHeader = ({ icon, title, subtitle }: ScreenHeaderProps) => {
+const Root = ({ children }: RootProps) => {
   const insets = useSafeAreaInsets();
-  const { isDark, theme } = useNavigationTheme();
+  const { isDark } = useNavigationTheme();
   const styles = screenHeaderStyles[isDark ? 'dark' : 'light'];
 
   return (
-    <View style={[styles.header, { paddingTop: (insets.top + 16) }]}>
-      <View style={styles.titleRow}>
-        <Icon name={icon} color={theme.colors.primary} size={24} />
-        <Text style={styles.title}>{title}</Text>
-      </View>
-      <Text style={styles.subtitle}>{subtitle}</Text>
+    <View style={[styles.header, { paddingTop: insets.top + 16 }]}>
+      {children}
     </View>
   );
 };
 
-export default ScreenHeader;
+type RowProps = {
+  children: ReactNode;
+};
+
+const Row = ({ children }: RowProps) => {
+  const { isDark } = useNavigationTheme();
+  const styles = screenHeaderStyles[isDark ? 'dark' : 'light'];
+
+  return <View style={styles.row}>{children}</View>;
+};
+
+type IconProps = {
+  name: IconName;
+};
+
+const Icon = ({ name }: IconProps) => {
+  const { theme } = useNavigationTheme();
+
+  return <IconGlyph name={name} color={theme.colors.primary} size={24} />;
+};
+
+type BackProps = {
+  onPress?: () => void;
+};
+
+const Back = ({ onPress }: BackProps) => {
+  const { theme } = useNavigationTheme();
+
+  return (
+    <Pressable
+      accessibilityRole="button"
+      accessibilityLabel="Voltar"
+      accessibilityState={{ disabled: !onPress }}
+      disabled={!onPress}
+      hitSlop={12}
+      onPress={onPress}
+    >
+      <IconGlyph name="arrow-left" color={theme.colors.primaryText} size={24} />
+    </Pressable>
+  );
+};
+
+type TextColumnProps = {
+  children: ReactNode;
+};
+
+const TextColumn = ({ children }: TextColumnProps) => {
+  const { isDark } = useNavigationTheme();
+  const styles = screenHeaderStyles[isDark ? 'dark' : 'light'];
+
+  return <View style={styles.textColumn}>{children}</View>;
+};
+
+type TitleProps = {
+  children: ReactNode;
+};
+
+const Title = ({ children }: TitleProps) => {
+  const { isDark } = useNavigationTheme();
+  const styles = screenHeaderStyles[isDark ? 'dark' : 'light'];
+
+  return <Text style={styles.title}>{children}</Text>;
+};
+
+type SubtitleProps = {
+  children: ReactNode;
+};
+
+const Subtitle = ({ children }: SubtitleProps) => {
+  const { isDark } = useNavigationTheme();
+  const styles = screenHeaderStyles[isDark ? 'dark' : 'light'];
+
+  return <Text style={styles.subtitle}>{children}</Text>;
+};
+
+export const ScreenHeader = {
+  Root,
+  Row,
+  Icon,
+  Back,
+  TextColumn,
+  Title,
+  Subtitle,
+};

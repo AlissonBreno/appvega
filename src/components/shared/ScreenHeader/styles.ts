@@ -15,10 +15,15 @@ const createStyles = (theme: Theme) => {
       paddingHorizontal: 16,
       backgroundColor: colors.foreground,
     },
-    titleRow: {
+    row: {
       flexDirection: 'row',
-      alignItems: 'center',
+      alignItems: 'flex-start',
       gap: 16,
+    },
+    textColumn: {
+      flex: 1,
+      alignItems: 'flex-start',
+      gap: 8,
     },
     title: {
       fontSize: 20,
