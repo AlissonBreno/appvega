@@ -1,8 +1,15 @@
+import type { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
+import {
+  useNavigation,
+  type CompositeNavigationProp,
+} from '@react-navigation/native';
+import type { StackNavigationProp } from '@react-navigation/stack';
 import { ScrollView, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import ScreenHeader from '~/components/shared/ScreenHeader';
+import { ScreenHeader } from '~/components/shared/ScreenHeader';
 import { useNavigationTheme } from '~/hooks/useNavigationTheme';
+import type { StackParamList, TabParamList } from '~/types/Navigation';
 
 import DailyProgress from './DailyProgress';
 import MealCollapseCard from './Meals/MealCollapseCard';
@@ -23,6 +30,13 @@ const formatToday = (date: Date) => {
 };
 
 const Home = () => {
+  const navigation =
+    useNavigation<
+      CompositeNavigationProp<
+        BottomTabNavigationProp<TabParamList, 'Home'>,
+        StackNavigationProp<StackParamList>
+      >
+    >();
   const insets = useSafeAreaInsets();
   const { isDark, theme } = useNavigationTheme();
   const { colors } = theme;
@@ -30,11 +44,13 @@ const Home = () => {
 
   return (
     <View style={[styles.screen, { backgroundColor: colors.background }]}>
-      <ScreenHeader
-        icon="heart-rate"
-        title="VEGA"
-        subtitle={formatToday(new Date())}
-      />
+      <ScreenHeader.Root>
+        <ScreenHeader.Row>
+          <ScreenHeader.Icon name="heart-rate" />
+          <ScreenHeader.Title>VEGA</ScreenHeader.Title>
+        </ScreenHeader.Row>
+        <ScreenHeader.Subtitle>{formatToday(new Date())}</ScreenHeader.Subtitle>
+      </ScreenHeader.Root>
       <ScrollView
         style={styles.scroll}
         contentContainerStyle={[
@@ -49,7 +65,16 @@ const Home = () => {
         <View style={styles.meals}>
           <Text style={styles.mealsTitle}>Refeições</Text>
           {meals.map(meal => (
-            <MealCollapseCard key={meal.id} meal={meal} />
+            <MealCollapseCard
+              key={meal.id}
+              meal={meal}
+              onAddFood={() =>
+                navigation.navigate('SearchFood', {
+                  mealId: meal.id,
+                  subtitle: `${meal.emoji} ${meal.title}`,
+                })
+              }
+            />
           ))}
         </View>
       </ScrollView>

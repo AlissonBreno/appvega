@@ -1,7 +1,7 @@
 import { ScrollView, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import ScreenHeader from '~/components/shared/ScreenHeader';
+import { ScreenHeader } from '~/components/shared/ScreenHeader';
 import { useNavigationTheme } from '~/hooks/useNavigationTheme';
 
 import AppAbout from './AppAbout';
@@ -19,11 +19,15 @@ const Profile = () => {
 
   return (
     <View style={[styles.screen, { backgroundColor: colors.background }]}>
-      <ScreenHeader
-        icon="user-cog"
-        title="Perfil & metas"
-        subtitle="Configure suas metas nutricionais"
-      />
+      <ScreenHeader.Root>
+        <ScreenHeader.Row>
+          <ScreenHeader.Icon name="user-cog" />
+          <ScreenHeader.Title>Perfil & metas</ScreenHeader.Title>
+        </ScreenHeader.Row>
+        <ScreenHeader.Subtitle>
+          Configure suas metas nutricionais
+        </ScreenHeader.Subtitle>
+      </ScreenHeader.Root>
       <ScrollView
         style={styles.scroll}
         contentContainerStyle={[
