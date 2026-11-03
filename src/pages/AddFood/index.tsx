@@ -6,7 +6,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { ScreenHeader } from '~/components/shared/ScreenHeader';
 import { Button } from '~/components/ui/Button';
 import { Collapse } from '~/components/ui/Collapse';
-import Icon, { type IconName } from '~/components/ui/Icon';
+import Icon from '~/components/ui/Icon';
 import { Pill } from '~/components/ui/Pill';
 import { useMeals } from '~/hooks/useMeals';
 import { useNavigationTheme } from '~/hooks/useNavigationTheme';
@@ -95,43 +95,19 @@ type MacroColumnsProps = {
 };
 
 const MacroColumns = ({ carb, protein, fat }: MacroColumnsProps) => {
-  const { isDark, theme } = useNavigationTheme();
+  const { isDark } = useNavigationTheme();
   const styles = addFoodStyles[isDark ? 'dark' : 'light'];
-  const columns: {
-    key: string;
-    icon: IconName;
-    label: string;
-    value: number;
-    color: string;
-  }[] = [
-    {
-      key: 'carb',
-      icon: 'bread-slice',
-      label: 'Carboidratos',
-      value: carb,
-      color: theme.colors.carb,
-    },
-    {
-      key: 'protein',
-      icon: 'egg',
-      label: 'Proteínas',
-      value: protein,
-      color: theme.colors.protein,
-    },
-    {
-      key: 'fat',
-      icon: 'cheese',
-      label: 'Gorduras',
-      value: fat,
-      color: theme.colors.fat,
-    },
+  const columns = [
+    { key: 'carb', emoji: '🍞', label: 'Carboidratos', value: carb },
+    { key: 'protein', emoji: '🍗', label: 'Proteínas', value: protein },
+    { key: 'fat', emoji: '🥑', label: 'Gorduras', value: fat },
   ];
 
   return (
     <View style={styles.macros}>
       {columns.map(column => (
         <View key={column.key} style={styles.macro}>
-          <Icon name={column.icon} size={20} color={column.color} />
+          <Text style={styles.macroEmoji}>{column.emoji}</Text>
           <Text style={styles.macroValue}>
             {formatOneDecimal(column.value)}
           </Text>

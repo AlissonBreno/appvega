@@ -70,6 +70,10 @@ const createStyles = (theme: Theme) => {
       alignItems: 'center',
       gap: 4,
     },
+    macroEmoji: {
+      fontSize: 20,
+      lineHeight: 24,
+    },
     macroValue: {
       fontSize: 16,
       lineHeight: 21,
