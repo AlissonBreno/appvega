@@ -1,4 +1,4 @@
-import { useRef, useState, type RefObject } from 'react';
+import { useEffect, useRef, useState, type RefObject } from 'react';
 import {
   Pressable,
   Text,
@@ -12,6 +12,16 @@ import { useNavigationTheme } from '~/hooks/useNavigationTheme';
 
 import { stepGoalValue } from '../goalDraft';
 import { goalRowStyles } from './styles';
+
+type CaretSelection = {
+  start: number;
+  end: number;
+};
+
+const caretAtEnd = (text: string): CaretSelection => ({
+  start: text.length,
+  end: text.length,
+});
 
 export type GoalRowProps = {
   emoji: string;
@@ -37,7 +47,16 @@ const GoalRow = ({
   const { isDark, theme } = useNavigationTheme();
   const styles = goalRowStyles[isDark ? 'dark' : 'light'];
   const [isFocused, setIsFocused] = useState(false);
+  const [selection, setSelection] = useState<CaretSelection>(() =>
+    caretAtEnd(value),
+  );
   const inputRef = useRef<TextInputType>(null);
+
+  useEffect(() => {
+    if (isFocused) {
+      setSelection(caretAtEnd(value));
+    }
+  }, [value, isFocused]);
 
   return (
     <View style={styles.goalRow}>
@@ -70,10 +89,21 @@ const GoalRow = ({
           blurOnSubmit
           onSubmitEditing={() => inputRef.current?.blur()}
           accessibilityLabel={label}
+          selection={selection}
+          contextMenuHidden
           selectionColor={theme.colors.primary}
           cursorColor={theme.colors.primary}
+          onSelectionChange={event => {
+            const { start, end } = event.nativeEvent.selection;
+            const length = value.length;
+
+            if (start !== length || end !== length) {
+              setSelection(caretAtEnd(value));
+            }
+          }}
           onFocus={() => {
             setIsFocused(true);
+            setSelection(caretAtEnd(value));
             onFocusInput?.(inputRef);
           }}
           onBlur={() => setIsFocused(false)}
