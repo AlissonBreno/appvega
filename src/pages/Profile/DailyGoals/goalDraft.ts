@@ -40,6 +40,19 @@ export const formatGoalValue = (value: number): string => {
   return Number.isInteger(rounded) ? String(rounded) : rounded.toFixed(1);
 };
 
+export const formatGramsPerKg = (
+  gramsText: string,
+  weightKg: number,
+): string | null => {
+  const grams = parseGoalValue(gramsText);
+
+  if (grams === null || weightKg <= 0) {
+    return null;
+  }
+
+  return formatGoalValue(grams / weightKg);
+};
+
 export const stepGoalValue = (text: string, delta: number): string => {
   const parsed = parseGoalValue(text);
   const base = parsed === null ? 0 : parsed;

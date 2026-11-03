@@ -10,7 +10,7 @@ import {
 import Icon from '~/components/ui/Icon';
 import { useNavigationTheme } from '~/hooks/useNavigationTheme';
 
-import { stepGoalValue } from '../goalDraft';
+import { formatGramsPerKg, stepGoalValue } from '../goalDraft';
 import { goalRowStyles } from './styles';
 
 type CaretSelection = {
@@ -28,6 +28,7 @@ export type GoalRowProps = {
   label: string;
   value: string;
   unit: string;
+  weightKg: number;
   totalColor: string;
   step: number;
   onChangeValue: (value: string) => void;
@@ -39,6 +40,7 @@ const GoalRow = ({
   label,
   value,
   unit,
+  weightKg,
   totalColor,
   step,
   onChangeValue,
@@ -52,6 +54,11 @@ const GoalRow = ({
   );
   const inputRef = useRef<TextInputType>(null);
 
+  const gramsPerKg =
+    unit === 'g' ? formatGramsPerKg(value, weightKg) : null;
+  const totalLabel =
+    gramsPerKg !== null ? `${gramsPerKg} g/kg` : `${value} ${unit}`;
+
   useEffect(() => {
     if (isFocused) {
       setSelection(caretAtEnd(value));
@@ -64,7 +71,7 @@ const GoalRow = ({
         <Text style={styles.emoji}>{emoji}</Text>
         <Text style={styles.goalLabel}>{label}</Text>
         <Text style={[styles.goalTotal, { color: totalColor }]}>
-          {value} {unit}
+          {totalLabel}
         </Text>
       </View>
       <View style={styles.stepper}>
