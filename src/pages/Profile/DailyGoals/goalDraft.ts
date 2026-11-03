@@ -1,0 +1,90 @@
+export type GoalKey = 'goal_kcal' | 'goal_carb' | 'goal_prot' | 'goal_fat';
+
+export type GoalDraft = Record<GoalKey, string>;
+
+export type GoalValues = Record<GoalKey, number>;
+
+export const GOAL_STEPS: Record<GoalKey, number> = {
+  goal_kcal: 10,
+  goal_carb: 10,
+  goal_prot: 10,
+  goal_fat: 5,
+};
+
+export const GOAL_KEYS: GoalKey[] = [
+  'goal_kcal',
+  'goal_carb',
+  'goal_prot',
+  'goal_fat',
+];
+
+export const parseGoalValue = (text: string): number | null => {
+  const normalized = text.trim().replace(',', '.');
+
+  if (normalized === '' || normalized === '.' || normalized === '-') {
+    return null;
+  }
+
+  const value = Number(normalized);
+
+  if (!Number.isFinite(value)) {
+    return null;
+  }
+
+  return value;
+};
+
+export const formatGoalValue = (value: number): string => {
+  const rounded = Math.round(value * 10) / 10;
+
+  return Number.isInteger(rounded) ? String(rounded) : rounded.toFixed(1);
+};
+
+export const stepGoalValue = (text: string, delta: number): string => {
+  const parsed = parseGoalValue(text);
+  const base = parsed === null ? 0 : parsed;
+  const next = Math.max(0, base + delta);
+
+  return formatGoalValue(next);
+};
+
+export const isValidGoalValue = (text: string): boolean => {
+  const value = parseGoalValue(text);
+
+  return value !== null && value >= 0;
+};
+
+export const toGoalDraft = (values: GoalValues): GoalDraft => ({
+  goal_kcal: formatGoalValue(values.goal_kcal),
+  goal_carb: formatGoalValue(values.goal_carb),
+  goal_prot: formatGoalValue(values.goal_prot),
+  goal_fat: formatGoalValue(values.goal_fat),
+});
+
+export const parseGoalDraft = (draft: GoalDraft): GoalValues | null => {
+  const values = {} as GoalValues;
+
+  for (const key of GOAL_KEYS) {
+    const value = parseGoalValue(draft[key]);
+
+    if (value === null || value < 0) {
+      return null;
+    }
+
+    values[key] = Math.round(value * 10) / 10;
+  }
+
+  return values;
+};
+
+export const hasGoalChanges = (draft: GoalDraft, saved: GoalValues): boolean => {
+  const parsed = parseGoalDraft(draft);
+
+  if (parsed === null) {
+    return false;
+  }
+
+  return GOAL_KEYS.some(
+    key => formatGoalValue(parsed[key]) !== formatGoalValue(saved[key]),
+  );
+};
