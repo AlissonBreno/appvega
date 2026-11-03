@@ -1,5 +1,11 @@
-import { useState } from 'react';
-import { Pressable, Text, TextInput, View } from 'react-native';
+import { useRef, useState, type RefObject } from 'react';
+import {
+  Pressable,
+  Text,
+  TextInput,
+  View,
+  type TextInput as TextInputType,
+} from 'react-native';
 
 import Icon from '~/components/ui/Icon';
 import { useNavigationTheme } from '~/hooks/useNavigationTheme';
@@ -15,6 +21,7 @@ export type GoalRowProps = {
   totalColor: string;
   step: number;
   onChangeValue: (value: string) => void;
+  onFocusInput?: (inputRef: RefObject<TextInputType | null>) => void;
 };
 
 const GoalRow = ({
@@ -25,10 +32,12 @@ const GoalRow = ({
   totalColor,
   step,
   onChangeValue,
+  onFocusInput,
 }: GoalRowProps) => {
   const { isDark, theme } = useNavigationTheme();
   const styles = goalRowStyles[isDark ? 'dark' : 'light'];
   const [isFocused, setIsFocused] = useState(false);
+  const inputRef = useRef<TextInputType>(null);
 
   return (
     <View style={styles.goalRow}>
@@ -49,14 +58,21 @@ const GoalRow = ({
           <Icon name="minus" color={theme.colors.secondaryText} size={14} />
         </Pressable>
         <TextInput
+          ref={inputRef}
           style={[styles.stepperInput, isFocused && styles.stepperInputFocused]}
           value={value}
           onChangeText={onChangeValue}
-          keyboardType="decimal-pad"
+          keyboardType="numeric"
+          returnKeyType="done"
+          blurOnSubmit
+          onSubmitEditing={() => inputRef.current?.blur()}
           accessibilityLabel={label}
           selectionColor={theme.colors.primary}
           cursorColor={theme.colors.primary}
-          onFocus={() => setIsFocused(true)}
+          onFocus={() => {
+            setIsFocused(true);
+            onFocusInput?.(inputRef);
+          }}
           onBlur={() => setIsFocused(false)}
         />
         <Pressable

@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { ActivityIndicator } from 'react-native';
+import { useState, type RefObject } from 'react';
+import { ActivityIndicator, type TextInput } from 'react-native';
 
 import { Button } from '~/components/ui/Button';
 import { Card } from '~/components/ui/Card';
@@ -23,6 +23,7 @@ import { dailyGoalsStyles } from './styles';
 type DailyGoalsProps = {
   user: User;
   onUserUpdated: (user: User) => void;
+  onFocusGoalInput: (inputRef: RefObject<TextInput | null>) => void;
 };
 
 const goalsFromUser = (user: User): GoalValues => ({
@@ -40,7 +41,11 @@ type GoalRowConfig = {
   totalColor: string;
 };
 
-const DailyGoals = ({ user, onUserUpdated }: DailyGoalsProps) => {
+const DailyGoals = ({
+  user,
+  onUserUpdated,
+  onFocusGoalInput,
+}: DailyGoalsProps) => {
   const { isDark, theme } = useNavigationTheme();
   const { colors } = theme;
   const styles = dailyGoalsStyles[isDark ? 'dark' : 'light'];
@@ -134,6 +139,7 @@ const DailyGoals = ({ user, onUserUpdated }: DailyGoalsProps) => {
           onChangeValue={
             isSaving ? () => undefined : value => handleChange(goal.key, value)
           }
+          onFocusInput={onFocusGoalInput}
         />
       ))}
       <Button.Root
