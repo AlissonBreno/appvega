@@ -5,13 +5,13 @@ import MacroProgress from '~/components/shared/MacroProgress';
 import { Card } from '~/components/ui/Card';
 import { useNavigationTheme } from '~/hooks/useNavigationTheme';
 
+import { CALORIES_EATEN, DAILY_GOAL_KCAL } from '../dailySummary';
 import CircularMacroChart from './CircularMacroChart';
 import { dailyProgressStyles } from './styles';
 
 const CARB_PROGRESS = 125.3 / 250;
 const PROTEIN_PROGRESS = 75.3 / 250;
 const FAT_PROGRESS = 25.1 / 250;
-const CALORIES_EATEN = 1108;
 const CHART_MAX_SIZE = 128;
 const CHART_MIN_SIZE = 88;
 const ROW_GAP = 16;
@@ -62,7 +62,7 @@ const DailyGoal = () => {
       <Text style={styles.goalTitle} numberOfLines={1} adjustsFontSizeToFit>
         Meta diária
       </Text>
-      <Text style={styles.goalValue}>2600 kcal</Text>
+      <Text style={styles.goalValue}>{DAILY_GOAL_KCAL} kcal</Text>
     </View>
   );
 };

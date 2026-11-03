@@ -4,6 +4,7 @@ import {
   type CompositeNavigationProp,
 } from '@react-navigation/native';
 import type { StackNavigationProp } from '@react-navigation/stack';
+import { useState } from 'react';
 import { ScrollView, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -14,7 +15,7 @@ import type { StackParamList, TabParamList } from '~/types/Navigation';
 
 import DailyProgress from './DailyProgress';
 import MealCollapseCard from './Meals/MealCollapseCard';
-import WelcomeText from './WelcomeText';
+import WeekDaySelector from './WeekDaySelector';
 import { homeStyles } from './styles';
 
 const TAB_CLEARANCE = 72 + 16 + 24;
@@ -42,6 +43,7 @@ const Home = () => {
   const { isDark, theme } = useNavigationTheme();
   const { colors } = theme;
   const styles = homeStyles[isDark ? 'dark' : 'light'];
+  const [selectedDate, setSelectedDate] = useState(() => new Date());
 
   return (
     <View style={[styles.screen, { backgroundColor: colors.background }]}>
@@ -61,7 +63,10 @@ const Home = () => {
         directionalLockEnabled
         showsVerticalScrollIndicator={false}
       >
-        <WelcomeText />
+        <WeekDaySelector
+          selectedDate={selectedDate}
+          onSelectDate={setSelectedDate}
+        />
         <DailyProgress />
         <View style={styles.meals}>
           <Text style={styles.mealsTitle}>Refeições</Text>
