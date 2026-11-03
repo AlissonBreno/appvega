@@ -60,6 +60,9 @@ const createStyles = (theme: Theme) => {
       borderColor: colors.border,
       ...fonts.medium,
     },
+    stepperInputFocused: {
+      borderColor: colors.primary,
+    },
   });
 };
 

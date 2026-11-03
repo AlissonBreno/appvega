@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Pressable, Text, TextInput, View } from 'react-native';
 
 import Icon from '~/components/ui/Icon';
@@ -27,6 +28,7 @@ const GoalRow = ({
 }: GoalRowProps) => {
   const { isDark, theme } = useNavigationTheme();
   const styles = goalRowStyles[isDark ? 'dark' : 'light'];
+  const [isFocused, setIsFocused] = useState(false);
 
   return (
     <View style={styles.goalRow}>
@@ -47,11 +49,15 @@ const GoalRow = ({
           <Icon name="minus" color={theme.colors.secondaryText} size={14} />
         </Pressable>
         <TextInput
-          style={styles.stepperInput}
+          style={[styles.stepperInput, isFocused && styles.stepperInputFocused]}
           value={value}
           onChangeText={onChangeValue}
           keyboardType="decimal-pad"
           accessibilityLabel={label}
+          selectionColor={theme.colors.primary}
+          cursorColor={theme.colors.primary}
+          onFocus={() => setIsFocused(true)}
+          onBlur={() => setIsFocused(false)}
         />
         <Pressable
           accessibilityRole="button"
