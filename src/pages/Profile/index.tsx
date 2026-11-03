@@ -3,7 +3,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { ScreenHeader } from '~/components/shared/ScreenHeader';
 import { useNavigationTheme } from '~/hooks/useNavigationTheme';
-import { getUser } from '~/services/users';
+import { getUser } from '~/modules/User/services/user';
 
 import AppAbout from './AppAbout';
 import DailyGoals from './DailyGoals';
