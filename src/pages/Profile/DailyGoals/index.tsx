@@ -1,10 +1,15 @@
 import { Button } from '~/components/ui/Button';
 import { Card } from '~/components/ui/Card';
 import { useNavigationTheme } from '~/hooks/useNavigationTheme';
+import type { User } from '~/types';
 
 import GoalRow, { type GoalRowProps } from './GoalRow';
 
-const DailyGoals = () => {
+type DailyGoalsProps = {
+  user: User;
+};
+
+const DailyGoals = ({ user }: DailyGoalsProps) => {
   const { theme } = useNavigationTheme();
   const { colors } = theme;
 
@@ -12,28 +17,28 @@ const DailyGoals = () => {
     {
       emoji: '🔥',
       label: 'Calorias',
-      value: '2000',
+      value: String(user.goal_kcal),
       unit: 'kcal',
       totalColor: colors.secondary,
     },
     {
       emoji: '🍞',
       label: 'Carboidratos',
-      value: '250',
+      value: String(user.goal_carb),
       unit: 'g',
       totalColor: colors.carb,
     },
     {
       emoji: '🥚',
       label: 'Proteínas',
-      value: '150',
+      value: String(user.goal_prot),
       unit: 'g',
       totalColor: colors.protein,
     },
     {
       emoji: '🥑',
       label: 'Gordura',
-      value: '65',
+      value: String(user.goal_fat),
       unit: 'g',
       totalColor: colors.fat,
     },

@@ -3,6 +3,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { ScreenHeader } from '~/components/shared/ScreenHeader';
 import { useNavigationTheme } from '~/hooks/useNavigationTheme';
+import { getUser } from '~/services/users';
 
 import AppAbout from './AppAbout';
 import DailyGoals from './DailyGoals';
@@ -16,6 +17,7 @@ const Profile = () => {
   const insets = useSafeAreaInsets();
   const { theme } = useNavigationTheme();
   const { colors } = theme;
+  const user = getUser();
 
   return (
     <View style={[styles.screen, { backgroundColor: colors.background }]}>
@@ -36,8 +38,8 @@ const Profile = () => {
         ]}
         showsVerticalScrollIndicator={false}
       >
-        <ProfileSummary />
-        <DailyGoals />
+        <ProfileSummary user={user} />
+        <DailyGoals user={user} />
         <Tools />
         <AppAbout />
       </ScrollView>
