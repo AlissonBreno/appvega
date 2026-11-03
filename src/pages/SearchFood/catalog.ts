@@ -1,4 +1,13 @@
-import type { CatalogFood } from './types';
+import type { CatalogFood, NutritionFact } from './types';
+
+const aveiaFacts: NutritionFact[] = [
+  { label: 'Umidade', amount: 70.1, unit: '%', scales: false },
+  { label: 'Colesterol', amount: null, unit: 'mg', scales: false },
+  { label: 'Fibra alimentar', amount: 2.7, unit: 'g', scales: true },
+  { label: 'Cinzas', amount: 0.5, unit: 'g', scales: true },
+  { label: 'Cálcio', amount: 5, unit: 'mg', scales: true },
+  { label: 'Magnésio', amount: 59, unit: 'mg', scales: true },
+];
 
 export const catalog: CatalogFood[] = [
   {
@@ -10,6 +19,7 @@ export const catalog: CatalogFood[] = [
     protein: 16.9,
     fat: 6.9,
     favorite: true,
+    facts: aveiaFacts,
   },
   {
     id: 'iogurte-grego',
@@ -20,6 +30,7 @@ export const catalog: CatalogFood[] = [
     protein: 17,
     fat: 0.7,
     favorite: true,
+    facts: [],
   },
   {
     id: 'banana',
@@ -30,6 +41,7 @@ export const catalog: CatalogFood[] = [
     protein: 1.1,
     fat: 0.3,
     favorite: false,
+    facts: [],
   },
   {
     id: 'peito-de-frango',
@@ -40,6 +52,7 @@ export const catalog: CatalogFood[] = [
     protein: 31,
     fat: 3.6,
     favorite: true,
+    facts: [],
   },
   {
     id: 'arroz-integral',
@@ -50,6 +63,7 @@ export const catalog: CatalogFood[] = [
     protein: 2.7,
     fat: 1,
     favorite: false,
+    facts: [],
   },
   {
     id: 'batata-doce',
@@ -60,6 +74,7 @@ export const catalog: CatalogFood[] = [
     protein: 1.6,
     fat: 0.1,
     favorite: false,
+    facts: [],
   },
   {
     id: 'ovo-cozido',
@@ -70,6 +85,7 @@ export const catalog: CatalogFood[] = [
     protein: 13,
     fat: 11,
     favorite: true,
+    facts: [],
   },
   {
     id: 'abacate',
@@ -80,6 +96,7 @@ export const catalog: CatalogFood[] = [
     protein: 2,
     fat: 14.7,
     favorite: false,
+    facts: [],
   },
   {
     id: 'salmao',
@@ -90,6 +107,7 @@ export const catalog: CatalogFood[] = [
     protein: 20,
     fat: 13,
     favorite: false,
+    facts: [],
   },
   {
     id: 'maca',
@@ -100,6 +118,7 @@ export const catalog: CatalogFood[] = [
     protein: 0.3,
     fat: 0.2,
     favorite: false,
+    facts: [],
   },
   {
     id: 'amendoas',
@@ -110,5 +129,6 @@ export const catalog: CatalogFood[] = [
     protein: 21,
     fat: 50,
     favorite: false,
+    facts: [],
   },
 ];

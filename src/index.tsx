@@ -4,6 +4,7 @@ import { StatusBar } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
+import { MealsProvider } from '~/contexts/MealsContext';
 import { ThemeProvider } from '~/contexts/ThemeContext';
 import { ToastProvider } from '~/contexts/ToastContext';
 import { useThemePreference } from '~/hooks/useThemePreference';
@@ -21,8 +22,10 @@ const App = () => {
       <SafeAreaProvider>
         <ThemeProvider>
           <ToastProvider>
-            <ThemedStatusBar />
-            <Routes />
+            <MealsProvider>
+              <ThemedStatusBar />
+              <Routes />
+            </MealsProvider>
           </ToastProvider>
         </ThemeProvider>
       </SafeAreaProvider>

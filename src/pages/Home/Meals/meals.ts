@@ -12,6 +12,7 @@ export const meals: Meal[] = [
     foods: [
       {
         id: 'aveia',
+        catalogFoodId: 'aveia',
         name: 'Aveia',
         emoji: '🌾',
         grams: 50,
@@ -22,6 +23,7 @@ export const meals: Meal[] = [
       },
       {
         id: 'iogurte-grego',
+        catalogFoodId: 'iogurte-grego',
         name: 'Iogurte Grego',
         emoji: '🥛',
         grams: 150,
@@ -32,6 +34,7 @@ export const meals: Meal[] = [
       },
       {
         id: 'banana',
+        catalogFoodId: 'banana',
         name: 'Banana',
         emoji: '🍌',
         grams: 100,

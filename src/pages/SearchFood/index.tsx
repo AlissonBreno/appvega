@@ -6,6 +6,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { ScreenHeader } from '~/components/shared/ScreenHeader';
 import Icon from '~/components/ui/Icon';
 import { Input } from '~/components/ui/Input';
+import { Pill } from '~/components/ui/Pill';
 import { useNavigationTheme } from '~/hooks/useNavigationTheme';
 import type { StackParamList } from '~/types/Navigation';
 
@@ -22,42 +23,6 @@ const formatAmount = (value: number) => {
   }
 
   return rounded.toFixed(1);
-};
-
-type FilterPillProps = {
-  label: string;
-  selected: boolean;
-  onPress: () => void;
-  showStar?: boolean;
-};
-
-const FilterPill = ({
-  label,
-  selected,
-  onPress,
-  showStar,
-}: FilterPillProps) => {
-  const { isDark, theme } = useNavigationTheme();
-  const styles = searchFoodStyles[isDark ? 'dark' : 'light'];
-
-  return (
-    <Pressable
-      accessibilityRole="button"
-      accessibilityLabel={label}
-      accessibilityState={{ selected }}
-      onPress={onPress}
-      style={[styles.pill, selected ? styles.pillSelected : null]}
-    >
-      {showStar ? (
-        <Icon name="star" size={14} color={theme.colors.fat} />
-      ) : null}
-      <Text
-        style={[styles.pillLabel, selected ? styles.pillLabelSelected : null]}
-      >
-        {label}
-      </Text>
-    </Pressable>
-  );
 };
 
 type FoodMetaProps = {
@@ -85,18 +50,28 @@ const FoodMeta = ({ food }: FoodMetaProps) => {
 type FoodRowProps = {
   food: CatalogFood;
   favorite: boolean;
+  onPress: () => void;
   onToggleFavorite: () => void;
 };
 
-const FoodRow = ({ food, favorite, onToggleFavorite }: FoodRowProps) => {
+const FoodRow = ({
+  food,
+  favorite,
+  onPress,
+  onToggleFavorite,
+}: FoodRowProps) => {
   const { isDark, theme } = useNavigationTheme();
   const styles = searchFoodStyles[isDark ? 'dark' : 'light'];
 
   return (
     <View style={styles.row}>
       <Pressable
-        accessible={false}
-        onPress={Keyboard.dismiss}
+        accessibilityRole="button"
+        accessibilityLabel={`Adicionar ${food.name}`}
+        onPress={() => {
+          Keyboard.dismiss();
+          onPress();
+        }}
         style={styles.rowMain}
       >
         <Text style={styles.emoji}>{food.emoji}</Text>
@@ -152,7 +127,7 @@ const FoodCountFooter = ({ count }: FoodCountFooterProps) => {
 type SearchFoodProps = StackScreenProps<StackParamList, 'SearchFood'>;
 
 const SearchFood = ({ navigation, route }: SearchFoodProps) => {
-  const { subtitle } = route.params;
+  const { mealId, subtitle } = route.params;
   const insets = useSafeAreaInsets();
   const { isDark, theme } = useNavigationTheme();
   const styles = searchFoodStyles[isDark ? 'dark' : 'light'];
@@ -206,17 +181,21 @@ const SearchFood = ({ navigation, route }: SearchFoodProps) => {
           />
         </Input.Content>
         <View style={styles.pills}>
-          <FilterPill
-            label="Todos"
+          <Pill.Root
+            accessibilityLabel="Todos"
             selected={filter === 'all'}
             onPress={() => setFilter('all')}
-          />
-          <FilterPill
-            label="Favoritos"
+          >
+            <Pill.Label>Todos</Pill.Label>
+          </Pill.Root>
+          <Pill.Root
+            accessibilityLabel="Favoritos"
             selected={filter === 'favorites'}
-            showStar
             onPress={() => setFilter('favorites')}
-          />
+          >
+            <Icon name="star" size={14} color={theme.colors.fat} />
+            <Pill.Label>Favoritos</Pill.Label>
+          </Pill.Root>
         </View>
       </View>
       <FlatList
@@ -227,6 +206,13 @@ const SearchFood = ({ navigation, route }: SearchFoodProps) => {
           <FoodRow
             food={item}
             favorite={favoriteIds.has(item.id)}
+            onPress={() =>
+              navigation.navigate('AddFood', {
+                mealId,
+                subtitle,
+                catalogFoodId: item.id,
+              })
+            }
             onToggleFavorite={() => {
               toggleFavorite(item.id);
               Keyboard.dismiss();

@@ -65,9 +65,6 @@ const createStyles = (theme: Theme) => {
       alignItems: 'center',
       justifyContent: 'center',
     },
-    collapseButtonExpanded: {
-      transform: [{ rotate: '180deg' }],
-    },
     foodSwipe: {
       overflow: 'hidden',
     },

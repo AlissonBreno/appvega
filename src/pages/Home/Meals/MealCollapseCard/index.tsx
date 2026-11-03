@@ -1,15 +1,10 @@
 import { useRef, useState } from 'react';
-import {
-  Alert,
-  Pressable,
-  ScrollView,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { Alert, Pressable, ScrollView, Text, View } from 'react-native';
 
 import { Card } from '~/components/ui/Card';
+import { Collapse } from '~/components/ui/Collapse';
 import Icon from '~/components/ui/Icon';
+import { useMeals } from '~/hooks/useMeals';
 import { useNavigationTheme } from '~/hooks/useNavigationTheme';
 import { useToast } from '~/hooks/useToast';
 
@@ -20,7 +15,8 @@ import { mealCollapseCardStyles } from './styles';
 
 const FOOD_ACTION_SIZE = 44;
 const FOOD_ACTION_GAP = 8;
-const FOOD_ACTIONS_WIDTH = FOOD_ACTION_GAP + FOOD_ACTION_SIZE * 2 + FOOD_ACTION_GAP;
+const FOOD_ACTIONS_WIDTH =
+  FOOD_ACTION_GAP + FOOD_ACTION_SIZE * 2 + FOOD_ACTION_GAP;
 
 const formatGrams = (grams: number) => {
   const rounded = Math.round(grams * 10) / 10;
@@ -48,31 +44,6 @@ const AddNewFood = ({ onPress }: AddNewFoodProps) => {
       style={styles.addButton}
     >
       <Icon name="plus" size={16} color={theme.colors.foreground} />
-    </Pressable>
-  );
-};
-
-type CollapseButtonProps = {
-  expanded: boolean;
-  onPress?: () => void;
-};
-
-const CollapseButton = ({ expanded, onPress }: CollapseButtonProps) => {
-  const { isDark, theme } = useNavigationTheme();
-  const styles = mealCollapseCardStyles[isDark ? 'dark' : 'light'];
-
-  return (
-    <Pressable
-      accessibilityRole="button"
-      accessibilityLabel={expanded ? 'Recolher refeição' : 'Expandir refeição'}
-      accessibilityState={{ expanded }}
-      onPress={onPress}
-      style={[
-        styles.collapseButton,
-        expanded ? styles.collapseButtonExpanded : null,
-      ]}
-    >
-      <Icon name="chevron-down" size={16} color={theme.colors.secondaryText} />
     </Pressable>
   );
 };
@@ -122,20 +93,15 @@ const FoodRow = ({ food, onEdit, onDelete }: FoodRowProps) => {
   const [rowWidth, setRowWidth] = useState(0);
 
   const handleOnEdit = () => {
-    console.log(`Editar ${food.name}`);
     scrollRef.current?.scrollTo({ x: 0, animated: true });
     onEdit?.();
   };
 
   const handleOnExclude = () => {
-    Alert.alert(
-      'Excluir alimento',
-      `Confirma a exclusão de ${food.name}?`,
-      [
-        { text: 'Cancelar', style: 'cancel' },
-        { text: 'Excluir', style: 'destructive', onPress: onDelete },
-      ],
-    );
+    Alert.alert('Excluir alimento', `Confirma a exclusão de ${food.name}?`, [
+      { text: 'Cancelar', style: 'cancel' },
+      { text: 'Excluir', style: 'destructive', onPress: onDelete },
+    ]);
   };
 
   return (
@@ -229,74 +195,68 @@ const Subtotal = ({ macros }: SubtotalProps) => {
 type MealCollapseCardProps = {
   meal: Meal;
   onAddFood?: () => void;
+  onEditFood?: (food: MealFood) => void;
 };
 
-const MealCollapseCard = ({ meal, onAddFood }: MealCollapseCardProps) => {
+const MealCollapseCard = ({
+  meal,
+  onAddFood,
+  onEditFood,
+}: MealCollapseCardProps) => {
   const { isDark } = useNavigationTheme();
   const { showToast } = useToast();
+  const { removeFood } = useMeals();
   const styles = mealCollapseCardStyles[isDark ? 'dark' : 'light'];
-  const [foods, setFoods] = useState(meal.foods);
-  const totals =
-    foods.length === 0 && meal.foods.length > 0
-      ? {
-          itemCount: 0,
-          kcal: 0,
-          macros: { carb: 0, protein: 0, fat: 0 },
-          macroGoal: meal.macroGoal,
-        }
-      : mealTotals({ ...meal, foods });
+  const totals = mealTotals(meal);
   const [expanded, setExpanded] = useState(false);
-  const showFoods = expanded && foods.length > 0;
   const toggleExpanded = () => setExpanded(current => !current);
+  const resumo = `${meal.title}, ${totals.itemCount} itens`;
 
   return (
     <Card.Root style={styles.card}>
-      <View style={styles.row}>
-        <TouchableOpacity
-          accessibilityRole="button"
-          accessibilityLabel={
-            expanded ? 'Recolher refeição' : 'Expandir refeição'
-          }
-          accessibilityState={{ expanded }}
-          onPress={toggleExpanded}
-          style={styles.summary}
-        >
-          <Text style={styles.emoji}>{meal.emoji}</Text>
-          <View style={styles.titleColumn}>
-            <Text style={styles.title}>{meal.title}</Text>
-            <Text style={styles.caption}>{totals.itemCount} itens</Text>
-          </View>
-        </TouchableOpacity>
-        <View style={styles.kcalColumn}>
-          <Text style={styles.value}>{totals.kcal}</Text>
-          <Text style={styles.caption}>kcal</Text>
-        </View>
-        <AddNewFood onPress={onAddFood} />
-        <CollapseButton expanded={expanded} onPress={toggleExpanded} />
-      </View>
-      <MacroProgressBar macros={totals.macros} macroGoal={totals.macroGoal} />
-      {showFoods ? (
-        <View>
-          {foods.map((food, index) => (
-            <View key={food.id}>
-              {index >= 0 ? <View style={styles.separator} /> : null}
-              <FoodRow
-                food={food}
-                onDelete={() => {
-                  setFoods(current =>
-                    current.filter(item => item.id !== food.id),
-                  );
-                  showToast({
-                    message: 'Exclusão realizada com sucesso',
-                    variant: 'success',
-                  });
-                }}
-              />
+      <Collapse.Root expanded={expanded} onToggle={toggleExpanded}>
+        <View style={styles.row}>
+          <Collapse.Trigger accessibilityLabel={resumo} style={styles.summary}>
+            <Text style={styles.emoji}>{meal.emoji}</Text>
+            <View style={styles.titleColumn}>
+              <Text style={styles.title}>{meal.title}</Text>
+              <Text style={styles.caption}>{totals.itemCount} itens</Text>
             </View>
-          ))}
-          <Subtotal macros={totals.macros} />
+          </Collapse.Trigger>
+          <View style={styles.kcalColumn}>
+            <Text style={styles.value}>{totals.kcal}</Text>
+            <Text style={styles.caption}>kcal</Text>
+          </View>
+          <AddNewFood onPress={onAddFood} />
+          <Collapse.Trigger style={styles.collapseButton}>
+            <Collapse.Chevron name="refeição" />
+          </Collapse.Trigger>
         </View>
-      ) : null}
+        <MacroProgressBar macros={totals.macros} macroGoal={totals.macroGoal} />
+        {meal.foods.length > 0 ? (
+          <Collapse.Panel>
+            <View>
+              {meal.foods.map((food, index) => (
+                <View key={food.id}>
+                  {index >= 0 ? <View style={styles.separator} /> : null}
+                  <FoodRow
+                    food={food}
+                    onEdit={() => onEditFood?.(food)}
+                    onDelete={() => {
+                      removeFood(meal.id, food.id);
+                      showToast({
+                        message: 'Exclusão realizada com sucesso',
+                        variant: 'success',
+                      });
+                    }}
+                  />
+                </View>
+              ))}
+              <Subtotal macros={totals.macros} />
+            </View>
+          </Collapse.Panel>
+        ) : null}
+      </Collapse.Root>
     </Card.Root>
   );
 };

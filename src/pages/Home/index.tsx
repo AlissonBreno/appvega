@@ -8,12 +8,12 @@ import { ScrollView, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { ScreenHeader } from '~/components/shared/ScreenHeader';
+import { useMeals } from '~/hooks/useMeals';
 import { useNavigationTheme } from '~/hooks/useNavigationTheme';
 import type { StackParamList, TabParamList } from '~/types/Navigation';
 
 import DailyProgress from './DailyProgress';
 import MealCollapseCard from './Meals/MealCollapseCard';
-import { meals } from './Meals/meals';
 import WelcomeText from './WelcomeText';
 import { homeStyles } from './styles';
 
@@ -38,6 +38,7 @@ const Home = () => {
       >
     >();
   const insets = useSafeAreaInsets();
+  const { meals } = useMeals();
   const { isDark, theme } = useNavigationTheme();
   const { colors } = theme;
   const styles = homeStyles[isDark ? 'dark' : 'light'];
@@ -72,6 +73,14 @@ const Home = () => {
                 navigation.navigate('SearchFood', {
                   mealId: meal.id,
                   subtitle: `${meal.emoji} ${meal.title}`,
+                })
+              }
+              onEditFood={food =>
+                navigation.navigate('AddFood', {
+                  mealId: meal.id,
+                  subtitle: `${meal.emoji} ${meal.title}`,
+                  catalogFoodId: food.catalogFoodId,
+                  mealFoodId: food.id,
                 })
               }
             />

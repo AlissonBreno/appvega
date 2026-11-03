@@ -4,6 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import FloatingTabBar from '~/components/layout/FloatingTabBar';
 import { stackScreenOptions, tabNavigatorOptions } from '~/config/navigation';
+import AddFood from '~/pages/AddFood';
 import History from '~/pages/History';
 import Home from '~/pages/Home';
 import Login from '~/pages/Login';
@@ -53,6 +54,11 @@ const Routes = () => {
         <Stack.Screen
           name="SearchFood"
           component={SearchFood}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="AddFood"
+          component={AddFood}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

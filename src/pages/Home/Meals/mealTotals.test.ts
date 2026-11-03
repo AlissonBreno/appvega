@@ -12,6 +12,7 @@ const food = (
   protein: 0,
   fat: 0,
   ...overrides,
+  catalogFoodId: overrides.catalogFoodId ?? overrides.id,
 });
 
 const meal = (foods: MealFood[]): Meal => ({

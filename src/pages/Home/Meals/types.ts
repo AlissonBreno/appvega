@@ -1,5 +1,6 @@
 export type MealFood = {
   id: string;
+  catalogFoodId: string;
   name: string;
   emoji: string;
   grams: number;

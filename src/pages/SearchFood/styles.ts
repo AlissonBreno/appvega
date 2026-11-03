@@ -21,27 +21,6 @@ const createStyles = (theme: Theme) => {
       alignItems: 'center',
       gap: 8,
     },
-    pill: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      gap: 4,
-      paddingHorizontal: 16,
-      paddingVertical: 8,
-      borderRadius: 9999,
-      backgroundColor: colors.foreground,
-    },
-    pillSelected: {
-      backgroundColor: colors.primaryText,
-    },
-    pillLabel: {
-      fontSize: 14,
-      lineHeight: 21,
-      color: colors.secondaryText,
-      ...fonts.medium,
-    },
-    pillLabelSelected: {
-      color: colors.background,
-    },
     list: {
       flex: 1,
     },

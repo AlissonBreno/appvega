@@ -39,17 +39,18 @@ const Root = ({ children, onPress, accessibilityLabel, style }: RootProps) => {
 
 type IconProps = {
   name: IconName;
+  color?: string;
   style?: StyleProp<TextStyle>;
 };
 
-const Icon = ({ name, style }: IconProps) => {
+const Icon = ({ name, color, style }: IconProps) => {
   const { theme } = useNavigationTheme();
 
   return (
     <IconGlyph
       name={name}
       size={16}
-      color={theme.colors.secondaryText}
+      color={color ?? theme.colors.secondaryText}
       style={style}
     />
   );

@@ -1,3 +1,10 @@
+export type NutritionFact = {
+  label: string;
+  amount: number | null;
+  unit: string;
+  scales: boolean;
+};
+
 export type CatalogFood = {
   id: string;
   name: string;
@@ -7,6 +14,7 @@ export type CatalogFood = {
   protein: number;
   fat: number;
   favorite: boolean;
+  facts: NutritionFact[];
 };
 
 export type FoodFilter = 'all' | 'favorites';
