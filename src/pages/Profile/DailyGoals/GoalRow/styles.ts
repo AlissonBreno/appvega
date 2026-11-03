@@ -42,9 +42,15 @@ const createStyles = (theme: Theme) => {
       width: 44,
       height: 44,
       borderRadius: 12,
+      borderWidth: 1,
       alignItems: 'center',
       justifyContent: 'center',
+      borderColor: colors.border,
       backgroundColor: colors.border,
+    },
+    stepperButtonPressed: {
+      opacity: 0.7,
+      backgroundColor: colors.foreground2,
     },
     stepperInput: {
       flex: 1,

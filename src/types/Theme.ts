@@ -36,6 +36,7 @@ export interface Colors {
   secondaryText: string;
   background: string;
   foreground: string;
+  foreground2: string;
   formsBackground: string;
   border: string;
   toast: ToastColors;

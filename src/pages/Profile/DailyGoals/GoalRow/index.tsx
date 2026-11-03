@@ -52,10 +52,13 @@ const GoalRow = ({
         <Pressable
           accessibilityRole="button"
           accessibilityLabel={`Diminuir ${label}`}
-          style={styles.stepperButton}
+          style={({ pressed }) => [
+            styles.stepperButton,
+            pressed && styles.stepperButtonPressed,
+          ]}
           onPress={() => onChangeValue(stepGoalValue(value, -step))}
         >
-          <Icon name="minus" color={theme.colors.secondaryText} size={14} />
+          <Icon name="minus" color={theme.colors.primaryText} size={14} />
         </Pressable>
         <TextInput
           ref={inputRef}
@@ -78,10 +81,13 @@ const GoalRow = ({
         <Pressable
           accessibilityRole="button"
           accessibilityLabel={`Aumentar ${label}`}
-          style={styles.stepperButton}
+          style={({ pressed }) => [
+            styles.stepperButton,
+            pressed && styles.stepperButtonPressed,
+          ]}
           onPress={() => onChangeValue(stepGoalValue(value, step))}
         >
-          <Icon name="plus" color={theme.colors.secondaryText} size={14} />
+          <Icon name="plus" color={theme.colors.primaryText} size={14} />
         </Pressable>
       </View>
     </View>
