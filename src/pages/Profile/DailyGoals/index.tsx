@@ -134,6 +134,7 @@ const DailyGoals = ({
           label={goal.label}
           value={draft[goal.key]}
           unit={goal.unit}
+          goalKey={goal.key}
           weightKg={user.weight}
           totalColor={goal.totalColor}
           step={GOAL_STEPS[goal.key]}

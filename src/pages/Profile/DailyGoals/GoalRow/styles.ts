@@ -28,10 +28,21 @@ const createStyles = (theme: Theme) => {
       color: colors.primaryText,
       ...fonts.light,
     },
+    goalTotals: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 4,
+    },
     goalTotal: {
       fontSize: 16,
       lineHeight: 21,
       ...fonts.medium,
+    },
+    goalKcal: {
+      fontSize: 16,
+      lineHeight: 21,
+      color: colors.secondaryText,
+      ...fonts.light,
     },
     stepper: {
       flexDirection: 'row',

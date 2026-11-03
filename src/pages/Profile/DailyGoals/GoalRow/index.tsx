@@ -10,7 +10,12 @@ import {
 import Icon from '~/components/ui/Icon';
 import { useNavigationTheme } from '~/hooks/useNavigationTheme';
 
-import { formatGramsPerKg, stepGoalValue } from '../goalDraft';
+import {
+  formatGramsPerKg,
+  formatMacroKcal,
+  stepGoalValue,
+  type GoalKey,
+} from '../goalDraft';
 import { goalRowStyles } from './styles';
 
 type CaretSelection = {
@@ -28,6 +33,7 @@ export type GoalRowProps = {
   label: string;
   value: string;
   unit: string;
+  goalKey: GoalKey;
   weightKg: number;
   totalColor: string;
   step: number;
@@ -40,6 +46,7 @@ const GoalRow = ({
   label,
   value,
   unit,
+  goalKey,
   weightKg,
   totalColor,
   step,
@@ -58,6 +65,7 @@ const GoalRow = ({
     unit === 'g' ? formatGramsPerKg(value, weightKg) : null;
   const totalLabel =
     gramsPerKg !== null ? `${gramsPerKg} g/kg` : `${value} ${unit}`;
+  const macroKcal = formatMacroKcal(value, goalKey);
 
   useEffect(() => {
     if (isFocused) {
@@ -70,9 +78,14 @@ const GoalRow = ({
       <View style={styles.goalRowLabel}>
         <Text style={styles.emoji}>{emoji}</Text>
         <Text style={styles.goalLabel}>{label}</Text>
-        <Text style={[styles.goalTotal, { color: totalColor }]}>
-          {totalLabel}
-        </Text>
+        <View style={styles.goalTotals}>
+          <Text style={[styles.goalTotal, { color: totalColor }]}>
+            {totalLabel}
+          </Text>
+          {macroKcal !== null ? (
+            <Text style={styles.goalKcal}>({macroKcal}kcal)</Text>
+          ) : null}
+        </View>
       </View>
       <View style={styles.stepper}>
         <Pressable

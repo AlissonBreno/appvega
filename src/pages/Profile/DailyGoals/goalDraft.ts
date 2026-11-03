@@ -40,6 +40,12 @@ export const formatGoalValue = (value: number): string => {
   return Number.isInteger(rounded) ? String(rounded) : rounded.toFixed(1);
 };
 
+export const MACRO_KCAL_PER_GRAM: Partial<Record<GoalKey, number>> = {
+  goal_carb: 4,
+  goal_prot: 4,
+  goal_fat: 9,
+};
+
 export const formatGramsPerKg = (
   gramsText: string,
   weightKg: number,
@@ -51,6 +57,20 @@ export const formatGramsPerKg = (
   }
 
   return formatGoalValue(grams / weightKg);
+};
+
+export const formatMacroKcal = (
+  gramsText: string,
+  goalKey: GoalKey,
+): string | null => {
+  const kcalPerGram = MACRO_KCAL_PER_GRAM[goalKey];
+  const grams = parseGoalValue(gramsText);
+
+  if (kcalPerGram === undefined || grams === null) {
+    return null;
+  }
+
+  return String(Math.round(grams * kcalPerGram));
 };
 
 export const stepGoalValue = (text: string, delta: number): string => {
