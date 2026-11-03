@@ -40,6 +40,7 @@ export const formatGoalValue = (value: number): string => {
   return Number.isInteger(rounded) ? String(rounded) : rounded.toFixed(1);
 };
 
+/** Fatores Atwater gerais (FAO/USDA): energia metabolizável média por grama. */
 export const MACRO_KCAL_PER_GRAM: Partial<Record<GoalKey, number>> = {
   goal_carb: 4,
   goal_prot: 4,
