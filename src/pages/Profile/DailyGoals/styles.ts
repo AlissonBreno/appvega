@@ -4,25 +4,21 @@ import { themes } from '~/styles/theme';
 import type { Theme } from '~/types/Theme';
 
 const createStyles = (theme: Theme) => {
-  const { colors, fonts } = theme;
+  const { colors } = theme;
 
   return StyleSheet.create({
-    title: {
-      fontSize: 24,
-      lineHeight: 32,
-      color: colors.primaryText,
-      ...fonts.bold,
+    save: {
+      opacity: 1,
+      borderWidth: 0,
+      backgroundColor: colors.primaryText,
     },
-    subtitle: {
-      fontSize: 14,
-      lineHeight: 21,
-      color: colors.secondaryText,
-      ...fonts.light,
+    saveLabel: {
+      color: colors.background,
     },
   });
 };
 
-export const welcomeTextStyles = {
+export const dailyGoalsStyles = {
   dark: createStyles(themes.dark),
   light: createStyles(themes.light),
 };

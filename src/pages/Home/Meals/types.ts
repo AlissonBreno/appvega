@@ -1,5 +1,6 @@
 export type MealFood = {
   id: string;
+  catalogFoodId: string;
   name: string;
   emoji: string;
   grams: number;
@@ -22,6 +23,5 @@ export type Meal = {
   kcal: number;
   itemCount: number;
   macros: MealMacros;
-  macroGoal: number;
   foods: MealFood[];
 };

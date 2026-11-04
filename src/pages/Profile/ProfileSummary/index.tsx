@@ -3,17 +3,26 @@ import { Text, View } from 'react-native';
 import { Card } from '~/components/ui/Card';
 import Icon from '~/components/ui/Icon';
 import { useNavigationTheme } from '~/hooks/useNavigationTheme';
+import type { User } from '~/types';
 
 import { profileSummaryStyles } from './styles';
 
-const ProfileSummary = () => {
+type ProfileSummaryProps = {
+  user: User;
+};
+
+const ProfileSummary = ({ user }: ProfileSummaryProps) => {
   const { isDark, theme } = useNavigationTheme();
   const styles = profileSummaryStyles[isDark ? 'dark' : 'light'];
-  
+
   const stats = [
-    { value: '2500', label: 'meta kcal', color: theme.colors.secondary },
-    { value: '26', label: 'idade', color: theme.colors.primaryText },
-    { value: '75kg', label: 'kilos', color: theme.colors.primary },
+    {
+      value: String(user.goal_kcal),
+      label: 'meta kcal',
+      color: theme.colors.secondary,
+    },
+    { value: String(user.age), label: 'idade', color: theme.colors.primaryText },
+    { value: `${user.weight}kg`, label: 'kilos', color: theme.colors.primary },
   ];
 
   return (
@@ -27,7 +36,7 @@ const ProfileSummary = () => {
           </View>
         </View>
         <View style={styles.identityCopy}>
-          <Text style={styles.name}>Alisson Goulart</Text>
+          <Text style={styles.name}>{user.name}</Text>
           <View style={styles.subtitleRow}>
             <Text style={styles.subtitle}>Rastreando há 7 dias 🔥</Text>
           </View>

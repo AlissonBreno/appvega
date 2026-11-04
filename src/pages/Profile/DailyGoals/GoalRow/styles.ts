@@ -28,10 +28,21 @@ const createStyles = (theme: Theme) => {
       color: colors.primaryText,
       ...fonts.light,
     },
+    goalTotals: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 4,
+    },
     goalTotal: {
       fontSize: 16,
       lineHeight: 21,
       ...fonts.medium,
+    },
+    goalKcal: {
+      fontSize: 16,
+      lineHeight: 21,
+      color: colors.secondaryText,
+      ...fonts.light,
     },
     stepper: {
       flexDirection: 'row',
@@ -42,9 +53,15 @@ const createStyles = (theme: Theme) => {
       width: 44,
       height: 44,
       borderRadius: 12,
+      borderWidth: 1,
       alignItems: 'center',
       justifyContent: 'center',
+      borderColor: colors.border,
       backgroundColor: colors.border,
+    },
+    stepperButtonPressed: {
+      opacity: 0.7,
+      backgroundColor: colors.foreground2,
     },
     stepperInput: {
       flex: 1,
@@ -59,6 +76,9 @@ const createStyles = (theme: Theme) => {
       backgroundColor: colors.background,
       borderColor: colors.border,
       ...fonts.medium,
+    },
+    stepperInputFocused: {
+      borderColor: colors.primary,
     },
   });
 };

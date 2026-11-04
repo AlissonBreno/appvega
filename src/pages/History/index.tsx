@@ -1,7 +1,7 @@
 import { ScrollView, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import ScreenHeader from '~/components/shared/ScreenHeader';
+import { ScreenHeader } from '~/components/shared/ScreenHeader';
 import { useNavigationTheme } from '~/hooks/useNavigationTheme';
 
 import DailyCalories from './DailyCalories';
@@ -19,11 +19,13 @@ const History = () => {
 
   return (
     <View style={[styles.screen, { backgroundColor: colors.background }]}>
-      <ScreenHeader
-        icon="chart-bar"
-        title="Histórico"
-        subtitle="Últimos 7 dias"
-      />
+      <ScreenHeader.Root>
+        <ScreenHeader.Row>
+          <ScreenHeader.Icon name="chart-bar" />
+          <ScreenHeader.Title>Histórico</ScreenHeader.Title>
+        </ScreenHeader.Row>
+        <ScreenHeader.Subtitle>Últimos 7 dias</ScreenHeader.Subtitle>
+      </ScreenHeader.Root>
       <ScrollView
         style={styles.scroll}
         contentContainerStyle={[

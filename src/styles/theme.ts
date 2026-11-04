@@ -25,6 +25,7 @@ export const darkTheme: Theme = {
     secondaryText: '#7F8DA2',
     background: '#020617',
     foreground: '#0F172A',
+    foreground2: '#334155',
     formsBackground: '#0F172A',
     border: '#1E293B',
     toast: {
@@ -49,6 +50,7 @@ export const lightTheme: Theme = {
     secondaryText: '#64748B',
     background: '#F5F5F5',
     foreground: '#FFFFFF',
+    foreground2: '#F1F5F9',
     formsBackground: '#FFFFFF',
     border: '#E2E8F0',
     toast: {

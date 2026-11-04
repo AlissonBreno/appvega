@@ -8,17 +8,17 @@ import { macroProgressBarStyles } from './styles';
 
 type MacroProgressBarProps = {
   macros: MealMacros;
-  macroGoal: number;
+  macroGoals: MealMacros;
 };
 
-const MacroProgressBar = ({ macros, macroGoal }: MacroProgressBarProps) => {
+const MacroProgressBar = ({ macros, macroGoals }: MacroProgressBarProps) => {
   const { isDark, theme } = useNavigationTheme();
   const styles = macroProgressBarStyles[isDark ? 'dark' : 'light'];
-  const share = (grams: number) => (macroGoal > 0 ? grams / macroGoal : 0);
+  const share = (grams: number, goal: number) => (goal > 0 ? grams / goal : 0);
   const [carb, protein, fat] = macroArcFractions(
-    share(macros.carb),
-    share(macros.protein),
-    share(macros.fat),
+    share(macros.carb, macroGoals.carb),
+    share(macros.protein, macroGoals.protein),
+    share(macros.fat, macroGoals.fat),
   );
   const segments = [
     { key: 'carb', fraction: carb, color: theme.colors.carb },
