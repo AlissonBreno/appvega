@@ -54,14 +54,12 @@ const Home = () => {
   const styles = homeStyles[isDark ? 'dark' : 'light'];
   const [selectedDate, setSelectedDate] = useState(() => new Date());
   const user = getUser();
-  const macroGoals = perMealMacroGoals(
-    {
-      carb: user.goal_carb,
-      protein: user.goal_prot,
-      fat: user.goal_fat,
-    },
-    meals.length,
-  );
+  // Teto de cada refeição é a meta diária inteira; não dividir por meals.length.
+  const macroGoals = perMealMacroGoals({
+    carb: user.goal_carb,
+    protein: user.goal_prot,
+    fat: user.goal_fat,
+  });
 
   return (
     <View style={[styles.screen, { backgroundColor: colors.background }]}>
