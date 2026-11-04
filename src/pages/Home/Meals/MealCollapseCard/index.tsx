@@ -194,12 +194,14 @@ const Subtotal = ({ macros }: SubtotalProps) => {
 
 type MealCollapseCardProps = {
   meal: Meal;
+  macroGoals: MealMacros;
   onAddFood?: () => void;
   onEditFood?: (food: MealFood) => void;
 };
 
 const MealCollapseCard = ({
   meal,
+  macroGoals,
   onAddFood,
   onEditFood,
 }: MealCollapseCardProps) => {
@@ -232,7 +234,7 @@ const MealCollapseCard = ({
             <Collapse.Chevron name="refeição" />
           </Collapse.Trigger>
         </View>
-        <MacroProgressBar macros={totals.macros} macroGoal={totals.macroGoal} />
+        <MacroProgressBar macros={totals.macros} macroGoals={macroGoals} />
         {meal.foods.length > 0 ? (
           <Collapse.Panel>
             <View>

@@ -21,7 +21,6 @@ const sample = (): Meal[] => [
     kcal: 1,
     itemCount: 1,
     macros: { carb: 1, protein: 1, fat: 1 },
-    macroGoal: 100,
     foods: [food('aveia')],
   },
   {
@@ -31,7 +30,6 @@ const sample = (): Meal[] => [
     kcal: 0,
     itemCount: 0,
     macros: { carb: 0, protein: 0, fat: 0 },
-    macroGoal: 100,
     foods: [],
   },
 ];

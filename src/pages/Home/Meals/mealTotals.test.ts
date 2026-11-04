@@ -22,7 +22,6 @@ const meal = (foods: MealFood[]): Meal => ({
   kcal: 434,
   itemCount: 3,
   macros: { carb: 36, protein: 24, fat: 8 },
-  macroGoal: 100,
   foods,
 });
 
@@ -32,11 +31,10 @@ describe('mealTotals', () => {
       itemCount: 3,
       kcal: 434,
       macros: { carb: 36, protein: 24, fat: 8 },
-      macroGoal: 100,
     });
   });
 
-  test('sums foods and keeps the meal macro goal', () => {
+  test('sums foods into meal totals', () => {
     expect(
       mealTotals(
         meal([
@@ -55,7 +53,6 @@ describe('mealTotals', () => {
       itemCount: 2,
       kcal: 350,
       macros: { carb: 32, protein: 18, fat: 9 },
-      macroGoal: 100,
     });
   });
 });

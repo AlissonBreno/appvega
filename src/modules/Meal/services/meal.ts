@@ -60,7 +60,6 @@ export const getMealsWithFoods = (): HomeMeal[] => {
         protein: totals.protein,
         fat: totals.fat,
       },
-      macroGoal: 0,
       foods: linkedFoods,
     };
   });

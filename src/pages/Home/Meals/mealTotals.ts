@@ -4,7 +4,6 @@ export type MealTotals = {
   itemCount: number;
   kcal: number;
   macros: MealMacros;
-  macroGoal: number;
 };
 
 export const mealTotals = (meal: Meal): MealTotals => {
@@ -13,7 +12,6 @@ export const mealTotals = (meal: Meal): MealTotals => {
       itemCount: meal.itemCount,
       kcal: meal.kcal,
       macros: meal.macros,
-      macroGoal: meal.macroGoal,
     };
   }
 
@@ -35,6 +33,5 @@ export const mealTotals = (meal: Meal): MealTotals => {
       protein: summed.protein,
       fat: summed.fat,
     },
-    macroGoal: meal.macroGoal,
   };
 };

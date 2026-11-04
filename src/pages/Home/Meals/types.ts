@@ -23,6 +23,5 @@ export type Meal = {
   kcal: number;
   itemCount: number;
   macros: MealMacros;
-  macroGoal: number;
   foods: MealFood[];
 };
