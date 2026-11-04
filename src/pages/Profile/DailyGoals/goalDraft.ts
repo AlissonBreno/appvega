@@ -47,6 +47,35 @@ export const MACRO_KCAL_PER_GRAM: Partial<Record<GoalKey, number>> = {
   goal_fat: 9,
 };
 
+export const MACRO_GOAL_KEYS: GoalKey[] = [
+  'goal_carb',
+  'goal_prot',
+  'goal_fat',
+];
+
+export const sumMacroKcal = (draft: GoalDraft): number => {
+  let sum = 0;
+
+  for (const key of MACRO_GOAL_KEYS) {
+    const grams = parseGoalValue(draft[key]);
+    const kcalPerGram = MACRO_KCAL_PER_GRAM[key];
+
+    if (grams === null || kcalPerGram === undefined) {
+      continue;
+    }
+
+    sum += Math.round(grams * kcalPerGram);
+  }
+
+  return sum;
+};
+
+export const syncGoalKcalFromMacros = (draft: GoalDraft): GoalDraft => {
+  const sum = sumMacroKcal(draft);
+
+  return { ...draft, goal_kcal: formatGoalValue(sum) };
+};
+
 export const formatGramsPerKg = (
   gramsText: string,
   weightKg: number,

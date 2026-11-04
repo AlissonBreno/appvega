@@ -11,6 +11,7 @@ import type { User } from '~/types';
 import GoalRow from './GoalRow';
 import {
   GOAL_STEPS,
+  syncGoalKcalFromMacros,
   hasGoalChanges,
   parseGoalDraft,
   toGoalDraft,
@@ -69,7 +70,8 @@ const DailyGoals = ({
       return;
     }
 
-    const parsed = parseGoalDraft(draft);
+    const draftToSave = syncGoalKcalFromMacros(draft);
+    const parsed = parseGoalDraft(draftToSave);
 
     if (parsed === null) {
       return;
