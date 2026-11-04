@@ -1,6 +1,9 @@
 import { useContext } from 'react';
 
-import { MealsContext, type MealsContextValue } from '~/contexts/MealsContext';
+import {
+  MealsContext,
+  type MealsContextValue,
+} from '~/modules/Meal/contexts/MealsContext';
 
 export const useMeals = (): MealsContextValue => {
   const meals = useContext(MealsContext);
