@@ -1,4 +1,4 @@
-import { userMock } from '~/mocks/user';
+import { userMock } from '~/modules/User/mocks/user';
 import type { User } from '~/types';
 
 export type UserGoals = {

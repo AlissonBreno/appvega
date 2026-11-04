@@ -5,7 +5,7 @@ export const userMock: User = {
   email: 'alisson.goulart@example.com',
   password: 'mock-password',
   name: 'Alisson Goulart',
-  age: 26,
+  age: 27,
   weight: 75,
   goal_kcal: 2500,
   goal_carb: 250,
