@@ -6,12 +6,12 @@ import {
   type ReactNode,
 } from 'react';
 
+import { getMealsWithFoods } from '~/modules/Meal/services/meal';
 import {
   addMealFood,
   removeMealFood,
   updateMealFood,
 } from '~/pages/Home/Meals/mealList';
-import { meals as initialMeals } from '~/pages/Home/Meals/meals';
 import type { Meal, MealFood } from '~/pages/Home/Meals/types';
 
 export type MealsContextValue = {
@@ -28,7 +28,7 @@ type MealsProviderProps = {
 };
 
 export const MealsProvider = ({ children }: MealsProviderProps) => {
-  const [meals, setMeals] = useState(initialMeals);
+  const [meals, setMeals] = useState(getMealsWithFoods);
 
   const addFood = useCallback((mealId: string, food: MealFood) => {
     setMeals(current => addMealFood(current, mealId, food));

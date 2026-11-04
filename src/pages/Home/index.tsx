@@ -11,10 +11,12 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { ScreenHeader } from '~/components/shared/ScreenHeader';
 import { useMeals } from '~/hooks/useMeals';
 import { useNavigationTheme } from '~/hooks/useNavigationTheme';
+import { catalog } from '~/pages/SearchFood/catalog';
 import type { StackParamList, TabParamList } from '~/types/Navigation';
 
 import DailyProgress from './DailyProgress';
 import MealCollapseCard from './Meals/MealCollapseCard';
+import type { MealFood } from './Meals/types';
 import WeekDaySelector from './WeekDaySelector';
 import { homeStyles } from './styles';
 
@@ -28,6 +30,16 @@ const formatToday = (date: Date) => {
   });
 
   return formatted.charAt(0).toLocaleUpperCase('pt-BR') + formatted.slice(1);
+};
+
+const resolveCatalogFoodId = (food: MealFood) => {
+  if (catalog.some(item => item.id === food.catalogFoodId)) {
+    return food.catalogFoodId;
+  }
+
+  return (
+    catalog.find(item => item.name === food.name)?.id ?? food.catalogFoodId
+  );
 };
 
 const Home = () => {
@@ -84,7 +96,7 @@ const Home = () => {
                 navigation.navigate('AddFood', {
                   mealId: meal.id,
                   subtitle: `${meal.emoji} ${meal.title}`,
-                  catalogFoodId: food.catalogFoodId,
+                  catalogFoodId: resolveCatalogFoodId(food),
                   mealFoodId: food.id,
                 })
               }
