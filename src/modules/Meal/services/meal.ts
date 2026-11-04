@@ -30,11 +30,11 @@ export const getMealsWithFoods = (): HomeMeal[] => {
             catalogFoodId: String(link.id_food),
             name: food.name,
             emoji: food.emoji,
-            grams: 100,
-            kcal: food.kcal,
-            carb: 0,
-            protein: food.protein,
-            fat: food.fat,
+            grams: link.grams,
+            kcal: link.kcal,
+            carb: link.carb,
+            protein: link.protein,
+            fat: link.fat,
           },
         ];
       });

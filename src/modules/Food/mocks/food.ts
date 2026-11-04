@@ -17,6 +17,7 @@ export const foodsMock: Food[] = [
     kcal: 389,
     protein: 16.9,
     fat: 6.9,
+    carb: 66.3,
     humidity: 70.1,
     cholesterol: 0,
     fiber: 2.7,
@@ -31,6 +32,7 @@ export const foodsMock: Food[] = [
     kcal: 100,
     protein: 17,
     fat: 0.7,
+    carb: 3.6,
     ...emptyComposition,
   },
   {
@@ -40,6 +42,7 @@ export const foodsMock: Food[] = [
     kcal: 89,
     protein: 1.1,
     fat: 0.3,
+    carb: 23,
     ...emptyComposition,
   },
   {
@@ -49,6 +52,7 @@ export const foodsMock: Food[] = [
     kcal: 165,
     protein: 31,
     fat: 3.6,
+    carb: 0,
     ...emptyComposition,
   },
   {
@@ -58,6 +62,7 @@ export const foodsMock: Food[] = [
     kcal: 123,
     protein: 2.7,
     fat: 1,
+    carb: 25.6,
     ...emptyComposition,
   },
   {
@@ -67,6 +72,7 @@ export const foodsMock: Food[] = [
     kcal: 86,
     protein: 1.6,
     fat: 0.1,
+    carb: 20,
     ...emptyComposition,
   },
   {
@@ -76,6 +82,7 @@ export const foodsMock: Food[] = [
     kcal: 155,
     protein: 13,
     fat: 11,
+    carb: 1.1,
     ...emptyComposition,
   },
   {
@@ -85,6 +92,7 @@ export const foodsMock: Food[] = [
     kcal: 160,
     protein: 2,
     fat: 14.7,
+    carb: 8.5,
     ...emptyComposition,
   },
   {
@@ -94,6 +102,7 @@ export const foodsMock: Food[] = [
     kcal: 208,
     protein: 20,
     fat: 13,
+    carb: 0,
     ...emptyComposition,
   },
   {
@@ -103,6 +112,7 @@ export const foodsMock: Food[] = [
     kcal: 52,
     protein: 0.3,
     fat: 0.2,
+    carb: 14,
     ...emptyComposition,
   },
   {
@@ -112,6 +122,7 @@ export const foodsMock: Food[] = [
     kcal: 579,
     protein: 21,
     fat: 50,
+    carb: 22,
     ...emptyComposition,
   },
 ];

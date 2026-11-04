@@ -5,6 +5,7 @@ export type Food = {
   kcal: number;
   protein: number;
   fat: number;
+  carb: number;
   humidity: number;
   cholesterol: number;
   fiber: number;
