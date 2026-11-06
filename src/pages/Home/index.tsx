@@ -4,7 +4,7 @@ import {
   type CompositeNavigationProp,
 } from '@react-navigation/native';
 import type { StackNavigationProp } from '@react-navigation/stack';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { ScrollView, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -12,6 +12,7 @@ import { ScreenHeader } from '~/components/shared/ScreenHeader';
 import { useMeals } from '~/hooks/useMeals';
 import { useNavigationTheme } from '~/hooks/useNavigationTheme';
 import type { Meal, MealFood } from '~/modules/Meal/types/MealView';
+import { dailyMealTotals } from '~/modules/Meal/utils/dailyMealTotals';
 import { getUser } from '~/modules/User/services/user';
 import { catalog } from '~/pages/SearchFood/catalog';
 import type { StackParamList, TabParamList } from '~/types/Navigation';
@@ -64,6 +65,8 @@ const Home = () => {
     fat: user.goal_fat,
   };
 
+  const totals = useMemo(() => dailyMealTotals(meals), [meals]);
+
   const handleOnAddFood = (meal: Meal) => {
     navigation.navigate('SearchFood', {
       mealId: meal.id,
@@ -102,7 +105,12 @@ const Home = () => {
           selectedDate={selectedDate}
           onSelectDate={setSelectedDate}
         />
-        <DailyProgress />
+        <DailyProgress
+          kcal={totals.kcal}
+          goalKcal={user.goal_kcal}
+          macros={totals.macros}
+          goals={macroGoals}
+        />
         <View style={styles.meals}>
           <Text style={styles.mealsTitle}>Refeições</Text>
           {meals.map(meal => (

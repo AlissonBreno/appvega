@@ -7,10 +7,10 @@ export const userMock: User = {
   name: 'Alisson Goulart',
   age: 27,
   weight: 75,
-  goal_kcal: 2500,
-  goal_carb: 250,
+  goal_kcal: 2200,
+  goal_carb: 220,
   goal_prot: 150,
-  goal_fat: 65,
+  goal_fat: 75,
   created_at: '2026-01-01T00:00:00.000Z',
   edited_at: '2026-01-01T00:00:00.000Z',
 };
