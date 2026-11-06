@@ -1,3 +1,5 @@
+import { isSameDay, startOfDay } from '~/utils/date';
+
 const WEEKDAY_INITIALS = ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'] as const;
 
 export type WeekDay = {
@@ -10,14 +12,6 @@ export type WeekDay = {
 
 export const isGoalMet = (caloriesEaten: number, dailyGoalKcal: number) =>
   caloriesEaten >= dailyGoalKcal;
-
-const isSameDay = (left: Date, right: Date) =>
-  left.getFullYear() === right.getFullYear() &&
-  left.getMonth() === right.getMonth() &&
-  left.getDate() === right.getDate();
-
-const startOfDay = (date: Date) =>
-  new Date(date.getFullYear(), date.getMonth(), date.getDate());
 
 type BuildWeekDaysParams = {
   selectedDate: Date;

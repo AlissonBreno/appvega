@@ -1,23 +1,25 @@
 import type { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import {
+  useFocusEffect,
   useNavigation,
   type CompositeNavigationProp,
 } from '@react-navigation/native';
 import type { StackNavigationProp } from '@react-navigation/stack';
-import { useMemo, useState } from 'react';
+import { useCallback, useMemo } from 'react';
 import { ScrollView, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { ScreenHeader } from '~/components/shared/ScreenHeader';
 import { useMeals } from '~/hooks/useMeals';
 import { useNavigationTheme } from '~/hooks/useNavigationTheme';
+import { useUser } from '~/hooks/useUser';
 import type { Meal, MealFood } from '~/modules/Meal/types/MealView';
 import { dailyMealTotals } from '~/modules/Meal/utils/dailyMealTotals';
-import { getUser } from '~/modules/User/services/user';
 import { catalog } from '~/pages/SearchFood/catalog';
 import type { StackParamList, TabParamList } from '~/types/Navigation';
 
 import DailyProgress from './DailyProgress';
+import HomeSkeleton from './HomeSkeleton';
 import MealCollapseCard from './Meals/MealCollapseCard';
 import WeekDaySelector from './WeekDaySelector';
 import { homeStyles } from './styles';
@@ -52,12 +54,19 @@ const resolveCatalogFoodId = (food: MealFood) => {
 const Home = () => {
   const navigation = useNavigation<HomeNavigationProp>();
   const insets = useSafeAreaInsets();
-  const { meals } = useMeals();
+  const { meals, selectedDate, isLoading, selectDate, refreshMeals } =
+    useMeals();
+  const { user, refreshUser } = useUser();
   const { isDark, theme } = useNavigationTheme();
   const { colors } = theme;
   const styles = homeStyles[isDark ? 'dark' : 'light'];
-  const [selectedDate, setSelectedDate] = useState(() => new Date());
-  const user = getUser();
+
+  useFocusEffect(
+    useCallback(() => {
+      refreshMeals();
+      refreshUser();
+    }, [refreshMeals, refreshUser]),
+  );
 
   const macroGoals = {
     carb: user.goal_carb,
@@ -103,26 +112,32 @@ const Home = () => {
       >
         <WeekDaySelector
           selectedDate={selectedDate}
-          onSelectDate={setSelectedDate}
+          onSelectDate={selectDate}
         />
-        <DailyProgress
-          kcal={totals.kcal}
-          goalKcal={user.goal_kcal}
-          macros={totals.macros}
-          goals={macroGoals}
-        />
-        <View style={styles.meals}>
-          <Text style={styles.mealsTitle}>Refeições</Text>
-          {meals.map(meal => (
-            <MealCollapseCard
-              key={meal.id}
-              meal={meal}
-              macroGoals={macroGoals}
-              onAddFood={() => handleOnAddFood(meal)}
-              onEditFood={food => handleOnEditFood(meal, food)}
+        {isLoading ? (
+          <HomeSkeleton />
+        ) : (
+          <View>
+            <DailyProgress
+              kcal={totals.kcal}
+              goalKcal={user.goal_kcal}
+              macros={totals.macros}
+              goals={macroGoals}
             />
-          ))}
-        </View>
+            <View style={styles.meals}>
+              <Text style={styles.mealsTitle}>Refeições</Text>
+              {meals.map(meal => (
+                <MealCollapseCard
+                  key={meal.id}
+                  meal={meal}
+                  macroGoals={macroGoals}
+                  onAddFood={() => handleOnAddFood(meal)}
+                  onEditFood={food => handleOnEditFood(meal, food)}
+                />
+              ))}
+            </View>
+          </View>
+        )}
       </ScrollView>
     </View>
   );

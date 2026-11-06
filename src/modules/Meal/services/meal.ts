@@ -1,20 +1,55 @@
 import { getFoods } from '~/modules/Food/services/food';
 import { mealsMock } from '~/modules/Meal/mocks/meal';
 import { mealsFoodsMock } from '~/modules/Meal/mocks/mealsFood';
-import type {
-  Meal as MealView,
-  MealFood,
-} from '~/modules/Meal/types/MealView';
+import type { Meal as MealView, MealFood } from '~/modules/Meal/types/MealView';
 import type { Meal, MealsFood } from '~/types';
+import { isSameDay } from '~/utils/date';
 
 export const getMeals = (): Meal[] => mealsMock;
 
 export const getMealsFoods = (): MealsFood[] => mealsFoodsMock;
 
-export const getMealsWithFoods = (): MealView[] => {
+const MOCK_UPDATE_DELAY_MS = 500;
+
+const waitForMock = () =>
+  new Promise<void>(resolve => {
+    setTimeout(() => {
+      resolve();
+    }, MOCK_UPDATE_DELAY_MS);
+  });
+
+const resolveFoodId = (food: MealFood) => {
+  const numericId = Number(food.catalogFoodId);
+  const foods = getFoods();
+
+  if (
+    Number.isInteger(numericId) &&
+    foods.some(item => item.id_food === numericId)
+  ) {
+    return numericId;
+  }
+
+  return foods.find(item => item.name === food.name)?.id_food ?? numericId;
+};
+
+const matchesEntry = (
+  link: MealsFood,
+  mealId: number,
+  foodId: number,
+  date: Date,
+) =>
+  link.id_meal === mealId &&
+  link.id_food === foodId &&
+  isSameDay(new Date(link.created_at), date);
+
+export const getMealsWithFoods = async (date: Date): Promise<MealView[]> => {
+  await waitForMock();
+
   const meals = getMeals();
   const foods = getFoods();
-  const mealsFoods = getMealsFoods();
+  const mealsFoods = getMealsFoods().filter(link =>
+    isSameDay(new Date(link.created_at), date),
+  );
 
   return meals.map(meal => {
     const linkedFoods: MealFood[] = mealsFoods
@@ -49,4 +84,68 @@ export const getMealsWithFoods = (): MealView[] => {
       foods: linkedFoods,
     };
   });
+};
+
+export const addMealFoodEntry = async (
+  mealId: string,
+  food: MealFood,
+  date: Date,
+): Promise<void> => {
+  const idMeal = Number(mealId);
+  const meal = mealsMock.find(item => item.id_meal === idMeal);
+  const now = new Date().toISOString();
+
+  mealsFoodsMock.push({
+    id_meal: idMeal,
+    id_food: resolveFoodId(food),
+    id_user: meal?.id_user ?? 1,
+    grams: food.grams,
+    kcal: food.kcal,
+    protein: food.protein,
+    fat: food.fat,
+    carb: food.carb,
+    created_at: date.toISOString(),
+    edited_at: now,
+  });
+
+  await waitForMock();
+};
+
+export const updateMealFoodEntry = async (
+  mealId: string,
+  food: MealFood,
+  date: Date,
+): Promise<void> => {
+  const entry = mealsFoodsMock.find(link =>
+    matchesEntry(link, Number(mealId), resolveFoodId(food), date),
+  );
+
+  if (!entry) {
+    return;
+  }
+
+  entry.grams = food.grams;
+  entry.kcal = food.kcal;
+  entry.protein = food.protein;
+  entry.fat = food.fat;
+  entry.carb = food.carb;
+  entry.edited_at = new Date().toISOString();
+
+  await waitForMock();
+};
+
+export const removeMealFoodEntry = async (
+  mealId: string,
+  food: MealFood,
+  date: Date,
+): Promise<void> => {
+  const index = mealsFoodsMock.findIndex(link =>
+    matchesEntry(link, Number(mealId), resolveFoodId(food), date),
+  );
+
+  if (index >= 0) {
+    mealsFoodsMock.splice(index, 1);
+  }
+
+  await waitForMock();
 };

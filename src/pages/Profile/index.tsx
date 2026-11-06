@@ -10,8 +10,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { ScreenHeader } from '~/components/shared/ScreenHeader';
 import { useNavigationTheme } from '~/hooks/useNavigationTheme';
-import { getUser } from '~/modules/User/services/user';
-import type { User } from '~/types';
+import { useUser } from '~/hooks/useUser';
 
 import AppAbout from './AppAbout';
 import DailyGoals from './DailyGoals';
@@ -27,7 +26,7 @@ const Profile = () => {
   const insets = useSafeAreaInsets();
   const { theme } = useNavigationTheme();
   const { colors } = theme;
-  const [user, setUser] = useState<User>(getUser);
+  const { user, setUser } = useUser();
   const [keyboardHeight, setKeyboardHeight] = useState(0);
 
   const scrollRef = useRef<ScrollView>(null);
