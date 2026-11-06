@@ -7,10 +7,10 @@ import Icon from '~/components/ui/Icon';
 import { useMeals } from '~/hooks/useMeals';
 import { useNavigationTheme } from '~/hooks/useNavigationTheme';
 import { useToast } from '~/hooks/useToast';
+import type { Meal, MealFood, MealMacros } from '~/modules/Meal/types/MealView';
+import { mealTotals } from '~/modules/Meal/utils/mealTotals';
 
 import MacroProgressBar from '../MacroProgressBar';
-import { mealTotals } from '../mealTotals';
-import type { Meal, MealFood, MealMacros } from '../types';
 import { mealCollapseCardStyles } from './styles';
 
 const FOOD_ACTION_SIZE = 44;

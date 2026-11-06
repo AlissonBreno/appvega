@@ -1,4 +1,4 @@
-import type { Meal, MealFood } from './types';
+import type { Meal, MealFood } from '~/modules/Meal/types/MealView';
 
 export const addMealFood = (
   meals: Meal[],

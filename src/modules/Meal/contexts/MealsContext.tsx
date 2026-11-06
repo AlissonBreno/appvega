@@ -11,8 +11,8 @@ import {
   addMealFood,
   removeMealFood,
   updateMealFood,
-} from '~/pages/Home/Meals/mealList';
-import type { Meal, MealFood } from '~/pages/Home/Meals/types';
+} from '~/modules/Meal/utils/mealList';
+import type { Meal, MealFood } from '~/modules/Meal/types/MealView';
 
 export type MealsContextValue = {
   meals: Meal[];

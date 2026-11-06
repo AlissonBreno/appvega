@@ -1,4 +1,4 @@
-import type { Meal, MealMacros } from './types';
+import type { Meal, MealMacros } from '~/modules/Meal/types/MealView';
 
 export type MealTotals = {
   itemCount: number;
@@ -7,14 +7,6 @@ export type MealTotals = {
 };
 
 export const mealTotals = (meal: Meal): MealTotals => {
-  if (meal.foods.length === 0) {
-    return {
-      itemCount: meal.itemCount,
-      kcal: meal.kcal,
-      macros: meal.macros,
-    };
-  }
-
   const summed = meal.foods.reduce(
     (totals, food) => ({
       kcal: totals.kcal + food.kcal,

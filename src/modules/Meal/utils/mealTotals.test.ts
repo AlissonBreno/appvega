@@ -1,5 +1,5 @@
 import { mealTotals } from './mealTotals';
-import type { Meal, MealFood } from './types';
+import type { Meal, MealFood } from '~/modules/Meal/types/MealView';
 
 const food = (
   overrides: Partial<MealFood> & Pick<MealFood, 'id'>,
@@ -19,18 +19,15 @@ const meal = (foods: MealFood[]): Meal => ({
   id: 'cafe-da-manha',
   title: 'Café da manhã',
   emoji: '☕',
-  kcal: 434,
-  itemCount: 3,
-  macros: { carb: 36, protein: 24, fat: 8 },
   foods,
 });
 
 describe('mealTotals', () => {
-  test('uses the static meal fields when there are no foods', () => {
+  test('returns zeros when there are no foods', () => {
     expect(mealTotals(meal([]))).toEqual({
-      itemCount: 3,
-      kcal: 434,
-      macros: { carb: 36, protein: 24, fat: 8 },
+      itemCount: 0,
+      kcal: 0,
+      macros: { carb: 0, protein: 0, fat: 0 },
     });
   });
 

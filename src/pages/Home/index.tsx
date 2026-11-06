@@ -11,14 +11,13 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { ScreenHeader } from '~/components/shared/ScreenHeader';
 import { useMeals } from '~/hooks/useMeals';
 import { useNavigationTheme } from '~/hooks/useNavigationTheme';
+import type { MealFood } from '~/modules/Meal/types/MealView';
 import { getUser } from '~/modules/User/services/user';
 import { catalog } from '~/pages/SearchFood/catalog';
 import type { StackParamList, TabParamList } from '~/types/Navigation';
 
 import DailyProgress from './DailyProgress';
 import MealCollapseCard from './Meals/MealCollapseCard';
-import { perMealMacroGoals } from './Meals/macroGoals';
-import type { MealFood } from './Meals/types';
 import WeekDaySelector from './WeekDaySelector';
 import { homeStyles } from './styles';
 
@@ -55,11 +54,11 @@ const Home = () => {
   const [selectedDate, setSelectedDate] = useState(() => new Date());
   const user = getUser();
   // Teto de cada refeição é a meta diária inteira; não dividir por meals.length.
-  const macroGoals = perMealMacroGoals({
+  const macroGoals = {
     carb: user.goal_carb,
     protein: user.goal_prot,
     fat: user.goal_fat,
-  });
+  };
 
   return (
     <View style={[styles.screen, { backgroundColor: colors.background }]}>

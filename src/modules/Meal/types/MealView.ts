@@ -20,8 +20,5 @@ export type Meal = {
   id: string;
   title: string;
   emoji: string;
-  kcal: number;
-  itemCount: number;
-  macros: MealMacros;
   foods: MealFood[];
 };

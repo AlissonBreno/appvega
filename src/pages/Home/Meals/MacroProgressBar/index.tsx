@@ -3,7 +3,8 @@ import { View } from 'react-native';
 import { useNavigationTheme } from '~/hooks/useNavigationTheme';
 import { macroArcFractions } from '~/pages/Home/DailyProgress/macroArcFractions';
 
-import type { MealMacros } from '../types';
+import type { MealMacros } from '~/modules/Meal/types/MealView';
+
 import { macroProgressBarStyles } from './styles';
 
 type MacroProgressBarProps = {

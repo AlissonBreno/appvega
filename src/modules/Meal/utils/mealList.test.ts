@@ -1,5 +1,5 @@
 import { addMealFood, removeMealFood, updateMealFood } from './mealList';
-import type { Meal, MealFood } from './types';
+import type { Meal, MealFood } from '~/modules/Meal/types/MealView';
 
 const food = (id: string, grams = 100): MealFood => ({
   id,
@@ -18,18 +18,12 @@ const sample = (): Meal[] => [
     id: 'cafe',
     title: 'Café',
     emoji: '☕',
-    kcal: 1,
-    itemCount: 1,
-    macros: { carb: 1, protein: 1, fat: 1 },
     foods: [food('aveia')],
   },
   {
     id: 'almoco',
     title: 'Almoço',
     emoji: '🍛',
-    kcal: 0,
-    itemCount: 0,
-    macros: { carb: 0, protein: 0, fat: 0 },
     foods: [],
   },
 ];

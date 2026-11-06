@@ -1,14 +1,17 @@
+import { getFoods } from '~/modules/Food/services/food';
 import { mealsMock } from '~/modules/Meal/mocks/meal';
 import { mealsFoodsMock } from '~/modules/Meal/mocks/mealsFood';
-import { getFoods } from '~/modules/Food/services/food';
+import type {
+  Meal as MealView,
+  MealFood,
+} from '~/modules/Meal/types/MealView';
 import type { Meal, MealsFood } from '~/types';
-import type { Meal as HomeMeal, MealFood } from '~/pages/Home/Meals/types';
 
 export const getMeals = (): Meal[] => mealsMock;
 
 export const getMealsFoods = (): MealsFood[] => mealsFoodsMock;
 
-export const getMealsWithFoods = (): HomeMeal[] => {
+export const getMealsWithFoods = (): MealView[] => {
   const meals = getMeals();
   const foods = getFoods();
   const mealsFoods = getMealsFoods();
@@ -39,27 +42,10 @@ export const getMealsWithFoods = (): HomeMeal[] => {
         ];
       });
 
-    const totals = linkedFoods.reduce(
-      (sum, food) => ({
-        kcal: sum.kcal + food.kcal,
-        carb: sum.carb + food.carb,
-        protein: sum.protein + food.protein,
-        fat: sum.fat + food.fat,
-      }),
-      { kcal: 0, carb: 0, protein: 0, fat: 0 },
-    );
-
     return {
       id: String(meal.id_meal),
       title: meal.name,
       emoji: meal.emoji,
-      kcal: totals.kcal,
-      itemCount: linkedFoods.length,
-      macros: {
-        carb: totals.carb,
-        protein: totals.protein,
-        fat: totals.fat,
-      },
       foods: linkedFoods,
     };
   });
