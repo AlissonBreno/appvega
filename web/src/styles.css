@@ -21,76 +21,11 @@ input {
   min-height: 100%;
 }
 
-.screen-header {
-  background: var(--surface-card);
-  padding: 16px 16px 16px;
-}
-
-.screen-header-row {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.screen-title {
-  margin: 0;
-  font-size: 20px;
-  font-weight: 700;
-  line-height: 25px;
-}
-
-.screen-subtitle {
-  margin: 4px 0 0;
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 21px;
-  color: var(--text-muted);
-}
-
 .screen-body {
   padding: 24px 16px 128px;
   display: flex;
   flex-direction: column;
   gap: 24px;
-}
-
-.tab-bar {
-  position: fixed;
-  z-index: 20;
-  display: flex;
-  background: var(--surface-card);
-  border: 1px solid var(--border-subtle);
-  border-radius: 9999px;
-}
-
-.tab-bar-mobile {
-  left: 50%;
-  bottom: 16px;
-  transform: translateX(-50%);
-  height: 72px;
-}
-
-.tab-bar-desktop {
-  left: 16px;
-  top: 50%;
-  transform: translateY(-50%);
-  flex-direction: column;
-  width: 72px;
-}
-
-.tab-link {
-  width: 72px;
-  height: 72px;
-  display: grid;
-  place-items: center;
-  color: var(--text-muted);
-  text-decoration: none;
-  border-radius: 9999px;
-}
-
-.tab-link-active {
-  background: var(--nav-active);
-  color: var(--surface-card);
 }
 
 .login-screen {
@@ -128,84 +63,6 @@ input {
   gap: 16px;
 }
 
-.field {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.field-label {
-  font-size: 14px;
-  font-weight: 500;
-}
-
-.field-box {
-  min-height: 52px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 0 16px;
-  border: 1px solid var(--border-subtle);
-  border-radius: 12px;
-  background: var(--surface-card);
-}
-
-.field-box input {
-  flex: 1;
-  border: 0;
-  outline: none;
-  background: transparent;
-  font-size: 16px;
-}
-
-.field-box input::placeholder {
-  color: var(--text-muted);
-}
-
-.btn {
-  min-height: 60px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  border-radius: 12px;
-  border: 1px solid var(--border-subtle);
-  background: var(--surface-app);
-  color: var(--text-muted);
-  font-size: 16px;
-  font-weight: 500;
-}
-
-.btn:disabled {
-  cursor: default;
-}
-
-.btn-signin {
-  border-color: transparent;
-  background: var(--text-primary);
-  color: var(--surface-app);
-  opacity: 1;
-}
-
-.btn-google {
-  background: var(--surface-card);
-  color: var(--text-primary);
-}
-
-.divider {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  color: var(--text-muted);
-  font-size: 14px;
-}
-
-.divider span {
-  flex: 1;
-  height: 1px;
-  background: var(--border-subtle);
-}
-
 .week {
   display: flex;
   justify-content: space-between;
@@ -232,15 +89,6 @@ input {
   text-align: center;
 }
 
-.card {
-  background: var(--surface-card);
-  border-radius: 20px;
-  padding: 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
 .progress-card {
   border-radius: 0;
   margin-inline: -16px;
@@ -264,6 +112,12 @@ input {
   font-size: 14px;
 }
 
+.mono {
+  font-family: "Fira Code", monospace;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
 .goal-title {
   margin: 0;
   font-size: 24px;
@@ -284,54 +138,6 @@ input {
   font-weight: 500;
 }
 
-.section-title {
-  margin: 0;
-  font-size: 20px;
-  font-weight: 700;
-}
-
-.meal {
-  background: var(--surface-card);
-  border: 1px solid var(--border-subtle);
-  border-radius: 20px;
-  padding: 16px;
-}
-
-.meal-summary {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  border: 0;
-  background: transparent;
-  text-align: left;
-  padding: 0;
-}
-
-.meal-plus {
-  width: 36px;
-  height: 36px;
-  border-radius: 9999px;
-  border: 1px solid var(--border-subtle);
-  background: var(--surface-app);
-  color: var(--brand-green);
-}
-
-.macro-track {
-  display: flex;
-  height: 6px;
-  gap: 2px;
-  margin-top: 12px;
-  background: var(--border-subtle);
-  border-radius: 9999px;
-  overflow: hidden;
-}
-
-.macro-track i {
-  display: block;
-  height: 100%;
-}
-
 .food-row {
   display: flex;
   justify-content: space-between;
@@ -339,19 +145,13 @@ input {
   padding-top: 12px;
   border-top: 1px solid var(--border-subtle);
   margin-top: 12px;
-}
-
-.food-actions {
-  display: flex;
-  gap: 8px;
-}
-
-.food-actions button {
-  width: 44px;
-  height: 44px;
-  border-radius: 12px;
-  border: 1px solid var(--border-subtle);
-  background: var(--surface-app);
+  width: 100%;
+  border-left: 0;
+  border-right: 0;
+  border-bottom: 0;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
 }
 
 .skeleton {
@@ -371,47 +171,6 @@ input {
   display: flex;
   flex-direction: column;
   gap: 24px;
-}
-
-@media (min-width: 1024px) {
-  .app-column {
-    padding-left: 104px;
-  }
-
-  .login-column {
-    max-width: 400px;
-  }
-
-  .screen-body {
-    padding-bottom: 32px;
-  }
-
-  .progress-card {
-    border-radius: 16px;
-    margin-inline: 0;
-    width: 480px;
-  }
-
-  .home-grid {
-    flex-direction: row;
-    align-items: flex-start;
-  }
-
-  .meals-column {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-
-  .history-grid,
-  .profile-grid,
-  .add-grid {
-    display: grid;
-    grid-template-columns: 1fr 420px;
-    gap: 24px;
-    align-items: start;
-  }
 }
 
 .stat-row {
@@ -473,14 +232,46 @@ input {
   border-radius: 12px;
 }
 
-.toast {
-  position: fixed;
-  right: 16px;
-  bottom: 96px;
-  z-index: 3;
-  padding: 12px 16px;
-  border: 0;
-  border-radius: 12px;
-  background: var(--surface-card);
-  box-shadow: 0 8px 24px rgb(2 6 23 / 24%);
+.meals-column {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+@media (min-width: 1024px) {
+  .app-column {
+    padding-left: 104px;
+  }
+
+  .login-column {
+    max-width: 400px;
+  }
+
+  .screen-body {
+    padding-bottom: 32px;
+  }
+
+  .progress-card {
+    border-radius: 16px;
+    margin-inline: 0;
+    width: 480px;
+  }
+
+  .home-grid {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  .meals-column {
+    flex: 1;
+  }
+
+  .history-grid,
+  .profile-grid,
+  .add-grid {
+    display: grid;
+    grid-template-columns: 1fr 420px;
+    gap: 24px;
+    align-items: start;
+  }
 }

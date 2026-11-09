@@ -1,8 +1,14 @@
 import { createContext, useContext, useMemo, useState, type ReactNode } from 'react';
+import type { ToastVariant } from '../components/ui/Toast';
 import { applyScheme, resolveInitialScheme } from '../theme/scheme';
 import type { Scheme } from '../theme/tokens';
 
-type Toast = { id: number; message: string };
+type Toast = { id: number; message: string; variant: ToastVariant };
+
+type ShowToastInput = {
+  message: string;
+  variant: ToastVariant;
+};
 
 type SessionValue = {
   selectedDate: Date;
@@ -10,7 +16,7 @@ type SessionValue = {
   scheme: Scheme;
   setScheme: (scheme: Scheme) => void;
   toast: Toast | null;
-  showToast: (message: string) => void;
+  showToast: (input: ShowToastInput) => void;
   dismissToast: () => void;
 };
 
@@ -35,7 +41,8 @@ export const SessionProvider = ({ children }: { children: ReactNode }) => {
       scheme,
       setScheme,
       toast,
-      showToast: (message: string) => setToast({ id: Date.now(), message }),
+      showToast: (input: ShowToastInput) =>
+        setToast({ id: Date.now(), message: input.message, variant: input.variant }),
       dismissToast: () => setToast(null),
     }),
     [selectedDate, scheme, toast],

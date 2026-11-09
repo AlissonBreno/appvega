@@ -5,7 +5,12 @@ import { formatToday } from '../app/formatToday';
 import { resolveCatalogFoodId } from '../app/filterCatalog';
 import { useSession } from '../app/session';
 import { weekDaysAround } from '../app/weekDays';
-import { Icon } from '../components/Icons';
+import { ScreenHeader } from '../components/shared/ScreenHeader';
+import { Card } from '../components/ui/Card';
+import { Collapse } from '../components/ui/Collapse';
+import Icon from '../components/ui/Icon';
+
+import pageStyles from './HomePage.module.css';
 
 const CALORIES_EATEN = 1108;
 const DAILY_GOAL_KCAL = 2600;
@@ -70,20 +75,20 @@ const HomePage = () => {
 
     await removeMealFoodEntry(meal.id, food, selectedDate);
     setMeals(await getMealsWithFoods(selectedDate));
-    showToast('Exclusão realizada com sucesso');
+    showToast({ message: 'Exclusão realizada com sucesso', variant: 'success' });
   };
 
   return (
     <main>
-      <header className="screen-header">
-        <div className="screen-header-row">
-          <span style={{ color: 'var(--brand-green)' }}>
-            <Icon name="heart" size={24} />
-          </span>
-          <h1 className="screen-title">VEGA</h1>
-        </div>
-        <p className="screen-subtitle">{formatToday(today)}</p>
-      </header>
+      <ScreenHeader.Root>
+        <ScreenHeader.Row>
+          <ScreenHeader.Icon name="heart-rate" />
+          <ScreenHeader.TextColumn>
+            <ScreenHeader.Title>VEGA</ScreenHeader.Title>
+            <ScreenHeader.Subtitle>{formatToday(today)}</ScreenHeader.Subtitle>
+          </ScreenHeader.TextColumn>
+        </ScreenHeader.Row>
+      </ScreenHeader.Root>
       <div className="screen-body">
         <div className="week">
           {weekDaysAround(selectedDate).map(day => {
@@ -107,7 +112,7 @@ const HomePage = () => {
           <div className="skeleton" aria-label="Carregando refeições" />
         ) : (
           <div className="home-grid">
-            <section className="card progress-card" aria-label="Progresso do dia">
+            <Card.Root className="progress-card" aria-label="Progresso do dia">
               <div className="progress-layout">
                 <svg width="120" height="120" viewBox="0 0 120 120" aria-hidden>
                   <circle cx="60" cy="60" r="46" fill="none" stroke="var(--border-subtle)" strokeWidth="10" />
@@ -153,9 +158,9 @@ const HomePage = () => {
                   <strong>{Math.round(totals.fat)} / {user.goal_fat}g</strong>
                 </div>
               </div>
-            </section>
+            </Card.Root>
             <section className="meals-column">
-              <h2 className="section-title">Refeições</h2>
+              <Card.SectionTitle title="Refeições" />
               {meals.map(meal => {
                 const mealKcal = meal.foods.reduce((sum, food) => sum + food.kcal, 0);
                 const mealMacros = meal.foods.reduce(
@@ -176,42 +181,42 @@ const HomePage = () => {
                 const mealArcs = mealFractions.map(value => value * mealScale);
                 const open = openMealId === meal.id;
                 return (
-                  <article className="meal" key={meal.id}>
-                    <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
-                      <button
-                        className="meal-summary"
-                        type="button"
-                        aria-label={open ? `Recolher ${meal.title}` : `Expandir ${meal.title}`}
-                        onClick={() => setOpenMealId(open ? null : meal.id)}
-                      >
-                        <span>{meal.emoji}</span>
-                        <span>
-                          <strong>{meal.title}</strong>
-                          <div className="muted">{meal.foods.length} itens</div>
-                        </span>
-                        <strong style={{ marginLeft: 'auto' }}>{formatKcal(mealKcal)} kcal</strong>
-                      </button>
-                      <button
-                        className="meal-plus"
-                        type="button"
-                        aria-label={`Adicionar em ${meal.title}`}
-                        onClick={() =>
-                          navigate(
-                            `/buscar?mealId=${meal.id}&subtitle=${encodeURIComponent(`${meal.emoji} ${meal.title}`)}`,
-                          )
-                        }
-                      >
-                        <Icon name="plus" size={16} />
-                      </button>
-                    </div>
-                    <div className="macro-track" aria-hidden>
-                      <i style={{ width: `${mealArcs[0] * 100}%`, background: 'var(--accent-carb)' }} />
-                      <i style={{ width: `${mealArcs[1] * 100}%`, background: 'var(--accent-protein)' }} />
-                      <i style={{ width: `${mealArcs[2] * 100}%`, background: 'var(--accent-fat)' }} />
-                    </div>
-                    {open
-                      ? meal.foods.map(food => (
-                          <div className="food-row" key={food.id}>
+                  <Card.Root key={meal.id} className={pageStyles.mealCard}>
+                    <Collapse.Root
+                      expanded={open}
+                      onToggle={() => setOpenMealId(open ? null : meal.id)}
+                    >
+                      <div className={pageStyles.mealHeader}>
+                        <Collapse.Trigger className={pageStyles.mealSummary}>
+                          <span>{meal.emoji}</span>
+                          <span>
+                            <strong>{meal.title}</strong>
+                            <div className="muted">{meal.foods.length} itens</div>
+                          </span>
+                          <strong className={pageStyles.mealKcal}>{formatKcal(mealKcal)} kcal</strong>
+                          <Collapse.Chevron name={meal.title} />
+                        </Collapse.Trigger>
+                        <button
+                          className={pageStyles.mealPlus}
+                          type="button"
+                          aria-label={`Adicionar em ${meal.title}`}
+                          onClick={() =>
+                            navigate(
+                              `/buscar?mealId=${meal.id}&subtitle=${encodeURIComponent(`${meal.emoji} ${meal.title}`)}`,
+                            )
+                          }
+                        >
+                          <Icon name="plus" size={16} color="var(--brand-green)" />
+                        </button>
+                      </div>
+                      <div className={pageStyles.macroTrack} aria-hidden>
+                        <i style={{ width: `${mealArcs[0] * 100}%`, background: 'var(--accent-carb)' }} />
+                        <i style={{ width: `${mealArcs[1] * 100}%`, background: 'var(--accent-protein)' }} />
+                        <i style={{ width: `${mealArcs[2] * 100}%`, background: 'var(--accent-fat)' }} />
+                      </div>
+                      <Collapse.Panel>
+                        {meal.foods.map(food => (
+                          <div className={pageStyles.foodRow} key={food.id}>
                             <div>
                               <strong>
                                 {food.emoji} {food.name}
@@ -220,9 +225,10 @@ const HomePage = () => {
                                 {food.grams} g · C {food.carb} · P {food.protein} · G {food.fat}
                               </div>
                             </div>
-                            <div className="food-actions">
+                            <div className={pageStyles.foodActions}>
                               <strong>{formatKcal(food.kcal)}</strong>
                               <button
+                                className={pageStyles.foodAction}
                                 type="button"
                                 aria-label={`Editar ${food.name}`}
                                 onClick={() => {
@@ -236,20 +242,22 @@ const HomePage = () => {
                                   );
                                 }}
                               >
-                                ✎
+                                <Icon name="pencil" size={16} color="var(--text-primary)" />
                               </button>
                               <button
+                                className={pageStyles.foodAction}
                                 type="button"
                                 aria-label={`Excluir ${food.name}`}
                                 onClick={() => removeFood(meal, food)}
                               >
-                                ×
+                                <Icon name="trash" size={16} color="var(--text-primary)" />
                               </button>
                             </div>
                           </div>
-                        ))
-                      : null}
-                  </article>
+                        ))}
+                      </Collapse.Panel>
+                    </Collapse.Root>
+                  </Card.Root>
                 );
               })}
             </section>

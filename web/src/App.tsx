@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react';
 import { BrowserRouter, Route, Routes, useLocation } from 'react-router';
 import { SessionProvider, useSession } from './app/session';
 import { showsTabBar } from './app/showsTabBar';
-import { FloatingTabBar } from './components/FloatingTabBar';
+import { FloatingTabBar } from './components/layout/FloatingTabBar';
+import Toast from './components/ui/Toast';
 import { AddPage } from './pages/AddPage';
 import { HistoryPage } from './pages/HistoryPage';
 import HomePage from './pages/HomePage';
@@ -48,9 +49,7 @@ const Shell = () => {
       </div>
       {tabbed ? <FloatingTabBar desktop={desktop} pathname={location.pathname} /> : null}
       {toast ? (
-        <button className="toast" type="button" onClick={dismissToast}>
-          {toast.message}
-        </button>
+        <Toast message={toast.message} variant={toast.variant} onDismiss={dismissToast} />
       ) : null}
     </div>
   );

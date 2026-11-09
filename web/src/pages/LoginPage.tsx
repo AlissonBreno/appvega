@@ -1,5 +1,8 @@
 import { useNavigate } from 'react-router';
-import { Icon } from '../components/Icons';
+import { Button } from '../components/ui/Button';
+import { Input } from '../components/ui/Input';
+
+import loginStyles from './Login/styles.module.css';
 
 export const LoginPage = () => {
   const navigate = useNavigate();
@@ -12,32 +15,41 @@ export const LoginPage = () => {
           <p className="login-subtitle">Seu assistente de rastreamento nutricional.</p>
         </header>
         <form className="login-form" onSubmit={event => event.preventDefault()}>
-          <label className="field">
-            <span className="field-label">E-mail</span>
-            <span className="field-box">
-              <Icon name="mail" size={16} />
-              <input aria-label="E-mail" autoCapitalize="none" autoCorrect="off" placeholder="seu@email.com" />
-            </span>
-          </label>
-          <label className="field">
-            <span className="field-label">Senha</span>
-            <span className="field-box">
-              <Icon name="lock" size={16} />
-              <input aria-label="Senha" type="password" placeholder="••••••••" />
-            </span>
-          </label>
-          <button className="btn btn-signin" type="button" disabled>
-            Entrar
-            <Icon name="arrow" size={16} />
-          </button>
-          <div className="divider">
-            <span />
+          <Input.Field>
+            <Input.Label>E-mail</Input.Label>
+            <Input.Content>
+              <Input.Icon name="envelope" />
+              <Input.TextInput
+                aria-label="E-mail"
+                autoCapitalize="none"
+                autoCorrect="off"
+                placeholder="seu@email.com"
+              />
+            </Input.Content>
+          </Input.Field>
+          <Input.Field>
+            <Input.Label>Senha</Input.Label>
+            <Input.Content>
+              <Input.Icon name="lock" />
+              <Input.TextInput aria-label="Senha" type="password" placeholder="••••••••" />
+            </Input.Content>
+          </Input.Field>
+          <Button.Root className={loginStyles.signIn} disabled>
+            <Button.Label className={loginStyles.signInLabel}>Entrar</Button.Label>
+            <Button.Icon name="arrow-right" color="var(--surface-app)" className={loginStyles.signInIcon} />
+          </Button.Root>
+          <div className={loginStyles.divider}>
+            <span className={loginStyles.dividerLine} />
             ou
-            <span />
+            <span className={loginStyles.dividerLine} />
           </div>
-          <button className="btn btn-google" type="button" onClick={() => navigate('/', { replace: true })}>
-            Continuar com Google
-          </button>
+          <Button.Root
+            className={loginStyles.google}
+            onClick={() => navigate('/', { replace: true })}
+          >
+            <Button.Icon name="google" color="var(--text-primary)" />
+            <Button.Label className={loginStyles.googleLabel}>Continuar com Google</Button.Label>
+          </Button.Root>
         </form>
       </div>
     </main>

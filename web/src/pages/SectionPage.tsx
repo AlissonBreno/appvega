@@ -1,3 +1,5 @@
+import { ScreenHeader } from '../components/shared/ScreenHeader';
+
 type SectionPageProps = {
   icon: string;
   title: string;
@@ -6,12 +8,14 @@ type SectionPageProps = {
 
 export const SectionPage = ({ icon, title, subtitle }: SectionPageProps) => (
   <main>
-    <header className="screen-header">
-      <div className="screen-header-row">
+    <ScreenHeader.Root>
+      <ScreenHeader.Row>
         <span aria-hidden>{icon}</span>
-        <h1 className="screen-title">{title}</h1>
-      </div>
-      <p className="screen-subtitle">{subtitle}</p>
-    </header>
+        <ScreenHeader.TextColumn>
+          <ScreenHeader.Title>{title}</ScreenHeader.Title>
+          <ScreenHeader.Subtitle>{subtitle}</ScreenHeader.Subtitle>
+        </ScreenHeader.TextColumn>
+      </ScreenHeader.Row>
+    </ScreenHeader.Root>
   </main>
 );

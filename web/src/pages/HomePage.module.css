@@ -1,0 +1,82 @@
+.mealHeader {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.mealSummary {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: 0;
+  background: transparent;
+  text-align: left;
+  padding: 0;
+  cursor: pointer;
+  color: inherit;
+}
+
+.mealPlus {
+  width: 36px;
+  height: 36px;
+  border-radius: 9999px;
+  border: 1px solid var(--border-subtle);
+  background: var(--surface-app);
+  color: var(--brand-green);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.mealKcal {
+  margin-left: auto;
+}
+
+.macroTrack {
+  display: flex;
+  height: 6px;
+  gap: 2px;
+  margin-top: 12px;
+  background: var(--border-subtle);
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.macroTrack i {
+  display: block;
+  height: 100%;
+}
+
+.foodRow {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border-subtle);
+  margin-top: 12px;
+}
+
+.foodActions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.foodAction {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  border: 1px solid var(--border-subtle);
+  background: var(--surface-app);
+  color: var(--text-primary);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+
+.mealCard {
+  border: 1px solid var(--border-subtle);
+  padding: 16px;
+}

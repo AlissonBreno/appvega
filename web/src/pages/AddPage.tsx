@@ -4,6 +4,13 @@ import { addMealFoodEntry, getCatalog, getMealsWithFoods, updateMealFoodEntry } 
 import { decreaseGrams, gramsAtLeastTen } from '../app/quantity';
 import { scalePortion } from '../app/portion';
 import { useSession } from '../app/session';
+import { ScreenHeader } from '../components/shared/ScreenHeader';
+import { Button } from '../components/ui/Button';
+import { Card } from '../components/ui/Card';
+import { Collapse } from '../components/ui/Collapse';
+import { Pill } from '../components/ui/Pill';
+
+import loginStyles from './Login/styles.module.css';
 
 const PILLS = [50, 100, 150, 200, 250, 300];
 
@@ -70,23 +77,27 @@ export const AddPage = () => {
 
     if (mealFoodId) {
       await updateMealFoodEntry(mealId, entry, selectedDate);
-      showToast('Alteração realizada com sucesso');
+      showToast({ message: 'Alteração realizada com sucesso', variant: 'success' });
       navigate(-1);
       return;
     }
 
     await addMealFoodEntry(mealId, entry, selectedDate);
-    showToast('Inclusão realizada com sucesso');
+    showToast({ message: 'Inclusão realizada com sucesso', variant: 'success' });
     navigate('/');
   };
 
   return (
     <main>
-      <header className="screen-header">
-        <button className="btn" type="button" onClick={() => navigate(-1)}>Voltar</button>
-        <h1 className="screen-title">Adicionando em</h1>
-        <p className="screen-subtitle">{subtitle}</p>
-      </header>
+      <ScreenHeader.Root>
+        <ScreenHeader.Row>
+          <ScreenHeader.Back onClick={() => navigate(-1)} />
+          <ScreenHeader.TextColumn>
+            <ScreenHeader.Title>Adicionando em</ScreenHeader.Title>
+            <ScreenHeader.Subtitle>{subtitle}</ScreenHeader.Subtitle>
+          </ScreenHeader.TextColumn>
+        </ScreenHeader.Row>
+      </ScreenHeader.Root>
       <div className="screen-body add-grid">
         <section>
           <h2 className="goal-title">{food.emoji} {food.name}</h2>
@@ -97,18 +108,21 @@ export const AddPage = () => {
             <span>🍗 Proteínas {decimal(portion.protein)}</span>
             <span>🥑 Gorduras {decimal(portion.fat)}</span>
           </div>
-          <button type="button" onClick={() => setOpenFacts(open => !open)}>
-            {openFacts ? 'Recolher tabela' : 'Expandir tabela'}
-          </button>
-          {openFacts
-            ? portion.facts.map(fact => (
+          <Collapse.Root expanded={openFacts} onToggle={() => setOpenFacts(open => !open)}>
+            <Collapse.Trigger>
+              <Collapse.Chevron name="tabela" />
+              {openFacts ? ' Recolher tabela' : ' Expandir tabela'}
+            </Collapse.Trigger>
+            <Collapse.Panel>
+              {portion.facts.map(fact => (
                 <p key={fact.label}>
                   {fact.label} {fact.amount === null ? `NA ${fact.unit}` : `${decimal(fact.amount)} ${fact.unit}`}
                 </p>
-              ))
-            : null}
+              ))}
+            </Collapse.Panel>
+          </Collapse.Root>
         </section>
-        <section className="card quantity">
+        <Card.Root className="quantity">
           <div className="goal-controls">
             <button type="button" aria-label="Menos" disabled={!gramsAtLeastTen(grams)} onClick={() => setGrams(decreaseGrams(grams))}>−</button>
             <strong>{grams} g</strong>
@@ -116,16 +130,18 @@ export const AddPage = () => {
           </div>
           <div className="pills">
             {PILLS.map(pill => (
-              <button key={pill} type="button" aria-pressed={grams === pill} onClick={() => setGrams(pill)}>
-                {pill}g
-              </button>
+              <Pill.Root key={pill} selected={grams === pill} onClick={() => setGrams(pill)}>
+                <Pill.Label>{pill}g</Pill.Label>
+              </Pill.Root>
             ))}
           </div>
-        </section>
+        </Card.Root>
       </div>
-      <button className="btn btn-signin" type="button" onClick={confirm}>
-        {mealFoodId ? 'SALVAR NA REFEIÇÃO' : 'ADICIONAR À REFEIÇÃO'}
-      </button>
+      <Button.Root className={loginStyles.signIn} onClick={confirm}>
+        <Button.Label className={loginStyles.signInLabel}>
+          {mealFoodId ? 'SALVAR NA REFEIÇÃO' : 'ADICIONAR À REFEIÇÃO'}
+        </Button.Label>
+      </Button.Root>
     </main>
   );
 };

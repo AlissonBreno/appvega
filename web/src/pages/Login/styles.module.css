@@ -1,0 +1,38 @@
+.signIn {
+  opacity: 1;
+  border-width: 0;
+  background: var(--text-primary);
+}
+
+.signInLabel {
+  color: var(--surface-app);
+}
+
+.signInIcon {
+  color: var(--surface-app);
+}
+
+.google {
+  opacity: 1;
+  border-color: var(--border-subtle);
+  background: var(--surface-card);
+}
+
+.googleLabel {
+  color: var(--text-primary);
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  color: var(--text-muted);
+  font-size: 14px;
+  line-height: 21px;
+}
+
+.dividerLine {
+  flex: 1;
+  height: 1px;
+  background: var(--border-subtle);
+}

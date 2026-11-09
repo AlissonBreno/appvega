@@ -12,6 +12,11 @@ import {
   type GoalKey,
 } from '../app/goals';
 import { useSession } from '../app/session';
+import { ScreenHeader } from '../components/shared/ScreenHeader';
+import { Button } from '../components/ui/Button';
+import { Card } from '../components/ui/Card';
+
+import loginStyles from './Login/styles.module.css';
 
 const rows: { key: GoalKey; emoji: string; label: string }[] = [
   { key: 'goal_kcal', emoji: '🔥', label: 'Calorias' },
@@ -70,30 +75,34 @@ export const ProfilePage = () => {
       goal_fat: String(updated.goal_fat),
     });
     setSaving(false);
-    showToast('alterações salvas!');
+    showToast({ message: 'alterações salvas!', variant: 'success' });
   };
 
   return (
     <main>
-      <header className="screen-header">
-        <h1 className="screen-title">Perfil & metas</h1>
-        <p className="screen-subtitle">Configure suas metas nutricionais</p>
-      </header>
+      <ScreenHeader.Root>
+        <ScreenHeader.Row>
+          <ScreenHeader.TextColumn>
+            <ScreenHeader.Title>Perfil & metas</ScreenHeader.Title>
+            <ScreenHeader.Subtitle>Configure suas metas nutricionais</ScreenHeader.Subtitle>
+          </ScreenHeader.TextColumn>
+        </ScreenHeader.Row>
+      </ScreenHeader.Root>
       <div className="screen-body profile-grid">
         <div className="stack">
-          <section className="card">
+          <Card.Root>
             <h2 className="goal-title">{user.name}</h2>
             <p>Rastreando há 7 dias 🔥</p>
             <p>{user.goal_kcal} kcal · {user.age} anos · {user.weight} kg</p>
-          </section>
-          <section className="card" style={{ background: 'var(--border-subtle)' }}>
-            <h2 className="section-title">VEGA · Nutrição fácil</h2>
-            <p>v1.0.0 · by Alisson Goulart</p>
+          </Card.Root>
+          <Card.Root style={{ background: 'var(--border-subtle)' }}>
+            <Card.SectionTitle title="VEGA · Nutrição fácil" />
+            <p className="mono">v1.0.0 · by Alisson Goulart</p>
             <p className="muted">Este app não substitui orientação de um profissional de saúde.</p>
-          </section>
+          </Card.Root>
         </div>
         <div className="stack">
-          <section className="card">
+          <Card.Root>
             {rows.map(row => (
               <div key={row.key} className="goal-row">
                 <span>{row.emoji} {row.label}</span>
@@ -115,11 +124,15 @@ export const ProfilePage = () => {
                 </div>
               </div>
             ))}
-            <button className="btn btn-signin" type="button" disabled={!changed || saving} onClick={save}>
-              {label}
-            </button>
-          </section>
-          <section className="card">
+            <Button.Root
+              className={loginStyles.signIn}
+              disabled={!changed || saving}
+              onClick={save}
+            >
+              <Button.Label className={loginStyles.signInLabel}>{label}</Button.Label>
+            </Button.Root>
+          </Card.Root>
+          <Card.Root>
             <label className="split">
               Modo Escuro
               <input
@@ -130,10 +143,11 @@ export const ProfilePage = () => {
                 onChange={event => setScheme(event.target.checked ? 'dark' : 'light')}
               />
             </label>
-            <button className="btn" type="button" onClick={() => navigate('/login', { replace: true })}>
-              Sair da conta
-            </button>
-          </section>
+            <Button.Root onClick={() => navigate('/login', { replace: true })}>
+              <Button.Icon name="sign-out-alt" />
+              <Button.Label>Sair da conta</Button.Label>
+            </Button.Root>
+          </Card.Root>
         </div>
       </div>
     </main>
