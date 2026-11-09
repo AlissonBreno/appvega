@@ -16,6 +16,9 @@ export const tokenNames = [
   'state/near',
   'avatar/gradient-start',
   'avatar/gradient-end',
+  'toast/danger',
+  'toast/success',
+  'toast/warning',
 ] as const;
 
 export type TokenName = (typeof tokenNames)[number];
@@ -40,6 +43,9 @@ const dark = {
   'state/near': '#38BDF8',
   'avatar/gradient-start': '#38BDF8',
   'avatar/gradient-end': '#10B981',
+  'toast/danger': '#FF5878',
+  'toast/success': '#10B37D',
+  'toast/warning': '#F2C614',
 } as const satisfies Record<TokenName, string>;
 
 const light = {
@@ -60,6 +66,9 @@ const light = {
   'state/near': '#38BDF8',
   'avatar/gradient-start': '#38BDF8',
   'avatar/gradient-end': '#10B981',
+  'toast/danger': '#FF5878',
+  'toast/success': '#10B37D',
+  'toast/warning': '#F2C614',
 } as const satisfies Record<TokenName, string>;
 
 export const tokens = { dark, light };
@@ -77,7 +86,7 @@ export const typography = {
   body: { fontFamily: fontFamily.circular, fontSize: 16, fontWeight: 'regular', lineHeight: 1.6 },
   bodySm: { fontFamily: fontFamily.circular, fontSize: 14, fontWeight: 'regular', lineHeight: 1.5 },
   caption: { fontFamily: fontFamily.circular, fontSize: 12, fontWeight: 'medium', lineHeight: 1.4 },
-  mono: { fontFamily: fontFamily.circular, fontSize: 13, fontWeight: 'regular', lineHeight: 1.5 },
+  mono: { fontFamily: fontFamily.mono, fontSize: 13, fontWeight: 'regular', lineHeight: 1.5 },
 } as const;
 
 export const space = { xs: 4, sm: 8, md: 16, lg: 24, xl: 32, '2xl': 48 } as const;

@@ -1,4 +1,4 @@
-import { catalog } from './catalog';
+import { catalog } from 'mocks/catalog';
 import { filterCatalogFoods, formatFoodCount } from './filterCatalogFoods';
 
 const favoriteIds = new Set(

@@ -1,4 +1,4 @@
-import type { Meal } from '~/types';
+import type { Meal } from '../app/src/modules/Meal/types/Meal';
 
 export const mealsMock: Meal[] = [
   {

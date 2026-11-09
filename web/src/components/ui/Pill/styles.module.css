@@ -1,0 +1,26 @@
+.root {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 16px;
+  border-radius: 9999px;
+  border: 0;
+  background: var(--surface-card);
+  cursor: pointer;
+}
+
+.selected {
+  background: var(--text-primary);
+}
+
+.label {
+  font-size: 14px;
+  line-height: 21px;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.labelSelected {
+  color: var(--surface-app);
+}

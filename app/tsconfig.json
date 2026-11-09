@@ -4,7 +4,8 @@
     "types": ["jest"],
     "baseUrl": "./src",
     "paths": {
-      "~/*": ["*"]
+      "~/*": ["*"],
+      "mocks/*": ["../../mocks/*"]
     }
   },
   "include": ["**/*.ts", "**/*.tsx"],

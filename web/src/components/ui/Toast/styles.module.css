@@ -1,0 +1,53 @@
+.slot {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 96px;
+  z-index: 30;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.banner {
+  pointer-events: auto;
+  margin: 0 16px;
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  border: 0;
+  width: min(480px, calc(100% - 32px));
+  cursor: pointer;
+  color: #f8fafc;
+}
+
+.success {
+  background: var(--toast-success);
+}
+
+.danger {
+  background: var(--toast-danger);
+}
+
+.warning {
+  background: var(--toast-warning);
+}
+
+.message {
+  flex: 1;
+  margin: 0;
+  font-size: 14px;
+  line-height: 21px;
+  font-weight: 400;
+  text-align: left;
+  color: #f8fafc;
+}
+
+@media (min-width: 1024px) {
+  .slot {
+    bottom: 32px;
+  }
+}

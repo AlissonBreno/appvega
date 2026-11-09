@@ -28,6 +28,9 @@ describe('tokens', () => {
       'state/near',
       'avatar/gradient-start',
       'avatar/gradient-end',
+      'toast/danger',
+      'toast/success',
+      'toast/warning',
     ]);
 
     expect(tokens.dark).toEqual({
@@ -48,6 +51,9 @@ describe('tokens', () => {
       'state/near': '#38BDF8',
       'avatar/gradient-start': '#38BDF8',
       'avatar/gradient-end': '#10B981',
+      'toast/danger': '#FF5878',
+      'toast/success': '#10B37D',
+      'toast/warning': '#F2C614',
     });
 
     expect(tokens.light).toEqual({
@@ -68,6 +74,9 @@ describe('tokens', () => {
       'state/near': '#38BDF8',
       'avatar/gradient-start': '#38BDF8',
       'avatar/gradient-end': '#10B981',
+      'toast/danger': '#FF5878',
+      'toast/success': '#10B37D',
+      'toast/warning': '#F2C614',
     });
   });
 
@@ -85,7 +94,7 @@ describe('tokens', () => {
       body: { fontFamily: 'Circular Std', fontSize: 16, fontWeight: 'regular', lineHeight: 1.6 },
       bodySm: { fontFamily: 'Circular Std', fontSize: 14, fontWeight: 'regular', lineHeight: 1.5 },
       caption: { fontFamily: 'Circular Std', fontSize: 12, fontWeight: 'medium', lineHeight: 1.4 },
-      mono: { fontFamily: 'Circular Std', fontSize: 13, fontWeight: 'regular', lineHeight: 1.5 },
+      mono: { fontFamily: 'Fira Code', fontSize: 13, fontWeight: 'regular', lineHeight: 1.5 },
     });
 
     expect(space).toEqual({ xs: 4, sm: 8, md: 16, lg: 24, xl: 32, '2xl': 48 });

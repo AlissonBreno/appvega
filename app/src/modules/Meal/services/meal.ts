@@ -1,6 +1,6 @@
 import { getFoods } from '~/modules/Food/services/food';
-import { mealsMock } from '~/modules/Meal/mocks/meal';
-import { mealsFoodsMock } from '~/modules/Meal/mocks/mealsFood';
+import { mealsMock } from 'mocks/meal';
+import { mealsFoodsMock } from 'mocks/mealsFood';
 import type { Meal as MealView, MealFood } from '~/modules/Meal/types/MealView';
 import type { Meal, MealsFood } from '~/types';
 import { isSameDay } from '~/utils/date';

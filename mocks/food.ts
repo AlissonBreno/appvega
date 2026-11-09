@@ -1,4 +1,4 @@
-import type { Food } from '~/types';
+import type { Food } from '../app/src/modules/Food/types/Food';
 
 const emptyComposition = {
   humidity: 0,

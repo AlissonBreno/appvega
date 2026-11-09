@@ -15,7 +15,7 @@ import { useNavigationTheme } from '~/hooks/useNavigationTheme';
 import { useUser } from '~/hooks/useUser';
 import type { Meal, MealFood } from '~/modules/Meal/types/MealView';
 import { dailyMealTotals } from '~/modules/Meal/utils/dailyMealTotals';
-import { catalog } from '~/pages/SearchFood/catalog';
+import { catalog } from 'mocks/catalog';
 import type { StackParamList, TabParamList } from '~/types/Navigation';
 
 import DailyProgress from './DailyProgress';

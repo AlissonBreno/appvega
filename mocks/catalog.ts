@@ -1,4 +1,4 @@
-import type { CatalogFood, NutritionFact } from './types';
+import type { CatalogFood, NutritionFact } from '../app/src/pages/SearchFood/types';
 
 const aveiaFacts: NutritionFact[] = [
   { label: 'Umidade', amount: 70.1, unit: '%', scales: false },

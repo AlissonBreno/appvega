@@ -1,6 +1,8 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
+import { App } from './App';
 import { mountShell } from './theme/scheme';
+import './styles.css';
 
 const root = document.getElementById('root');
 
@@ -15,6 +17,6 @@ mountShell(document.documentElement, root, matchesDark);
 
 createRoot(root).render(
   <StrictMode>
-    <div />
+    <App />
   </StrictMode>,
 );

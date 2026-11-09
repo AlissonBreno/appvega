@@ -1,0 +1,84 @@
+.host {
+  position: fixed;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.horizontal {
+  left: 50%;
+  bottom: 16px;
+  transform: translateX(-50%);
+}
+
+.vertical {
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.pill {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 72px;
+  pointer-events: auto;
+}
+
+.pillVertical {
+  flex-direction: column;
+  width: 72px;
+  height: auto;
+}
+
+.track {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 4px;
+  height: 64px;
+  border-radius: 9999px;
+  border: 1px solid var(--border-subtle);
+  background: var(--surface-card);
+  z-index: 0;
+}
+
+.trackVertical {
+  top: 0;
+  bottom: 0;
+  left: 4px;
+  right: auto;
+  width: 64px;
+  height: auto;
+}
+
+.item {
+  width: 72px;
+  height: 72px;
+  display: grid;
+  place-items: center;
+  color: var(--text-muted);
+  text-decoration: none;
+  border-radius: 9999px;
+  position: relative;
+  z-index: 1;
+}
+
+.activeCircle {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 72px;
+  height: 72px;
+  border-radius: 9999px;
+  background: var(--text-primary);
+  color: var(--surface-card);
+  display: grid;
+  place-items: center;
+  z-index: 2;
+  pointer-events: none;
+  transition: transform 200ms ease;
+}

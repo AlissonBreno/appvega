@@ -1,4 +1,4 @@
-import type { User } from '~/types';
+import type { User } from '../app/src/modules/User/types/User';
 
 export const userMock: User = {
   id_user: 1,

@@ -13,7 +13,7 @@ import { useNavigationTheme } from '~/hooks/useNavigationTheme';
 import { useToast } from '~/hooks/useToast';
 import type { MealFood } from '~/modules/Meal/types/MealView';
 import { scalePortion } from '~/pages/Home/Meals/portion';
-import { catalog } from '~/pages/SearchFood/catalog';
+import { catalog } from 'mocks/catalog';
 import type { NutritionFact } from '~/pages/SearchFood/types';
 import type { StackParamList } from '~/types/Navigation';
 

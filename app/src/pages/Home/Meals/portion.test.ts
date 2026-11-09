@@ -1,4 +1,4 @@
-import { catalog } from '../../SearchFood/catalog';
+import { catalog } from 'mocks/catalog';
 import { scalePortion } from './portion';
 
 const findFood = (id: string) => {

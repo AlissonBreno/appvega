@@ -1,4 +1,4 @@
-import { mealsFoodsMock } from '~/modules/Meal/mocks/mealsFood';
+import { mealsFoodsMock } from 'mocks/mealsFood';
 import type { MealFood } from '~/modules/Meal/types/MealView';
 
 import {

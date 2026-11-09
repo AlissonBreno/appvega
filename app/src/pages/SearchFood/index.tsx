@@ -10,7 +10,7 @@ import { Pill } from '~/components/ui/Pill';
 import { useNavigationTheme } from '~/hooks/useNavigationTheme';
 import type { StackParamList } from '~/types/Navigation';
 
-import { catalog } from './catalog';
+import { catalog } from 'mocks/catalog';
 import { filterCatalogFoods, formatFoodCount } from './filterCatalogFoods';
 import { searchFoodStyles } from './styles';
 import type { CatalogFood, FoodFilter } from './types';
