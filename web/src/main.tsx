@@ -1,11 +1,17 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
+import { mountShell } from './theme/scheme';
 
 const root = document.getElementById('root');
 
 if (!root) {
   throw new Error('Elemento #root ausente');
 }
+
+const matchesDark =
+  window.matchMedia?.('(prefers-color-scheme: dark)').matches ?? false;
+
+mountShell(document.documentElement, root, matchesDark);
 
 createRoot(root).render(
   <StrictMode>
