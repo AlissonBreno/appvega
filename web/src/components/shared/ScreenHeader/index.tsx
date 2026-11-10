@@ -30,36 +30,46 @@ const Icon = ({ name }: IconProps) => (
 
 type BackProps = {
   onClick?: () => void;
+  className?: string;
+  iconSize?: number;
 };
 
 type CloseProps = {
   onClick: () => void;
+  className?: string;
+  iconSize?: number;
 };
 
-const Close = ({ onClick }: CloseProps) => (
-  <button type="button" aria-label="Fechar" onClick={onClick} className={styles.close}>
-    <IconGlyph name="x" color="var(--primary-text)" size={24} />
+const Close = ({ onClick, className, iconSize = 24 }: CloseProps) => (
+  <button
+    type="button"
+    aria-label="Fechar"
+    onClick={onClick}
+    className={[styles.close, className].filter(Boolean).join(' ')}
+  >
+    <IconGlyph name="x" color="var(--primary-text)" size={iconSize} />
   </button>
 );
 
-const Back = ({ onClick }: BackProps) => (
+const Back = ({ onClick, className, iconSize = 24 }: BackProps) => (
   <button
     type="button"
     aria-label="Voltar"
     disabled={!onClick}
     onClick={onClick}
-    className={styles.back}
+    className={[styles.back, className].filter(Boolean).join(' ')}
   >
-    <IconGlyph name="arrow-left" color="var(--primary-text)" size={24} />
+    <IconGlyph name="arrow-left" color="var(--primary-text)" size={iconSize} />
   </button>
 );
 
 type TextColumnProps = {
   children: ReactNode;
+  className?: string;
 };
 
-const TextColumn = ({ children }: TextColumnProps) => (
-  <div className={styles.textColumn}>{children}</div>
+const TextColumn = ({ children, className }: TextColumnProps) => (
+  <div className={[styles.textColumn, className].filter(Boolean).join(' ')}>{children}</div>
 );
 
 type TitleProps = {

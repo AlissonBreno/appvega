@@ -7,13 +7,15 @@ import { Pill } from '~/components/ui/Pill';
 import { getCatalog } from '~/modules/Food/services/catalog';
 import { addFoodPath } from '~/types/Navigation';
 import { filterCatalogFoods, formatFoodCount, type FoodFilter } from './filterCatalogFoods';
+import styles from './styles.module.css';
 
 type SearchFoodProps = {
   onBack: () => void;
   onClose?: () => void;
+  embedded?: boolean;
 };
 
-const SearchFood = ({ onBack, onClose }: SearchFoodProps) => {
+const SearchFood = ({ onBack, onClose, embedded = false }: SearchFoodProps) => {
   const navigate = useNavigate();
   const [params] = useSearchParams();
   const mealId = params.get('mealId') ?? '';
@@ -27,21 +29,33 @@ const SearchFood = ({ onBack, onClose }: SearchFoodProps) => {
   const foods = filterCatalogFoods({ foods: catalog, query, filter, favoriteIds });
 
   return (
-    <main>
-      <ScreenHeader.Root>
-        <ScreenHeader.Row>
-          <ScreenHeader.Back onClick={onBack} />
-          <ScreenHeader.TextColumn>
-            <ScreenHeader.Title>Buscar Alimento</ScreenHeader.Title>
-            <ScreenHeader.Subtitle>{subtitle}</ScreenHeader.Subtitle>
-          </ScreenHeader.TextColumn>
-          {onClose ? <ScreenHeader.Close onClick={onClose} /> : null}
-        </ScreenHeader.Row>
-      </ScreenHeader.Root>
-      <div className="screen-body">
-        <div className="search-bar">
-          <Input.Field style={{ flex: 1 }}>
-            <Input.Content>
+    <main
+      className={[styles.screen, embedded ? styles.screenEmbedded : styles.screenPage].join(' ')}
+    >
+      <div className={styles.chrome}>
+        <ScreenHeader.Root>
+          <ScreenHeader.Row>
+            <ScreenHeader.Back
+              onClick={onBack}
+              className={styles.headerButton}
+              iconSize={20}
+            />
+            <ScreenHeader.TextColumn>
+              <ScreenHeader.Title>Buscar Alimento</ScreenHeader.Title>
+              <ScreenHeader.Subtitle>{subtitle}</ScreenHeader.Subtitle>
+            </ScreenHeader.TextColumn>
+            {onClose ? (
+              <ScreenHeader.Close
+                onClick={onClose}
+                className={styles.headerButton}
+                iconSize={20}
+              />
+            ) : null}
+          </ScreenHeader.Row>
+        </ScreenHeader.Root>
+        <div className={styles.filters}>
+          <Input.Field className={styles.search}>
+            <Input.Content className={styles.searchContent}>
               <Input.Icon name="search" />
               <Input.TextInput
                 aria-label="Buscar alimento..."
@@ -51,17 +65,22 @@ const SearchFood = ({ onBack, onClose }: SearchFoodProps) => {
               />
             </Input.Content>
           </Input.Field>
-          <Pill.Root selected={filter === 'all'} onClick={() => setFilter('all')}>
-            <Pill.Label>Todos</Pill.Label>
-          </Pill.Root>
-          <Pill.Root selected={filter === 'favorites'} onClick={() => setFilter('favorites')}>
-            <Pill.Label>Favoritos</Pill.Label>
-          </Pill.Root>
+          <div className={styles.pills}>
+            <Pill.Root selected={filter === 'all'} onClick={() => setFilter('all')}>
+              <Pill.Label>Todos</Pill.Label>
+            </Pill.Root>
+            <Pill.Root selected={filter === 'favorites'} onClick={() => setFilter('favorites')}>
+              <Icon name="star" size={12} color="var(--fat)" />
+              <Pill.Label>Favoritos</Pill.Label>
+            </Pill.Root>
+          </div>
         </div>
+      </div>
+      <div className={styles.listCard}>
         {foods.map(food => (
           <button
             key={food.id}
-            className="food-row"
+            className={styles.foodRow}
             type="button"
             onClick={() =>
               navigate(addFoodPath({ mealId, subtitle, catalogFoodId: food.id }))

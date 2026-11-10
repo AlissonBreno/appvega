@@ -166,22 +166,6 @@ input {
   font-weight: 500;
 }
 
-.food-row {
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-  padding-top: 12px;
-  border-top: 1px solid var(--border);
-  margin-top: 12px;
-  width: 100%;
-  border-left: 0;
-  border-right: 0;
-  border-bottom: 0;
-  background: transparent;
-  text-align: left;
-  cursor: pointer;
-}
-
 .skeleton {
   height: 120px;
   border-radius: 16px;
@@ -239,7 +223,6 @@ input {
 .split,
 .goal-row,
 .goal-controls,
-.search-bar,
 .pills {
   display: flex;
   align-items: center;

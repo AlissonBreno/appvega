@@ -24,7 +24,7 @@ const SearchFoodRoute = () => {
 
   return (
     <Dialog label="Buscar Alimento" onClose={dismiss}>
-      <SearchFood onBack={dismiss} onClose={dismiss} />
+      <SearchFood onBack={dismiss} onClose={dismiss} embedded />
     </Dialog>
   );
 };

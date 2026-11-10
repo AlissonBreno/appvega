@@ -1,0 +1,84 @@
+.screen {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.screenPage {
+  height: 100dvh;
+}
+
+.screenEmbedded {
+  max-height: 85vh;
+}
+
+.chrome {
+  flex-shrink: 0;
+}
+
+.headerButton {
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background: var(--border);
+}
+
+.filters {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 0 16px 16px;
+}
+
+.search {
+  width: 100%;
+}
+
+.searchContent {
+  min-height: 48px;
+}
+
+.pills {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pills button {
+  background: var(--foreground2);
+}
+
+.pills button[aria-pressed='true'] {
+  background: var(--primary-text);
+}
+
+.listCard {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: auto;
+  margin: 0 16px 16px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--foreground);
+}
+
+.foodRow {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  padding: 12px 16px;
+  border: 0;
+  border-bottom: 1px solid var(--border);
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+}
+
+.foodRow:last-of-type {
+  border-bottom: 0;
+}
