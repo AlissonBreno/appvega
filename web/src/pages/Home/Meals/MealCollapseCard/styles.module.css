@@ -1,14 +1,15 @@
 .mealHeader {
   display: flex;
-  gap: 12px;
+  gap: 16px;
   align-items: center;
 }
 
 .mealSummary {
-  width: 100%;
+  flex: 1;
+  min-width: 0;
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 16px;
   border: 0;
   background: transparent;
   text-align: left;
@@ -17,21 +18,61 @@
   color: inherit;
 }
 
+.emoji {
+  font-size: 28px;
+  line-height: 32px;
+}
+
+.titleColumn {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.title,
+.value {
+  font-size: 16px;
+  line-height: 21px;
+  font-weight: 700;
+  color: var(--primary-text);
+}
+
+.caption {
+  font-size: 12px;
+  line-height: 17px;
+  color: var(--secondary-text);
+}
+
+.kcalColumn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+}
+
 .mealPlus {
   width: 36px;
   height: 36px;
   border-radius: 9999px;
-  border: 1px solid var(--border);
-  background: var(--background);
-  color: var(--primary);
+  border: 0;
+  background: var(--primary-text);
   display: grid;
   place-items: center;
   cursor: pointer;
   flex-shrink: 0;
 }
 
-.mealKcal {
-  margin-left: auto;
+.collapseButton {
+  width: 24px;
+  height: 36px;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  color: inherit;
 }
 
 .macroTrack {
@@ -47,33 +88,127 @@
 .macroTrack i {
   display: block;
   height: 100%;
+  border-radius: 9999px;
 }
 
 .foodRow {
   display: flex;
-  justify-content: space-between;
-  gap: 12px;
-  padding-top: 12px;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 0;
   border-top: 1px solid var(--border);
   margin-top: 12px;
 }
 
+.foodGripHidden,
+.foodRow:hover .foodGrip,
+.foodRow:focus-within .foodGrip {
+  display: none;
+}
+
 .foodActions {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.foodActionsRevealed,
+.foodRow:hover .foodActions,
+.foodRow:focus-within .foodActions {
+  display: flex;
+}
+
+.foodEmoji {
+  width: 32px;
+  font-size: 24px;
+  line-height: 28px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.foodBody {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.foodTitleRow {
   display: flex;
   align-items: center;
   gap: 8px;
+}
+
+.quantity {
+  font-size: 16px;
+  line-height: 21px;
+  color: var(--secondary-text);
+}
+
+.macros {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.macro {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.macroLetter {
+  font-size: 12px;
+  line-height: 17px;
+  font-weight: 500;
+}
+
+.macroValue {
+  font-size: 12px;
+  line-height: 17px;
+  color: var(--secondary-text);
+}
+
+.foodGrip {
+  width: 24px;
+  height: 44px;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  flex-shrink: 0;
 }
 
 .foodAction {
   width: 44px;
   height: 44px;
   border-radius: 12px;
-  border: 1px solid var(--border);
-  background: var(--background);
+  border: 1px solid transparent;
+  background: var(--border);
   color: var(--primary-text);
   display: grid;
   place-items: center;
   cursor: pointer;
+}
+
+.foodActionDelete {
+  background: transparent;
+  border-color: var(--error);
+  color: var(--error);
+}
+
+.subtotal {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin: 12px -16px -16px;
+  padding: 16px;
+  background: var(--border);
 }
 
 .mealCard {

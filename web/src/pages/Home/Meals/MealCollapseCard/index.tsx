@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import type { Meal, MealFood } from '~/modules/Meal/services/meal';
 import { Card } from '~/components/ui/Card';
 import { Collapse } from '~/components/ui/Collapse';
@@ -6,9 +8,25 @@ import { formatKcal } from '../../formatKcal';
 
 import styles from './styles.module.css';
 
+const formatGrams = (grams: number) => {
+  const rounded = Math.round(grams * 10) / 10;
+
+  if (Number.isInteger(rounded)) {
+    return `${rounded}g`;
+  }
+
+  return `${rounded.toFixed(1)}g`;
+};
+
+type MacroGoals = {
+  carb: number;
+  protein: number;
+  fat: number;
+};
+
 type MealCollapseCardProps = {
   meal: Meal;
-  goalSum: number;
+  macroGoals: MacroGoals;
   open: boolean;
   onToggle: () => void;
   onAdd: () => void;
@@ -16,9 +34,11 @@ type MealCollapseCardProps = {
   onRemove: (food: MealFood) => void;
 };
 
+const share = (grams: number, goal: number) => (goal > 0 ? grams / goal : 0);
+
 const MealCollapseCard = ({
   meal,
-  goalSum,
+  macroGoals,
   open,
   onToggle,
   onAdd,
@@ -34,72 +54,147 @@ const MealCollapseCard = ({
     }),
     { carb: 0, protein: 0, fat: 0 },
   );
-  const mealFractions = [mealMacros.carb, mealMacros.protein, mealMacros.fat].map(grams =>
-    goalSum === 0 ? 0 : grams / goalSum,
-  );
+  const mealFractions = [
+    share(mealMacros.carb, macroGoals.carb),
+    share(mealMacros.protein, macroGoals.protein),
+    share(mealMacros.fat, macroGoals.fat),
+  ];
   const fractionSum = mealFractions.reduce((sum, value) => sum + value, 0);
   const mealScale = fractionSum > 1 ? 1 / fractionSum : 1;
-  const mealArcs = mealFractions.map(value => value * mealScale);
+  const mealArcs = mealFractions.map(value => Math.max(value, 0) * mealScale);
+  const [revealedFoodId, setRevealedFoodId] = useState<string | null>(null);
+  const segments = [
+    { key: 'carb', fraction: mealArcs[0], color: 'var(--carb)' },
+    { key: 'protein', fraction: mealArcs[1], color: 'var(--protein)' },
+    { key: 'fat', fraction: mealArcs[2], color: 'var(--fat)' },
+  ].filter(segment => segment.fraction > 0);
 
   return (
     <Card.Root className={styles.mealCard}>
       <Collapse.Root expanded={open} onToggle={onToggle}>
         <div className={styles.mealHeader}>
-          <Collapse.Trigger className={styles.mealSummary}>
-            <span>{meal.emoji}</span>
-            <span>
-              <strong>{meal.title}</strong>
-              <div className="muted">{meal.foods.length} itens</div>
+          <Collapse.Trigger
+            className={styles.mealSummary}
+            accessibilityLabel={`${meal.title}, ${meal.foods.length} itens`}
+          >
+            <span className={styles.emoji}>{meal.emoji}</span>
+            <span className={styles.titleColumn}>
+              <strong className={styles.title}>{meal.title}</strong>
+              <span className={styles.caption}>{meal.foods.length} itens</span>
             </span>
-            <strong className={styles.mealKcal}>{formatKcal(mealKcal)} kcal</strong>
-            <Collapse.Chevron name={meal.title} />
           </Collapse.Trigger>
+          <div className={styles.kcalColumn}>
+            <strong className={styles.value}>{formatKcal(mealKcal)}</strong>
+            <span className={styles.caption}>kcal</span>
+          </div>
           <button
             className={styles.mealPlus}
             type="button"
             aria-label={`Adicionar em ${meal.title}`}
             onClick={onAdd}
           >
-            <Icon name="plus" size={16} color="var(--primary)" />
+            <Icon name="plus" size={16} color="var(--foreground)" />
           </button>
+          <Collapse.Trigger
+            className={styles.collapseButton}
+            accessibilityLabel={`${open ? 'Recolher' : 'Expandir'} ${meal.title}`}
+          >
+            <Collapse.Chevron name="refeição" />
+          </Collapse.Trigger>
         </div>
         <div className={styles.macroTrack} aria-hidden>
-          <i style={{ width: `${mealArcs[0] * 100}%`, background: 'var(--carb)' }} />
-          <i style={{ width: `${mealArcs[1] * 100}%`, background: 'var(--protein)' }} />
-          <i style={{ width: `${mealArcs[2] * 100}%`, background: 'var(--fat)' }} />
+          {segments.map(segment => (
+            <i
+              key={segment.key}
+              style={{ flex: segment.fraction, background: segment.color }}
+            />
+          ))}
         </div>
         <Collapse.Panel>
-          {meal.foods.map(food => (
-            <div className={styles.foodRow} key={food.id}>
-              <div>
-                <strong>
-                  {food.emoji} {food.name}
-                </strong>
-                <div className="muted">
-                  {food.grams} g · C {food.carb} · P {food.protein} · G {food.fat}
+          {meal.foods.map(food => {
+            const revealed = revealedFoodId === food.id;
+
+            return (
+              <div className={styles.foodRow} key={food.id}>
+                <span className={styles.foodEmoji}>{food.emoji}</span>
+                <div className={styles.foodBody}>
+                  <div className={styles.foodTitleRow}>
+                    <strong className={styles.title}>{food.name}</strong>
+                    <span className={styles.quantity}>{formatGrams(food.grams)}</span>
+                  </div>
+                  <div className={styles.macros}>
+                    <span className={styles.macro}>
+                      <span className={styles.macroLetter} style={{ color: 'var(--carb)' }}>C</span>
+                      <span className={styles.macroValue}>{formatGrams(food.carb)}</span>
+                    </span>
+                    <span className={styles.macro}>
+                      <span className={styles.macroLetter} style={{ color: 'var(--protein)' }}>P</span>
+                      <span className={styles.macroValue}>{formatGrams(food.protein)}</span>
+                    </span>
+                    <span className={styles.macro}>
+                      <span className={styles.macroLetter} style={{ color: 'var(--fat)' }}>G</span>
+                      <span className={styles.macroValue}>{formatGrams(food.fat)}</span>
+                    </span>
+                  </div>
+                </div>
+                <div className={styles.kcalColumn}>
+                  <strong className={styles.value}>{formatKcal(food.kcal)}</strong>
+                  <span className={styles.caption}>kcal</span>
+                </div>
+                <button
+                  className={[styles.foodGrip, revealed ? styles.foodGripHidden : null]
+                    .filter(Boolean)
+                    .join(' ')}
+                  type="button"
+                  aria-label={`Ações de ${food.name}`}
+                  onClick={() => setRevealedFoodId(revealed ? null : food.id)}
+                >
+                  <Icon name="grip-lines-vertical" size={16} color="var(--secondary-text)" />
+                </button>
+                <div
+                  className={[styles.foodActions, revealed ? styles.foodActionsRevealed : null]
+                    .filter(Boolean)
+                    .join(' ')}
+                >
+                  <button
+                    className={styles.foodAction}
+                    type="button"
+                    aria-label={`Editar ${food.name}`}
+                    onClick={() => onEdit(food)}
+                  >
+                    <Icon name="pencil" size={16} color="var(--primary-text)" />
+                  </button>
+                  <button
+                    className={`${styles.foodAction} ${styles.foodActionDelete}`}
+                    type="button"
+                    aria-label={`Excluir ${food.name}`}
+                    onClick={() => onRemove(food)}
+                  >
+                    <Icon name="trash" size={16} color="var(--error)" />
+                  </button>
                 </div>
               </div>
-              <div className={styles.foodActions}>
-                <strong>{formatKcal(food.kcal)}</strong>
-                <button
-                  className={styles.foodAction}
-                  type="button"
-                  aria-label={`Editar ${food.name}`}
-                  onClick={() => onEdit(food)}
-                >
-                  <Icon name="pencil" size={16} color="var(--primary-text)" />
-                </button>
-                <button
-                  className={styles.foodAction}
-                  type="button"
-                  aria-label={`Excluir ${food.name}`}
-                  onClick={() => onRemove(food)}
-                >
-                  <Icon name="trash" size={16} color="var(--primary-text)" />
-                </button>
+            );
+          })}
+          {meal.foods.length > 0 ? (
+            <div className={styles.subtotal}>
+              <strong className={styles.title}>Subtotal</strong>
+              <div className={styles.macros}>
+                <span className={styles.macro}>
+                  <span className={styles.macroLetter} style={{ color: 'var(--carb)' }}>C</span>
+                  <span className={styles.macroValue}>{formatGrams(mealMacros.carb)}</span>
+                </span>
+                <span className={styles.macro}>
+                  <span className={styles.macroLetter} style={{ color: 'var(--protein)' }}>P</span>
+                  <span className={styles.macroValue}>{formatGrams(mealMacros.protein)}</span>
+                </span>
+                <span className={styles.macro}>
+                  <span className={styles.macroLetter} style={{ color: 'var(--fat)' }}>G</span>
+                  <span className={styles.macroValue}>{formatGrams(mealMacros.fat)}</span>
+                </span>
               </div>
             </div>
-          ))}
+          ) : null}
         </Collapse.Panel>
       </Collapse.Root>
     </Card.Root>

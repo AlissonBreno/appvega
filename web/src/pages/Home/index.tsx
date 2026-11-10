@@ -89,12 +89,16 @@ const Home = () => {
           <div className="home-grid">
             <DailyProgress totals={totals} user={user} arcs={arcs} />
             <section className="meals-column">
-              <Card.SectionTitle title="Refeições" />
+              <Card.SectionTitle title="Registro de Refeições" />
               {meals.map(meal => (
                 <MealCollapseCard
                   key={meal.id}
                   meal={meal}
-                  goalSum={goalSum}
+                  macroGoals={{
+                    carb: user.goal_carb,
+                    protein: user.goal_prot,
+                    fat: user.goal_fat,
+                  }}
                   open={openMealId === meal.id}
                   onToggle={() => setOpenMealId(openMealId === meal.id ? null : meal.id)}
                   onAdd={() =>
