@@ -21,13 +21,8 @@ type IdentityProps = {
 
 const Identity = ({ name }: IdentityProps) => (
   <div className={styles.identity}>
-    <div className={styles.avatar} aria-hidden>
-      <Icon name="user-cog" size={22} color="var(--primary-text)" />
-    </div>
-    <div>
       <p className={styles.greeting}>Olá,</p>
       <p className={styles.name}>{name}</p>
-    </div>
   </div>
 );
 
