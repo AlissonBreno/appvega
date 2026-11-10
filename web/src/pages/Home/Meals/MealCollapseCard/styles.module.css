@@ -193,10 +193,16 @@
   display: grid;
   place-items: center;
   cursor: pointer;
+  transition: transform 120ms ease, filter 120ms ease;
+}
+
+.foodAction:hover {
+  transform: scale(0.96);
+  filter: brightness(0.86);
 }
 
 .foodActionDelete {
-  background: transparent;
+  background: var(--foreground);
   border-color: var(--error);
   color: var(--error);
 }
