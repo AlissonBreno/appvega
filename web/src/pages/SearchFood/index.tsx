@@ -77,46 +77,62 @@ const SearchFood = ({ onBack, onClose, embedded = false }: SearchFoodProps) => {
         </div>
       </div>
       <div className={styles.listCard}>
-        {foods.map(food => (
-          <button
-            key={food.id}
-            className={styles.foodRow}
-            type="button"
-            onClick={() =>
-              navigate(addFoodPath({ mealId, subtitle, catalogFoodId: food.id }))
-            }
-          >
-            <span>
-              {food.emoji} {food.name}
-              <div className="muted">
-                {food.kcal} kcal · 100g · C {food.carb} · P {food.protein} · G {food.fat}
-              </div>
-            </span>
-            <span
-              role="button"
-              aria-label={favoriteIds.has(food.id) ? `Remover ${food.name} dos favoritos` : `Favoritar ${food.name}`}
-              onClick={event => {
-                event.stopPropagation();
-                setFavoriteIds(current => {
-                  const next = new Set(current);
-                  if (next.has(food.id)) {
-                    next.delete(food.id);
-                  } else {
-                    next.add(food.id);
-                  }
-                  return next;
-                });
-              }}
+        {foods.map(food => {
+          const isFavorite = favoriteIds.has(food.id);
+
+          return (
+            <button
+              key={food.id}
+              className={styles.foodRow}
+              type="button"
+              onClick={() =>
+                navigate(addFoodPath({ mealId, subtitle, catalogFoodId: food.id }))
+              }
             >
-              <Icon
-                name={favoriteIds.has(food.id) ? 'star' : 'star-regular'}
-                size={18}
-                color={favoriteIds.has(food.id) ? 'var(--fat)' : 'var(--secondary-text)'}
-              />
-            </span>
-          </button>
-        ))}
-        <p>{formatFoodCount(foods.length)}</p>
+              <span className={styles.foodEmoji} aria-hidden>
+                {food.emoji}
+              </span>
+              <span className={styles.foodBody}>
+                <span className={styles.foodName}>{food.name}</span>
+                <span className={styles.foodMeta}>
+                  <span className={styles.foodKcal}>{food.kcal}</span>
+                  {' kcal · '}
+                  <span className={styles.foodCarb}>C</span> {food.carb}
+                  {' · '}
+                  <span className={styles.foodProtein}>P</span> {food.protein}
+                  {' · '}
+                  <span className={styles.foodFat}>G</span> {food.fat}
+                </span>
+              </span>
+              <span
+                className={styles.foodFavorite}
+                role="button"
+                aria-label={
+                  isFavorite ? `Remover ${food.name} dos favoritos` : `Favoritar ${food.name}`
+                }
+                onClick={event => {
+                  event.stopPropagation();
+                  setFavoriteIds(current => {
+                    const next = new Set(current);
+                    if (next.has(food.id)) {
+                      next.delete(food.id);
+                    } else {
+                      next.add(food.id);
+                    }
+                    return next;
+                  });
+                }}
+              >
+                <Icon
+                  name={isFavorite ? 'star' : 'star-regular'}
+                  size={18}
+                  color={isFavorite ? 'var(--fat)' : 'var(--secondary-text)'}
+                />
+              </span>
+            </button>
+          );
+        })}
+        <p className={styles.foodCount}>{formatFoodCount(foods.length)}</p>
       </div>
     </main>
   );
