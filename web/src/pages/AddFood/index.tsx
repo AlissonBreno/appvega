@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router';
 import MacroColumn from '~/components/shared/MacroColumn';
 import { ScreenHeader } from '~/components/shared/ScreenHeader';
@@ -57,6 +57,47 @@ const AddFood = ({
   const food = getCatalog().find(item => item.id === catalogFoodId);
   const [grams, setGrams] = useState(100);
   const [ready, setReady] = useState(!mealFoodId);
+  const bodyRef = useRef<HTMLDivElement>(null);
+  const bodyThumbRef = useRef<HTMLSpanElement>(null);
+  const bodyScrollTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => () => {
+    if (bodyScrollTimer.current) {
+      clearTimeout(bodyScrollTimer.current);
+    }
+  }, []);
+
+  const onBodyScroll = () => {
+    const body = bodyRef.current;
+    const thumb = bodyThumbRef.current;
+
+    if (!body || !thumb) {
+      return;
+    }
+
+    if (body.scrollHeight <= body.clientHeight + 1) {
+      thumb.hidden = true;
+      return;
+    }
+
+    const inset = 8;
+    const track = body.clientHeight - inset * 2;
+    const height = Math.max(28, (body.clientHeight / body.scrollHeight) * track);
+    const maxTop = Math.max(track - height, 0);
+    const top = inset + (body.scrollTop / (body.scrollHeight - body.clientHeight)) * maxTop;
+
+    thumb.hidden = false;
+    thumb.style.height = `${height}px`;
+    thumb.style.transform = `translateY(${top}px)`;
+
+    if (bodyScrollTimer.current) {
+      clearTimeout(bodyScrollTimer.current);
+    }
+
+    bodyScrollTimer.current = setTimeout(() => {
+      thumb.hidden = true;
+    }, 700);
+  };
 
   useEffect(() => {
     if (!mealFoodId) {
@@ -131,6 +172,17 @@ const AddFood = ({
     navigate(-1);
   };
 
+  const confirmButton = (
+    <Button.Root
+      className={styles.confirm}
+      accessibilityLabel={actionLabel}
+      onClick={confirm}
+    >
+      <Button.Icon name="plus" color="var(--background)" />
+      <Button.Label className={styles.confirmLabel}>{actionLabel}</Button.Label>
+    </Button.Root>
+  );
+
   return (
     <main
       className={[styles.screen, embedded ? styles.screenEmbedded : styles.screenPage].join(' ')}
@@ -160,7 +212,8 @@ const AddFood = ({
         </ScreenHeader.Root>
       </div>
 
-      <div className={styles.body}>
+      <div className={styles.bodyFrame}>
+      <div ref={bodyRef} className={styles.body} onScroll={onBodyScroll}>
         <section className={styles.identity}>
           <span className={styles.emoji} aria-hidden>
             {food.emoji}
@@ -240,18 +293,12 @@ const AddFood = ({
             ))}
           </div>
         </section>
-      </div>
 
-      <div className={styles.footer}>
-        <Button.Root
-          className={styles.confirm}
-          accessibilityLabel={actionLabel}
-          onClick={confirm}
-        >
-          <Button.Icon name="plus" color="var(--background)" />
-          <Button.Label className={styles.confirmLabel}>{actionLabel}</Button.Label>
-        </Button.Root>
+        {presentation === 'page' ? <div className={styles.footer}>{confirmButton}</div> : null}
       </div>
+      <span ref={bodyThumbRef} aria-hidden hidden className={styles.scrollThumb} />
+      </div>
+      {presentation === 'dialog' ? <div className={styles.footerStatic}>{confirmButton}</div> : null}
     </main>
   );
 };
