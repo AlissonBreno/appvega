@@ -12,6 +12,7 @@ describe('tokens', () => {
         primaryText: '#F8FAFC',
         secondaryText: '#7F8DA2',
         background: '#020617',
+        background2: '#1E293B',
         foreground: '#0F172A',
         foreground2: '#334155',
         formsBackground: '#0F172A',
@@ -36,6 +37,7 @@ describe('tokens', () => {
     expect(lightTheme.colors.primaryText).toBe('#0F172A');
     expect(lightTheme.colors.secondaryText).toBe('#64748B');
     expect(lightTheme.colors.background).toBe('#F5F5F5');
+    expect(lightTheme.colors.background2).toBe('#E2E8F0');
     expect(lightTheme.colors.foreground).toBe('#FFFFFF');
     expect(lightTheme.colors.foreground2).toBe('#F1F5F9');
     expect(lightTheme.colors.formsBackground).toBe('#FFFFFF');

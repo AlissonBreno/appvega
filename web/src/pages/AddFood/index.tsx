@@ -214,49 +214,51 @@ const AddFood = ({
 
       <div className={styles.bodyFrame}>
       <div ref={bodyRef} className={styles.body} onScroll={onBodyScroll}>
-        <section className={styles.identity}>
-          <span className={styles.emoji} aria-hidden>
-            {food.emoji}
-          </span>
-          <div>
-            <h1 className={styles.name}>{food.name}</h1>
+        <section className={styles.summary}>
+          <div className={styles.identity}>
+            <span className={styles.emoji} aria-hidden>
+              {food.emoji}
+            </span>
+            <div>
+              <h1 className={styles.name}>{food.name}</h1>
+            </div>
           </div>
-        </section>
 
-        <section className={styles.kcalBox}>
-          <p className={styles.kcalValue}>{portion.kcal}</p>
-          <p className={styles.kcalLabel}>kcal</p>
-        </section>
+          <section className={styles.kcalBox}>
+            <p className={styles.kcalValue}>{portion.kcal}</p>
+            <p className={styles.kcalLabel}>kcal</p>
+          </section>
 
-        <section className={styles.macros}>
-          {MACRO_COLUMNS.map(column => (
-            <MacroColumn
-              key={column.key}
-              emoji={column.emoji}
-              grams={macros[column.key]}
-              goal={user[column.goalKey]}
-              color={column.color}
-              caption={column.label}
-            />
-          ))}
-        </section>
+          <section className={styles.macros}>
+            {MACRO_COLUMNS.map(column => (
+              <MacroColumn
+                key={column.key}
+                emoji={column.emoji}
+                grams={macros[column.key]}
+                goal={user[column.goalKey]}
+                color={column.color}
+                caption={column.label}
+              />
+            ))}
+          </section>
 
-        <Collapse.Root>
-          <div className={styles.table}>
-            <Collapse.Trigger className={styles.tableHeader}>
-              <p className={styles.tableTitle}>Tabela Nutricional</p>
-              <Collapse.Chevron name="tabela nutricional" />
-            </Collapse.Trigger>
-            <Collapse.Panel>
-              {portion.facts.map(fact => (
-                <div key={fact.label} className={styles.factRow}>
-                  <p className={styles.factLabel}>{fact.label}</p>
-                  <p className={styles.factValue}>{formatFact(fact)}</p>
-                </div>
-              ))}
-            </Collapse.Panel>
-          </div>
-        </Collapse.Root>
+          <Collapse.Root>
+            <div className={styles.table}>
+              <Collapse.Trigger className={styles.tableHeader}>
+                <p className={styles.tableTitle}>Tabela Nutricional</p>
+                <Collapse.Chevron name="tabela nutricional" />
+              </Collapse.Trigger>
+              <Collapse.Panel>
+                {portion.facts.map(fact => (
+                  <div key={fact.label} className={styles.factRow}>
+                    <p className={styles.factLabel}>{fact.label}</p>
+                    <p className={styles.factValue}>{formatFact(fact)}</p>
+                  </div>
+                ))}
+              </Collapse.Panel>
+            </div>
+          </Collapse.Root>
+        </section>
 
         <section className={styles.quantity}>
           <h2 className={styles.quantityTitle}>Quantidade em gramas</h2>

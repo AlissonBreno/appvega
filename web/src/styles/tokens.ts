@@ -44,6 +44,7 @@ export type Colors = {
   primaryText: string;
   secondaryText: string;
   background: string;
+  background2: string;
   foreground: string;
   foreground2: string;
   formsBackground: string;
@@ -75,6 +76,7 @@ export const darkTheme: Theme = {
     primaryText: '#F8FAFC',
     secondaryText: '#7F8DA2',
     background: '#020617',
+    background2: '#1E293B',
     foreground: '#0F172A',
     foreground2: '#334155',
     formsBackground: '#0F172A',
@@ -100,6 +102,7 @@ export const lightTheme: Theme = {
     primaryText: '#0F172A',
     secondaryText: '#64748B',
     background: '#F5F5F5',
+    background2: '#E2E8F0',
     foreground: '#FFFFFF',
     foreground2: '#F1F5F9',
     formsBackground: '#FFFFFF',
