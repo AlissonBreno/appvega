@@ -111,6 +111,7 @@ const MealCollapseCard = ({
           ))}
         </div>
         <Collapse.Panel>
+          <div className={styles.foodList}>
           {meal.foods.map(food => {
             const revealed = revealedFoodId === food.id;
 
@@ -195,6 +196,7 @@ const MealCollapseCard = ({
               </div>
             </div>
           ) : null}
+          </div>
         </Collapse.Panel>
       </Collapse.Root>
     </Card.Root>

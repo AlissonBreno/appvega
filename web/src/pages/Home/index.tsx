@@ -27,6 +27,11 @@ const Home = () => {
   const today = new Date();
 
   useEffect(() => {
+    document.documentElement.classList.add('hide-scrollbar');
+    return () => document.documentElement.classList.remove('hide-scrollbar');
+  }, []);
+
+  useEffect(() => {
     let active = true;
     const dateKey = selectedDate.getTime();
     if (loadedDate.current !== dateKey) {

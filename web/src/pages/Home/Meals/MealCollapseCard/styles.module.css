@@ -91,13 +91,16 @@
   border-radius: 9999px;
 }
 
+.foodList {
+  margin-top: 12px;
+}
+
 .foodRow {
   display: flex;
   align-items: center;
   gap: 16px;
   padding: 12px 0;
   border-top: 1px solid var(--border);
-  margin-top: 12px;
 }
 
 .foodGripHidden,
@@ -212,12 +215,15 @@
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  margin: 12px -16px -16px;
+  margin: 0 -16px -16px;
   padding: 16px;
   background: var(--border);
 }
 
-.mealCard {
+.mealCard.mealCard {
   border: 1px solid var(--border);
+  border-radius: 20px;
   padding: 16px;
+  gap: 0;
+  overflow: hidden;
 }
