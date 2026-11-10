@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { ScreenHeader } from '~/components/shared/ScreenHeader';
+import { Button } from '~/components/ui/Button';
 import { useTheme } from '~/hooks/useTheme';
 import { useToast } from '~/hooks/useToast';
 import { getUser, updateUserGoals } from '~/modules/User/services/user';
@@ -76,25 +77,35 @@ const Profile = () => {
         </ScreenHeader.Row>
       </ScreenHeader.Root>
       <div className="screen-body profile-grid">
-        <div className="stack">
-          <ProfileSummary user={user} />
-          <AppAbout />
+        <div className="profile-side">
+          <div className="profile-slot profile-slot-summary">
+            <ProfileSummary user={user} />
+          </div>
+          <div className="profile-slot profile-slot-appearance">
+            <Tools scheme={scheme} onScheme={setScheme} />
+          </div>
+          <div className="profile-slot profile-slot-about">
+            <AppAbout />
+          </div>
+          <div className="profile-slot profile-slot-logout">
+            <Button.Root onClick={() => navigate(routes.login, { replace: true })}>
+              <Button.Icon name="sign-out-alt" />
+              <Button.Label>Sair da conta</Button.Label>
+            </Button.Root>
+          </div>
         </div>
-        <div className="stack">
-          <DailyGoals
-            draft={draft}
-            weight={user.weight}
-            saving={saving}
-            changed={changed}
-            label={label}
-            onChange={(key, value) => setDraft({ ...draft, [key]: value })}
-            onSave={save}
-          />
-          <Tools
-            scheme={scheme}
-            onScheme={setScheme}
-            onSignOut={() => navigate(routes.login, { replace: true })}
-          />
+        <div className="profile-goals">
+          <div className="profile-slot profile-slot-goals">
+            <DailyGoals
+              draft={draft}
+              weight={user.weight}
+              saving={saving}
+              changed={changed}
+              label={label}
+              onChange={(key, value) => setDraft({ ...draft, [key]: value })}
+              onSave={save}
+            />
+          </div>
         </div>
       </div>
     </main>

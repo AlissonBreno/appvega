@@ -245,6 +245,37 @@ input {
   gap: 16px;
 }
 
+.profile-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.profile-side,
+.profile-goals {
+  display: contents;
+}
+
+.profile-slot-summary {
+  order: 1;
+}
+
+.profile-slot-goals {
+  order: 2;
+}
+
+.profile-slot-appearance {
+  order: 3;
+}
+
+.profile-slot-about {
+  order: 4;
+}
+
+.profile-slot-logout {
+  order: 5;
+}
+
 .goal-controls input {
   width: 72px;
   text-align: center;
@@ -288,11 +319,33 @@ input {
     flex: 1;
   }
 
-  .history-grid,
-  .profile-grid {
+  .history-grid {
     display: grid;
     grid-template-columns: 1fr 420px;
     gap: 24px;
     align-items: start;
+  }
+
+  .profile-grid {
+    display: grid;
+    grid-template-columns: minmax(280px, 420px) minmax(0, 1fr);
+    gap: 24px;
+    align-items: start;
+  }
+
+  .profile-side,
+  .profile-goals {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    min-width: 0;
+  }
+
+  .profile-slot-summary,
+  .profile-slot-goals,
+  .profile-slot-appearance,
+  .profile-slot-about,
+  .profile-slot-logout {
+    order: 0;
   }
 }
