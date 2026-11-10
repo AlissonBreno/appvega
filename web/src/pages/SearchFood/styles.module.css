@@ -22,6 +22,11 @@
   background: transparent;
 }
 
+.screenEmbedded .chrome {
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 16px;
+}
+
 .headerButton {
   width: 36px;
   height: 36px;
@@ -75,20 +80,24 @@
   margin: 0 16px 16px;
 }
 
-.listCard {
+.listScroll {
   position: absolute;
   inset: 0;
   overflow: auto;
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  background: var(--foreground);
   scrollbar-width: none;
 }
 
-.listCard::-webkit-scrollbar {
+.listScroll::-webkit-scrollbar {
   display: none;
   width: 0;
   height: 0;
+}
+
+.listCard {
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--foreground);
+  overflow: hidden;
 }
 
 .scrollThumb {
@@ -171,6 +180,8 @@
 .foodCount {
   margin: 0;
   padding: 16px;
+  border: 0;
+  background: var(--background);
   text-align: center;
   font-size: 14px;
   line-height: 1.5;
