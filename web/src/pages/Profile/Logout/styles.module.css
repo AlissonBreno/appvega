@@ -3,6 +3,11 @@
   opacity: 1;
   border-color: var(--error);
   background: transparent;
+  transition: background-color 0.15s ease;
+}
+
+.root:hover {
+  background: color-mix(in srgb, var(--error) 12%, transparent);
 }
 
 .icon {

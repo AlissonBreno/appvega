@@ -63,6 +63,11 @@
   border: 1px solid var(--border);
   background: var(--border);
   cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.stepButton:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--primary-text) 12%, var(--border));
 }
 
 .stepButton:active {
