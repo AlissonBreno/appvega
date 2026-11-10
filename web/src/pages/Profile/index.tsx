@@ -10,6 +10,7 @@ import AppAbout from './AppAbout';
 import DailyGoals from './DailyGoals';
 import { draftIsValid, sumMacroKcal, type GoalDraft, type GoalKey } from './DailyGoals/goalDraft';
 import ProfileSummary from './ProfileSummary';
+import styles from './Logout/styles.module.css';
 import Tools from './Tools';
 
 const toDraft = (): GoalDraft => {
@@ -88,9 +89,13 @@ const Profile = () => {
             <AppAbout />
           </div>
           <div className="profile-slot profile-slot-logout">
-            <Button.Root onClick={() => navigate(routes.login, { replace: true })}>
-              <Button.Icon name="sign-out-alt" />
-              <Button.Label>Sair da conta</Button.Label>
+            <Button.Root
+              accessibilityLabel="Sair da conta"
+              className={styles.root}
+              onClick={() => navigate(routes.login, { replace: true })}
+            >
+              <Button.Icon name="sign-out-alt" color="var(--error)" className={styles.icon} />
+              <Button.Label className={styles.label}>Sair da conta</Button.Label>
             </Button.Root>
           </div>
         </div>
