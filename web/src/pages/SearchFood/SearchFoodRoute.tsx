@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router';
 import Dialog from '~/components/ui/Dialog';
-import { searchFoodDismiss, searchFoodPresentation } from '~/config/viewport';
+import { mealFlowDismiss, mealFlowPresentation } from '~/config/viewport';
 import { useDesktop } from '~/hooks/useDesktop';
 import { routes } from '~/types/Navigation';
 import SearchFood from '.';
@@ -8,9 +8,9 @@ import SearchFood from '.';
 const SearchFoodRoute = () => {
   const desktop = useDesktop();
   const navigate = useNavigate();
-  const presentation = searchFoodPresentation(desktop);
+  const presentation = mealFlowPresentation(desktop);
   const dismiss = () => {
-    if (searchFoodDismiss(presentation) === 'home') {
+    if (mealFlowDismiss(presentation) === 'home') {
       navigate(routes.home);
       return;
     }

@@ -279,8 +279,7 @@ input {
   }
 
   .history-grid,
-  .profile-grid,
-  .add-grid {
+  .profile-grid {
     display: grid;
     grid-template-columns: 1fr 420px;
     gap: 24px;

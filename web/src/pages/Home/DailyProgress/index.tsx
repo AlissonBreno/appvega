@@ -1,5 +1,6 @@
 import type { User } from '~/modules/User/services/user';
 import { Card } from '~/components/ui/Card';
+import MacroColumn from '~/components/shared/MacroColumn';
 import { formatKcal } from '../formatKcal';
 
 import styles from './styles.module.css';
@@ -21,35 +22,6 @@ const formatGrams = (grams: number) => {
   const rounded = Math.round(grams * 10) / 10;
   return `${rounded}g`;
 };
-
-const macroFraction = (consumed: number, goal: number) =>
-  goal > 0 ? Math.min(1, Math.max(0, consumed / goal)) : 0;
-
-type MacroColumnProps = {
-  emoji: string;
-  grams: number;
-  label: string;
-  goal: number;
-  color: string;
-};
-
-const MacroColumn = ({ emoji, grams, label, goal, color }: MacroColumnProps) => (
-  <div className={styles.column}>
-    <div className={styles.header}>
-      <span>{emoji}</span>
-      <span className={styles.grams}>{formatGrams(grams)}</span>
-    </div>
-    <div className={styles.track}>
-      <div
-        className={styles.fill}
-        style={{ width: `${macroFraction(grams, goal) * 100}%`, background: color }}
-      />
-    </div>
-    <span className={styles.caption}>
-      {label} / {formatGrams(goal)}
-    </span>
-  </div>
-);
 
 const DailyProgress = ({ totals, user, arcs }: DailyProgressProps) => (
   <Card.Root className="progress-card" aria-label="Progresso do dia">
@@ -98,21 +70,21 @@ const DailyProgress = ({ totals, user, arcs }: DailyProgressProps) => (
         <MacroColumn
           emoji="🍞"
           grams={totals.carb}
-          label="Carb"
+          caption={`Carb / ${formatGrams(user.goal_carb)}`}
           goal={user.goal_carb}
           color="var(--carb)"
         />
         <MacroColumn
           emoji="🍗"
           grams={totals.protein}
-          label="Prot"
+          caption={`Prot / ${formatGrams(user.goal_prot)}`}
           goal={user.goal_prot}
           color="var(--protein)"
         />
         <MacroColumn
           emoji="🥑"
           grams={totals.fat}
-          label="Gord"
+          caption={`Gord / ${formatGrams(user.goal_fat)}`}
           goal={user.goal_fat}
           color="var(--fat)"
         />

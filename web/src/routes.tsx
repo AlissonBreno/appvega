@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router';
 import AppShell from '~/components/layout/AppShell';
-import AddFood from '~/pages/AddFood';
+import AddFoodRoute from '~/pages/AddFood/AddFoodRoute';
 import History from '~/pages/History';
 import MealFlow from '~/pages/Home/MealFlow';
 import Login from '~/pages/Login';
@@ -14,7 +14,7 @@ const AppRoutes = () => (
       <Route element={<MealFlow />}>
         <Route path={routes.home} element={null} />
         <Route path={routes.searchFood} element={<SearchFoodRoute />} />
-        <Route path={routes.addFood} element={<AddFood />} />
+        <Route path={routes.addFood} element={<AddFoodRoute />} />
       </Route>
       <Route path={routes.history} element={<History />} />
       <Route path={routes.profile} element={<Profile />} />

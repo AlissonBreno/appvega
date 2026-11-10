@@ -8,7 +8,7 @@ const MealFlow = () => {
   const { pathname } = useLocation();
   const onSearch = pathname === routes.searchFood;
   const onAdd = pathname === routes.addFood;
-  const foreground = onAdd || (onSearch && !desktop);
+  const foreground = (onSearch || onAdd) && !desktop;
 
   return (
     <>

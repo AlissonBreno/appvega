@@ -3,7 +3,13 @@ import type { CatalogFood } from '~/modules/Food/services/catalog';
 import { filterCatalogFoods, formatFoodCount } from './pages/SearchFood/filterCatalogFoods';
 import { sumMacroKcal } from './pages/Profile/DailyGoals/goalDraft';
 import { barColorForKcal } from './pages/History/history';
-import { decreaseGrams, gramsAtLeastTen } from './pages/AddFood/quantity';
+import {
+  decreaseGrams,
+  formatFact,
+  formatGrams,
+  formatOneDecimal,
+  gramsAtLeastTen,
+} from './pages/AddFood/quantity';
 import { scalePortion } from './modules/Meal/utils/portion';
 
 const aveia: CatalogFood = {
@@ -38,6 +44,14 @@ describe('porção e quantidade', () => {
     expect(decreaseGrams(10)).toBe(10);
     expect(gramsAtLeastTen(10)).toBe(false);
     expect(gramsAtLeastTen(15)).toBe(true);
+  });
+
+  it('formata gramas e fatos nutricionais em pt-BR', () => {
+    expect(formatGrams(100)).toBe('100g');
+    expect(formatGrams(16.9)).toBe('16,9g');
+    expect(formatOneDecimal(16.9)).toBe('16,9');
+    expect(formatFact({ amount: null, unit: 'mg' })).toBe('NA mg');
+    expect(formatFact({ amount: 2.7, unit: 'g' })).toBe('2,7 g');
   });
 });
 
