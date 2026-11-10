@@ -23,7 +23,7 @@ type IconProps = {
 };
 
 const Icon = ({ name }: IconProps) => (
-  <IconGlyph name={name} color="var(--brand-green)" size={24} />
+  <IconGlyph name={name} color="var(--primary)" size={24} />
 );
 
 type BackProps = {
@@ -38,7 +38,7 @@ const Back = ({ onClick }: BackProps) => (
     onClick={onClick}
     className={styles.back}
   >
-    <IconGlyph name="arrow-left" color="var(--text-primary)" size={24} />
+    <IconGlyph name="arrow-left" color="var(--primary-text)" size={24} />
   </button>
 );
 

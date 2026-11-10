@@ -81,7 +81,7 @@ const Chevron = ({ name }: ChevronProps) => {
       aria-hidden
       data-collapse-noun={name}
     >
-      <Icon name="chevron-down" size={16} color="var(--text-muted)" />
+      <Icon name="chevron-down" size={16} color="var(--secondary-text)" />
     </span>
   );
 };

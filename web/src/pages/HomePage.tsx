@@ -115,12 +115,12 @@ const HomePage = () => {
             <Card.Root className="progress-card" aria-label="Progresso do dia">
               <div className="progress-layout">
                 <svg width="120" height="120" viewBox="0 0 120 120" aria-hidden>
-                  <circle cx="60" cy="60" r="46" fill="none" stroke="var(--border-subtle)" strokeWidth="10" />
+                  <circle cx="60" cy="60" r="46" fill="none" stroke="var(--border)" strokeWidth="10" />
                   {arcs.map((fraction, index) => {
                     const radius = 46;
                     const length = 2 * Math.PI * radius;
                     const start = arcs.slice(0, index).reduce((sum, value) => sum + value, 0);
-                    const colors = ['var(--accent-carb)', 'var(--accent-protein)', 'var(--accent-fat)'];
+                    const colors = ['var(--carb)', 'var(--protein)', 'var(--fat)'];
                     return (
                       <circle
                         key={colors[index]}
@@ -206,13 +206,13 @@ const HomePage = () => {
                             )
                           }
                         >
-                          <Icon name="plus" size={16} color="var(--brand-green)" />
+                          <Icon name="plus" size={16} color="var(--primary)" />
                         </button>
                       </div>
                       <div className={pageStyles.macroTrack} aria-hidden>
-                        <i style={{ width: `${mealArcs[0] * 100}%`, background: 'var(--accent-carb)' }} />
-                        <i style={{ width: `${mealArcs[1] * 100}%`, background: 'var(--accent-protein)' }} />
-                        <i style={{ width: `${mealArcs[2] * 100}%`, background: 'var(--accent-fat)' }} />
+                        <i style={{ width: `${mealArcs[0] * 100}%`, background: 'var(--carb)' }} />
+                        <i style={{ width: `${mealArcs[1] * 100}%`, background: 'var(--protein)' }} />
+                        <i style={{ width: `${mealArcs[2] * 100}%`, background: 'var(--fat)' }} />
                       </div>
                       <Collapse.Panel>
                         {meal.foods.map(food => (
@@ -242,7 +242,7 @@ const HomePage = () => {
                                   );
                                 }}
                               >
-                                <Icon name="pencil" size={16} color="var(--text-primary)" />
+                                <Icon name="pencil" size={16} color="var(--primary-text)" />
                               </button>
                               <button
                                 className={pageStyles.foodAction}
@@ -250,7 +250,7 @@ const HomePage = () => {
                                 aria-label={`Excluir ${food.name}`}
                                 onClick={() => removeFood(meal, food)}
                               >
-                                <Icon name="trash" size={16} color="var(--text-primary)" />
+                                <Icon name="trash" size={16} color="var(--primary-text)" />
                               </button>
                             </div>
                           </div>

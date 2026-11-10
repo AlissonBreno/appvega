@@ -3,9 +3,9 @@ import { ScreenHeader } from '../components/shared/ScreenHeader';
 import { Card } from '../components/ui/Card';
 
 const toneColor = {
-  above: 'var(--state-above)',
-  near: 'var(--state-near)',
-  within: 'var(--brand-green)',
+  above: 'var(--error)',
+  near: 'var(--secondary)',
+  within: 'var(--primary)',
 };
 
 const days = ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'];

@@ -1,6 +1,6 @@
 .card {
   border-radius: 20px;
-  background: var(--surface-card);
+  background: var(--foreground);
   padding: 24px;
   display: flex;
   flex-direction: column;
@@ -12,5 +12,5 @@
   font-size: 16px;
   line-height: 21px;
   font-weight: 700;
-  color: var(--text-primary);
+  color: var(--primary-text);
 }

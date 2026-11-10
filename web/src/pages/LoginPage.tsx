@@ -36,7 +36,7 @@ export const LoginPage = () => {
           </Input.Field>
           <Button.Root className={loginStyles.signIn} disabled>
             <Button.Label className={loginStyles.signInLabel}>Entrar</Button.Label>
-            <Button.Icon name="arrow-right" color="var(--surface-app)" className={loginStyles.signInIcon} />
+            <Button.Icon name="arrow-right" color="var(--background)" className={loginStyles.signInIcon} />
           </Button.Root>
           <div className={loginStyles.divider}>
             <span className={loginStyles.dividerLine} />
@@ -47,7 +47,7 @@ export const LoginPage = () => {
             className={loginStyles.google}
             onClick={() => navigate('/', { replace: true })}
           >
-            <Button.Icon name="google" color="var(--text-primary)" />
+            <Button.Icon name="google" color="var(--primary-text)" />
             <Button.Label className={loginStyles.googleLabel}>Continuar com Google</Button.Label>
           </Button.Root>
         </form>

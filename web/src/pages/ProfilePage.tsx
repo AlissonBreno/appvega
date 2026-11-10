@@ -95,7 +95,7 @@ export const ProfilePage = () => {
             <p>Rastreando há 7 dias 🔥</p>
             <p>{user.goal_kcal} kcal · {user.age} anos · {user.weight} kg</p>
           </Card.Root>
-          <Card.Root style={{ background: 'var(--border-subtle)' }}>
+          <Card.Root style={{ background: 'var(--border)' }}>
             <Card.SectionTitle title="VEGA · Nutrição fácil" />
             <p className="mono">v1.0.0 · by Alisson Goulart</p>
             <p className="muted">Este app não substitui orientação de um profissional de saúde.</p>

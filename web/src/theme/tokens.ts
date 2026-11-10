@@ -1,94 +1,122 @@
-export const tokenNames = [
-  'surface/app',
-  'surface/header',
-  'surface/card',
-  'surface/nested',
-  'text/primary',
-  'text/muted',
-  'border/subtle',
-  'track/progress',
-  'nav/active',
-  'brand/green',
-  'accent/carb',
-  'accent/protein',
-  'accent/fat',
-  'state/above',
-  'state/near',
-  'avatar/gradient-start',
-  'avatar/gradient-end',
-  'toast/danger',
-  'toast/success',
-  'toast/warning',
-] as const;
-
-export type TokenName = (typeof tokenNames)[number];
+/**
+ * Mesmo contrato de `app/src/styles/theme.ts` e `app/src/types/Theme.ts`.
+ * No browser a família Circular Std agrupa os cortes Book/Medium/Bold/Black.
+ */
 
 export type Scheme = 'dark' | 'light';
 
-const dark = {
-  'surface/app': '#020617',
-  'surface/header': '#0F172A',
-  'surface/card': '#0F172A',
-  'surface/nested': '#334155',
-  'text/primary': '#F8FAFC',
-  'text/muted': '#7F8DA2',
-  'border/subtle': '#1E293B',
-  'track/progress': '#1E293B',
-  'nav/active': '#F8FAFC',
-  'brand/green': '#10B37D',
-  'accent/carb': '#6366F1',
-  'accent/protein': '#10B37D',
-  'accent/fat': '#F2C614',
-  'state/above': '#FF5878',
-  'state/near': '#38BDF8',
-  'avatar/gradient-start': '#38BDF8',
-  'avatar/gradient-end': '#10B981',
-  'toast/danger': '#FF5878',
-  'toast/success': '#10B37D',
-  'toast/warning': '#F2C614',
-} as const satisfies Record<TokenName, string>;
+export type FontWeight =
+  | 'normal'
+  | 'bold'
+  | '100'
+  | '200'
+  | '300'
+  | '400'
+  | '500'
+  | '600'
+  | '700'
+  | '800'
+  | '900';
 
-const light = {
-  'surface/app': '#F5F5F5',
-  'surface/header': '#FFFFFF',
-  'surface/card': '#FFFFFF',
-  'surface/nested': '#F1F5F9',
-  'text/primary': '#0F172A',
-  'text/muted': '#64748B',
-  'border/subtle': '#E2E8F0',
-  'track/progress': '#E2E8F0',
-  'nav/active': '#0F172A',
-  'brand/green': '#10B37D',
-  'accent/carb': '#6366F1',
-  'accent/protein': '#10B37D',
-  'accent/fat': '#F2C614',
-  'state/above': '#FF5878',
-  'state/near': '#38BDF8',
-  'avatar/gradient-start': '#38BDF8',
-  'avatar/gradient-end': '#10B981',
-  'toast/danger': '#FF5878',
-  'toast/success': '#10B37D',
-  'toast/warning': '#F2C614',
-} as const satisfies Record<TokenName, string>;
+export type Font = {
+  fontFamily: string;
+  fontWeight?: FontWeight;
+};
 
-export const tokens = { dark, light };
+export type Fonts = {
+  light: Font;
+  medium: Font;
+  bold: Font;
+  black: Font;
+};
 
-export const fontFamily = {
-  circular: 'Circular Std',
-  mono: 'Fira Code',
+export type ToastColors = {
+  danger: string;
+  success: string;
+  warning: string;
+};
+
+export type Colors = {
+  primary: string;
+  secondary: string;
+  tertiary: string;
+  error: string;
+  primaryText: string;
+  secondaryText: string;
+  background: string;
+  foreground: string;
+  foreground2: string;
+  formsBackground: string;
+  border: string;
+  toast: ToastColors;
+  carb: string;
+  protein: string;
+  fat: string;
+};
+
+export type Theme = {
+  colors: Colors;
+  fonts: Fonts;
+};
+
+const fonts: Fonts = {
+  light: { fontFamily: 'Circular Std', fontWeight: '400' },
+  medium: { fontFamily: 'Circular Std', fontWeight: '500' },
+  bold: { fontFamily: 'Circular Std', fontWeight: '700' },
+  black: { fontFamily: 'Circular Std', fontWeight: '900' },
+};
+
+export const darkTheme: Theme = {
+  colors: {
+    primary: '#10B37D',
+    secondary: '#38BDF8',
+    tertiary: '#6366F1',
+    error: '#FF5878',
+    primaryText: '#F8FAFC',
+    secondaryText: '#7F8DA2',
+    background: '#020617',
+    foreground: '#0F172A',
+    foreground2: '#334155',
+    formsBackground: '#0F172A',
+    border: '#1E293B',
+    toast: {
+      danger: '#FF5878',
+      success: '#10B37D',
+      warning: '#F2C614',
+    },
+    carb: '#6366F1',
+    protein: '#10B37D',
+    fat: '#F2C614',
+  },
+  fonts,
+};
+
+export const lightTheme: Theme = {
+  colors: {
+    primary: '#10B37D',
+    secondary: '#38BDF8',
+    tertiary: '#6366F1',
+    error: '#FF5878',
+    primaryText: '#0F172A',
+    secondaryText: '#64748B',
+    background: '#F5F5F5',
+    foreground: '#FFFFFF',
+    foreground2: '#F1F5F9',
+    formsBackground: '#FFFFFF',
+    border: '#E2E8F0',
+    toast: {
+      danger: '#FF5878',
+      success: '#10B37D',
+      warning: '#F2C614',
+    },
+    carb: '#6366F1',
+    protein: '#10B37D',
+    fat: '#F2C614',
+  },
+  fonts,
+};
+
+export const themes = {
+  dark: darkTheme,
+  light: lightTheme,
 } as const;
-
-export const typography = {
-  display: { fontFamily: fontFamily.circular, fontSize: 32, fontWeight: 'bold', lineHeight: 1.15 },
-  h1: { fontFamily: fontFamily.circular, fontSize: 24, fontWeight: 'bold', lineHeight: 1.2 },
-  h2: { fontFamily: fontFamily.circular, fontSize: 20, fontWeight: 'bold', lineHeight: 1.25 },
-  h3: { fontFamily: fontFamily.circular, fontSize: 16, fontWeight: 'medium', lineHeight: 1.3 },
-  body: { fontFamily: fontFamily.circular, fontSize: 16, fontWeight: 'regular', lineHeight: 1.6 },
-  bodySm: { fontFamily: fontFamily.circular, fontSize: 14, fontWeight: 'regular', lineHeight: 1.5 },
-  caption: { fontFamily: fontFamily.circular, fontSize: 12, fontWeight: 'medium', lineHeight: 1.4 },
-  mono: { fontFamily: fontFamily.mono, fontSize: 13, fontWeight: 'regular', lineHeight: 1.5 },
-} as const;
-
-export const space = { xs: 4, sm: 8, md: 16, lg: 24, xl: 32, '2xl': 48 } as const;
-
-export const radius = { sm: 8, default: 12, lg: 16, xl: 20, full: 9999 } as const;

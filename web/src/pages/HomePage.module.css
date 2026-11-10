@@ -21,9 +21,9 @@
   width: 36px;
   height: 36px;
   border-radius: 9999px;
-  border: 1px solid var(--border-subtle);
-  background: var(--surface-app);
-  color: var(--brand-green);
+  border: 1px solid var(--border);
+  background: var(--background);
+  color: var(--primary);
   display: grid;
   place-items: center;
   cursor: pointer;
@@ -39,7 +39,7 @@
   height: 6px;
   gap: 2px;
   margin-top: 12px;
-  background: var(--border-subtle);
+  background: var(--border);
   border-radius: 9999px;
   overflow: hidden;
 }
@@ -54,7 +54,7 @@
   justify-content: space-between;
   gap: 12px;
   padding-top: 12px;
-  border-top: 1px solid var(--border-subtle);
+  border-top: 1px solid var(--border);
   margin-top: 12px;
 }
 
@@ -68,15 +68,15 @@
   width: 44px;
   height: 44px;
   border-radius: 12px;
-  border: 1px solid var(--border-subtle);
-  background: var(--surface-app);
-  color: var(--text-primary);
+  border: 1px solid var(--border);
+  background: var(--background);
+  color: var(--primary-text);
   display: grid;
   place-items: center;
   cursor: pointer;
 }
 
 .mealCard {
-  border: 1px solid var(--border-subtle);
+  border: 1px solid var(--border);
   padding: 16px;
 }

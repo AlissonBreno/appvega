@@ -4,7 +4,7 @@
 
 body {
   font-family: "Circular Std", sans-serif;
-  color: var(--text-primary);
+  color: var(--primary-text);
 }
 
 button,
@@ -17,7 +17,14 @@ input {
   min-height: 100%;
 }
 
+.app-shellDesktop {
+  display: flex;
+  align-items: stretch;
+}
+
 .app-column {
+  flex: 1;
+  min-width: 0;
   min-height: 100%;
 }
 
@@ -54,7 +61,7 @@ input {
   margin: 8px 0 0;
   font-size: 14px;
   line-height: 21px;
-  color: var(--text-muted);
+  color: var(--secondary-text);
 }
 
 .login-form {
@@ -75,12 +82,12 @@ input {
   background: transparent;
   border-radius: 12px;
   padding: 8px 0;
-  color: var(--text-muted);
+  color: var(--secondary-text);
 }
 
 .week button[aria-pressed='true'] {
-  border-color: var(--surface-card);
-  color: var(--text-primary);
+  border-color: var(--foreground);
+  color: var(--primary-text);
 }
 
 .week small,
@@ -108,7 +115,7 @@ input {
 
 .kcal-unit,
 .muted {
-  color: var(--text-muted);
+  color: var(--secondary-text);
   font-size: 14px;
 }
 
@@ -143,7 +150,7 @@ input {
   justify-content: space-between;
   gap: 12px;
   padding-top: 12px;
-  border-top: 1px solid var(--border-subtle);
+  border-top: 1px solid var(--border);
   margin-top: 12px;
   width: 100%;
   border-left: 0;
@@ -157,7 +164,7 @@ input {
 .skeleton {
   height: 120px;
   border-radius: 16px;
-  background: linear-gradient(90deg, var(--border-subtle), var(--surface-card), var(--border-subtle));
+  background: linear-gradient(90deg, var(--border), var(--foreground), var(--border));
   background-size: 200% 100%;
   animation: shine 1.2s linear infinite;
 }
@@ -227,8 +234,8 @@ input {
 .goal-controls input {
   width: 72px;
   text-align: center;
-  background: var(--surface-app);
-  border: 1px solid var(--border-subtle);
+  background: var(--background);
+  border: 1px solid var(--border);
   border-radius: 12px;
 }
 
@@ -239,10 +246,6 @@ input {
 }
 
 @media (min-width: 1024px) {
-  .app-column {
-    padding-left: 104px;
-  }
-
   .login-column {
     max-width: 400px;
   }

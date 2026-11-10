@@ -50,7 +50,7 @@ const Icon = ({ name, color, className, style }: IconProps) => (
   <IconGlyph
     name={name}
     size={16}
-    color={color ?? 'var(--text-muted)'}
+    color={color ?? 'var(--secondary-text)'}
     className={className}
     style={style}
   />

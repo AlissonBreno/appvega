@@ -25,7 +25,7 @@ describe('weekDaysAround', () => {
 });
 
 describe('showsTabBar', () => {
-  it('mostra a pílula só em Home, Histórico e Perfil', () => {
+  it('mostra a navegação em Início, Histórico e Perfil; no desktop também em buscar/adicionar', () => {
     expect(showsTabBar('/')).toBe(true);
     expect(showsTabBar('/historico')).toBe(true);
     expect(showsTabBar('/perfil')).toBe(true);

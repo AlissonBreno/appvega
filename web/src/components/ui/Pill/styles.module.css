@@ -6,21 +6,21 @@
   padding: 8px 16px;
   border-radius: 9999px;
   border: 0;
-  background: var(--surface-card);
+  background: var(--foreground);
   cursor: pointer;
 }
 
 .selected {
-  background: var(--text-primary);
+  background: var(--primary-text);
 }
 
 .label {
   font-size: 14px;
   line-height: 21px;
   font-weight: 500;
-  color: var(--text-muted);
+  color: var(--secondary-text);
 }
 
 .labelSelected {
-  color: var(--surface-app);
+  color: var(--background);
 }

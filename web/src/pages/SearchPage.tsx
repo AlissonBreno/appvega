@@ -87,7 +87,7 @@ export const SearchPage = () => {
               <Icon
                 name={favoriteIds.has(food.id) ? 'star' : 'star-regular'}
                 size={18}
-                color={favoriteIds.has(food.id) ? 'var(--accent-fat)' : 'var(--text-muted)'}
+                color={favoriteIds.has(food.id) ? 'var(--fat)' : 'var(--secondary-text)'}
               />
             </span>
           </button>

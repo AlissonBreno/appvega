@@ -1,32 +1,32 @@
 .signIn {
   opacity: 1;
   border-width: 0;
-  background: var(--text-primary);
+  background: var(--primary-text);
 }
 
 .signInLabel {
-  color: var(--surface-app);
+  color: var(--background);
 }
 
 .signInIcon {
-  color: var(--surface-app);
+  color: var(--background);
 }
 
 .google {
   opacity: 1;
-  border-color: var(--border-subtle);
-  background: var(--surface-card);
+  border-color: var(--border);
+  background: var(--foreground);
 }
 
 .googleLabel {
-  color: var(--text-primary);
+  color: var(--primary-text);
 }
 
 .divider {
   display: flex;
   align-items: center;
   gap: 16px;
-  color: var(--text-muted);
+  color: var(--secondary-text);
   font-size: 14px;
   line-height: 21px;
 }
@@ -34,5 +34,5 @@
 .dividerLine {
   flex: 1;
   height: 1px;
-  background: var(--border-subtle);
+  background: var(--border);
 }

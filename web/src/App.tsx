@@ -3,7 +3,9 @@ import { BrowserRouter, Route, Routes, useLocation } from 'react-router';
 import { SessionProvider, useSession } from './app/session';
 import { showsTabBar } from './app/showsTabBar';
 import { FloatingTabBar } from './components/layout/FloatingTabBar';
+import { Sidebar } from './components/layout/Sidebar';
 import Toast from './components/ui/Toast';
+import { getUser } from './dados/user';
 import { AddPage } from './pages/AddPage';
 import { HistoryPage } from './pages/HistoryPage';
 import HomePage from './pages/HomePage';
@@ -18,6 +20,7 @@ const Shell = () => {
   const { toast, dismissToast } = useSession();
   const [desktop, setDesktop] = useState(() => window.matchMedia(DESKTOP_QUERY).matches);
   const tabbed = showsTabBar(location.pathname, desktop);
+  const user = getUser();
 
   useEffect(() => {
     if (!toast) {
@@ -36,7 +39,18 @@ const Shell = () => {
   }, []);
 
   return (
-    <div className="app-shell">
+    <div className={['app-shell', desktop && tabbed ? 'app-shellDesktop' : null].filter(Boolean).join(' ')}>
+      {desktop && tabbed ? (
+        <Sidebar.Root>
+          <Sidebar.Identity name={user.name} />
+          <Sidebar.Nav>
+            <Sidebar.Item to="/" icon="home" label="Início" end />
+            <Sidebar.Item to="/historico" icon="chart-bar" label="Histórico" />
+            <Sidebar.Item to="/perfil" icon="user-cog" label="Perfil" />
+          </Sidebar.Nav>
+          <Sidebar.Footer product="Monitoramento nutricional" version="v1.0.0" />
+        </Sidebar.Root>
+      ) : null}
       <div className={tabbed && desktop ? 'app-column' : undefined}>
         <Routes>
           <Route path="/" element={<HomePage />} />
@@ -47,7 +61,7 @@ const Shell = () => {
           <Route path="/login" element={<LoginPage />} />
         </Routes>
       </div>
-      {tabbed ? <FloatingTabBar desktop={desktop} pathname={location.pathname} /> : null}
+      {!desktop && tabbed ? <FloatingTabBar pathname={location.pathname} /> : null}
       {toast ? (
         <Toast message={toast.message} variant={toast.variant} onDismiss={dismissToast} />
       ) : null}

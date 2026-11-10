@@ -8,13 +8,12 @@ import styles from './styles.module.css';
 const ACTIVE_SIZE = 72;
 
 const tabs: { to: string; label: string; icon: IconName }[] = [
-  { to: '/', label: 'Home', icon: 'home' },
+  { to: '/', label: 'Início', icon: 'home' },
   { to: '/historico', label: 'Histórico', icon: 'chart-bar' },
   { to: '/perfil', label: 'Perfil', icon: 'user-cog' },
 ];
 
 type FloatingTabBarProps = {
-  desktop: boolean;
   pathname: string;
 };
 
@@ -31,27 +30,19 @@ const resolveActiveIndex = (pathname: string) => {
   return tabs.findIndex(tab => tab.to !== '/' && pathname.startsWith(tab.to));
 };
 
-export const FloatingTabBar = ({ desktop, pathname }: FloatingTabBarProps) => {
+export const FloatingTabBar = ({ pathname }: FloatingTabBarProps) => {
   const location = useLocation();
   const activeIndex = useMemo(
     () => Math.max(0, resolveActiveIndex(pathname || location.pathname)),
     [location.pathname, pathname],
   );
   const activeTab = tabs[activeIndex] ?? tabs[0];
-  const translate = desktop
-    ? `translateY(${activeIndex * ACTIVE_SIZE}px)`
-    : `translateX(${activeIndex * ACTIVE_SIZE}px)`;
+  const translate = `translateX(${activeIndex * ACTIVE_SIZE}px)`;
 
   return (
-    <nav
-      className={[styles.host, desktop ? styles.vertical : styles.horizontal].join(' ')}
-      aria-label="Navegação"
-    >
-      <div className={[styles.pill, desktop ? styles.pillVertical : null].filter(Boolean).join(' ')}>
-        <div
-          className={[styles.track, desktop ? styles.trackVertical : null].filter(Boolean).join(' ')}
-          aria-hidden
-        />
+    <nav className={[styles.host, styles.horizontal].join(' ')} aria-label="Navegação">
+      <div className={styles.pill}>
+        <div className={styles.track} aria-hidden />
         {tabs.map(tab => (
           <NavLink
             key={tab.to}
@@ -60,15 +51,11 @@ export const FloatingTabBar = ({ desktop, pathname }: FloatingTabBarProps) => {
             aria-label={tab.label}
             className={styles.item}
           >
-            <Icon name={tab.icon} size={22} color="var(--text-muted)" />
+            <Icon name={tab.icon} size={22} color="var(--secondary-text)" />
           </NavLink>
         ))}
-        <div
-          className={styles.activeCircle}
-          style={{ transform: translate }}
-          aria-hidden
-        >
-          <Icon name={activeTab.icon} size={22} color="var(--surface-card)" />
+        <div className={styles.activeCircle} style={{ transform: translate }} aria-hidden>
+          <Icon name={activeTab.icon} size={22} color="var(--foreground)" />
         </div>
       </div>
     </nav>
