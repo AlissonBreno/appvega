@@ -35,3 +35,19 @@ export const formatFact = (fact: { amount: number | null; unit: string }) => {
 
   return `${formatAmount(fact.amount)} ${fact.unit}`;
 };
+
+export const parseGramsInput = (value: string) => {
+  const normalized = value.trim().replace(',', '.');
+
+  if (!normalized) {
+    return null;
+  }
+
+  const parsed = Number(normalized);
+
+  if (!Number.isFinite(parsed) || parsed <= 0) {
+    return null;
+  }
+
+  return Math.round(parsed * 10) / 10;
+};

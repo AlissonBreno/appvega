@@ -5,6 +5,7 @@ import { ScreenHeader } from '~/components/shared/ScreenHeader';
 import { Button } from '~/components/ui/Button';
 import { Collapse } from '~/components/ui/Collapse';
 import Icon from '~/components/ui/Icon';
+import { Input } from '~/components/ui/Input';
 import { Pill } from '~/components/ui/Pill';
 import type { MealFlowPresentation } from '~/config/viewport';
 import { useMealsData } from '~/contexts/MealsDataContext';
@@ -19,8 +20,8 @@ import { addFoodSaveDestination } from './navigation';
 import {
   decreaseGrams,
   formatFact,
-  formatGrams,
   gramsAtLeastTen,
+  parseGramsInput,
 } from './quantity';
 import styles from './styles.module.css';
 
@@ -56,7 +57,13 @@ const AddFood = ({
   const mealFoodId = params.get('mealFoodId');
   const food = getCatalog().find(item => item.id === catalogFoodId);
   const [grams, setGrams] = useState(100);
+  const [gramsText, setGramsText] = useState('100');
   const [ready, setReady] = useState(!mealFoodId);
+
+  const updateGrams = (next: number) => {
+    setGrams(next);
+    setGramsText(String(next));
+  };
   const bodyRef = useRef<HTMLDivElement>(null);
   const bodyThumbRef = useRef<HTMLSpanElement>(null);
   const bodyScrollTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -109,6 +116,7 @@ const AddFood = ({
       const current = meals.flatMap(meal => meal.foods).find(item => item.id === mealFoodId);
       if (active && current) {
         setGrams(current.grams);
+        setGramsText(String(current.grams));
       }
       if (active) {
         setReady(true);
@@ -268,16 +276,41 @@ const AddFood = ({
               className={styles.stepperButton}
               aria-label="Diminuir 10 gramas"
               disabled={!gramsAtLeastTen(grams)}
-              onClick={() => setGrams(decreaseGrams(grams))}
+              onClick={() => updateGrams(decreaseGrams(grams))}
             >
               <Icon name="minus" size={14} color="var(--secondary-text)" />
             </button>
-            <p className={styles.grams}>{formatGrams(grams)}</p>
+            <Input.Field className={styles.gramsField}>
+              <Input.Content className={styles.gramsContent}>
+                <Input.TextInput
+                  className={styles.gramsInput}
+                  aria-label="Quantidade em gramas"
+                  inputMode="decimal"
+                  value={gramsText}
+                  onChange={event => {
+                    const next = event.target.value;
+                    setGramsText(next);
+                    const parsed = parseGramsInput(next);
+                    if (parsed != null) {
+                      setGrams(parsed);
+                    }
+                  }}
+                  onBlur={() => {
+                    const parsed = parseGramsInput(gramsText);
+                    if (parsed == null) {
+                      setGramsText(String(grams));
+                      return;
+                    }
+                    updateGrams(parsed);
+                  }}
+                />
+              </Input.Content>
+            </Input.Field>
             <button
               type="button"
               className={styles.stepperButton}
               aria-label="Aumentar 10 gramas"
-              onClick={() => setGrams(grams + 10)}
+              onClick={() => updateGrams(grams + 10)}
             >
               <Icon name="plus" size={14} color="var(--secondary-text)" />
             </button>
@@ -288,7 +321,7 @@ const AddFood = ({
                 key={pill}
                 selected={grams === pill}
                 accessibilityLabel={`${pill} gramas`}
-                onClick={() => setGrams(pill)}
+                onClick={() => updateGrams(pill)}
               >
                 <Pill.Label>{pill}g</Pill.Label>
               </Pill.Root>

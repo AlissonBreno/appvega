@@ -9,6 +9,7 @@ import {
   formatGrams,
   formatOneDecimal,
   gramsAtLeastTen,
+  parseGramsInput,
 } from './pages/AddFood/quantity';
 import { scalePortion } from './modules/Meal/utils/portion';
 
@@ -52,6 +53,14 @@ describe('porção e quantidade', () => {
     expect(formatOneDecimal(16.9)).toBe('16,9');
     expect(formatFact({ amount: null, unit: 'mg' })).toBe('NA mg');
     expect(formatFact({ amount: 2.7, unit: 'g' })).toBe('2,7 g');
+  });
+
+  it('interpreta o input de gramas com vírgula ou ponto', () => {
+    expect(parseGramsInput('100')).toBe(100);
+    expect(parseGramsInput('16,9')).toBe(16.9);
+    expect(parseGramsInput('16.9')).toBe(16.9);
+    expect(parseGramsInput('')).toBeNull();
+    expect(parseGramsInput('abc')).toBeNull();
   });
 });
 
