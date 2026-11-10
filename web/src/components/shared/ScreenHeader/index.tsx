@@ -23,7 +23,9 @@ type IconProps = {
 };
 
 const Icon = ({ name }: IconProps) => (
-  <IconGlyph name={name} color="var(--primary)" size={24} />
+  <span className={styles.icon}>
+    <IconGlyph name={name} color="var(--primary)" size={32} />
+  </span>
 );
 
 type BackProps = {

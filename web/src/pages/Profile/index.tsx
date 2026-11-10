@@ -68,6 +68,7 @@ const Profile = () => {
     <main>
       <ScreenHeader.Root>
         <ScreenHeader.Row>
+          <ScreenHeader.Icon name="user-cog" />
           <ScreenHeader.TextColumn>
             <ScreenHeader.Title>Perfil & metas</ScreenHeader.Title>
             <ScreenHeader.Subtitle>Configure suas metas nutricionais</ScreenHeader.Subtitle>

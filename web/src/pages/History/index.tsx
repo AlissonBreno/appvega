@@ -8,6 +8,7 @@ const History = () => (
   <main>
     <ScreenHeader.Root>
       <ScreenHeader.Row>
+        <ScreenHeader.Icon name="chart-bar" />
         <ScreenHeader.TextColumn>
           <ScreenHeader.Title>Histórico</ScreenHeader.Title>
           <ScreenHeader.Subtitle>Últimos 7 dias</ScreenHeader.Subtitle>
