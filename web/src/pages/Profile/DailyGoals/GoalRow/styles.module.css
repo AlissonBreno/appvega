@@ -1,0 +1,89 @@
+.row {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px 0;
+}
+
+.labelLine {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
+.emoji {
+  font-size: 18px;
+  line-height: 22px;
+}
+
+.title {
+  flex: 1;
+  font-size: 16px;
+  line-height: 21px;
+  font-weight: 300;
+  color: var(--primary-text);
+}
+
+.totals {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 4px;
+}
+
+.primaryCaption {
+  font-size: 16px;
+  line-height: 21px;
+  font-weight: 500;
+}
+
+.secondaryCaption {
+  font-size: 16px;
+  line-height: 21px;
+  font-weight: 300;
+  color: var(--secondary-text);
+}
+
+.stepper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
+.stepButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--border);
+  cursor: pointer;
+}
+
+.stepButton:active {
+  opacity: 0.7;
+  background: var(--foreground2);
+}
+
+.input {
+  flex: 1;
+  height: 44px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--background);
+  padding: 0;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--primary-text);
+}
+
+.input:focus {
+  border-color: var(--primary);
+  outline: none;
+}
