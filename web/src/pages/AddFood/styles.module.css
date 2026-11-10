@@ -47,7 +47,7 @@
   inset: 0;
   overflow: auto;
   scrollbar-width: none;
-  padding: 24px 16px 16px;
+  padding: 16px 16px 16px;
   display: flex;
   flex-direction: column;
   gap: 24px;
@@ -78,7 +78,7 @@
   flex-direction: column;
   gap: 24px;
   padding: 16px;
-  border-radius: 16px;
+  margin: -16px -16px 0;
   background: var(--foreground);
 }
 
