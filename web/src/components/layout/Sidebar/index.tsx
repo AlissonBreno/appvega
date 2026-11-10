@@ -1,7 +1,8 @@
 import type { ReactNode } from 'react';
 import { NavLink, useLocation } from 'react-router';
 
-import Icon, { type IconName } from '../../ui/Icon';
+import { routes } from '~/types/Navigation';
+import Icon, { type IconName } from '~/components/ui/Icon';
 
 import styles from './styles.module.css';
 
@@ -40,7 +41,7 @@ type ItemProps = {
 };
 
 const isStackUnderHome = (pathname: string) =>
-  pathname.startsWith('/buscar') || pathname.startsWith('/adicionar');
+  pathname.startsWith(routes.searchFood) || pathname.startsWith(routes.addFood);
 
 const Item = ({ to, icon, label, end }: ItemProps) => {
   const { pathname } = useLocation();
@@ -50,12 +51,12 @@ const Item = ({ to, icon, label, end }: ItemProps) => {
       to={to}
       end={end}
       className={({ isActive }) => {
-        const active = isActive || (to === '/' && isStackUnderHome(pathname));
+        const active = isActive || (to === routes.home && isStackUnderHome(pathname));
         return [styles.item, active ? styles.itemActive : null].filter(Boolean).join(' ');
       }}
     >
       {({ isActive }) => {
-        const active = isActive || (to === '/' && isStackUnderHome(pathname));
+        const active = isActive || (to === routes.home && isStackUnderHome(pathname));
         return (
           <>
             <Icon

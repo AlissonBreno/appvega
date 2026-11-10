@@ -1,24 +1,22 @@
 import { useMemo } from 'react';
 import { NavLink, useLocation } from 'react-router';
 
-import Icon, { type IconName } from '../../ui/Icon';
+import { tabItems } from '~/config/navigation';
+import { routes } from '~/types/Navigation';
+import Icon from '~/components/ui/Icon';
 
 import styles from './styles.module.css';
 
 const ACTIVE_SIZE = 72;
 
-const tabs: { to: string; label: string; icon: IconName }[] = [
-  { to: '/', label: 'Início', icon: 'home' },
-  { to: '/historico', label: 'Histórico', icon: 'chart-bar' },
-  { to: '/perfil', label: 'Perfil', icon: 'user-cog' },
-];
+const tabs = tabItems;
 
 type FloatingTabBarProps = {
   pathname: string;
 };
 
 const resolveActiveIndex = (pathname: string) => {
-  if (pathname.startsWith('/buscar') || pathname.startsWith('/adicionar')) {
+  if (pathname.startsWith(routes.searchFood) || pathname.startsWith(routes.addFood)) {
     return 0;
   }
 

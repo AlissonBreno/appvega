@@ -16,6 +16,7 @@
     "noFallthroughCasesInSwitch": true,
     "baseUrl": ".",
     "paths": {
+      "~/*": ["src/*"],
       "mocks/*": ["../mocks/*"]
     },
     "types": ["vite/client"]

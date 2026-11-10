@@ -1,8 +1,8 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { App } from './App';
-import { mountShell } from './theme/scheme';
-import './styles.css';
+import { mountShell } from '~/styles/scheme';
+import '~/styles/global.css';
 
 const root = document.getElementById('root');
 
