@@ -59,11 +59,17 @@ const Item = ({ to, icon, label, end }: ItemProps) => {
         const active = isActive || (to === routes.home && isStackUnderHome(pathname));
         return (
           <>
-            <Icon
-              name={icon}
-              size={20}
-              color={active ? 'var(--primary-text)' : 'var(--secondary-text)'}
-            />
+            <span
+              className={[styles.itemIcon, active ? styles.itemIconActive : null]
+                .filter(Boolean)
+                .join(' ')}
+            >
+              <Icon
+                name={icon}
+                size={18}
+                color={active ? 'var(--foreground)' : 'var(--secondary-text)'}
+              />
+            </span>
             <span className={styles.itemLabel}>{label}</span>
           </>
         );
