@@ -33,7 +33,13 @@
   align-items: center;
   justify-content: center;
   border-radius: 9999px;
-  background: var(--border);
+  background: var(--background2);
+  transition: transform 120ms ease, filter 120ms ease;
+}
+
+.headerButton:hover {
+  transform: scale(0.96);
+  filter: brightness(0.86);
 }
 
 .bodyFrame {
@@ -228,8 +234,14 @@
   justify-content: center;
   border: 0;
   border-radius: 12px;
-  background: var(--border);
+  background: var(--background2);
   cursor: pointer;
+  transition: transform 120ms ease, filter 120ms ease;
+}
+
+.stepperButton:hover:not(:disabled) {
+  transform: scale(0.96);
+  filter: brightness(0.86);
 }
 
 .stepperButton:disabled {
@@ -268,7 +280,13 @@
 
 .shortcuts button {
   flex-shrink: 0;
-  background: var(--border);
+  background: var(--background2);
+  transition: transform 120ms ease, filter 120ms ease;
+}
+
+.shortcuts button:hover {
+  transform: scale(0.96);
+  filter: brightness(0.86);
 }
 
 .shortcuts button[aria-pressed='true'] {
