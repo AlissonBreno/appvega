@@ -1,13 +1,12 @@
 import { useEffect, useState, type ReactNode } from 'react';
 import { useLocation } from 'react-router';
 import { showsTabBar, tabItems } from '~/config/navigation';
+import { DESKTOP_QUERY } from '~/config/viewport';
 import { useToast } from '~/hooks/useToast';
 import { getUser } from '~/modules/User/services/user';
 import { FloatingTabBar } from '~/components/layout/FloatingTabBar';
 import { Sidebar } from '~/components/layout/Sidebar';
 import Toast from '~/components/ui/Toast';
-
-const DESKTOP_QUERY = '(min-width: 1024px)';
 
 type AppShellProps = {
   children: ReactNode;

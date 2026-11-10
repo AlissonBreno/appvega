@@ -32,6 +32,16 @@ type BackProps = {
   onClick?: () => void;
 };
 
+type CloseProps = {
+  onClick: () => void;
+};
+
+const Close = ({ onClick }: CloseProps) => (
+  <button type="button" aria-label="Fechar" onClick={onClick} className={styles.close}>
+    <IconGlyph name="x" color="var(--primary-text)" size={24} />
+  </button>
+);
+
 const Back = ({ onClick }: BackProps) => (
   <button
     type="button"
@@ -73,6 +83,7 @@ export const ScreenHeader = {
   Row,
   Icon,
   Back,
+  Close,
   TextColumn,
   Title,
   Subtitle,

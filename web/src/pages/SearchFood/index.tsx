@@ -8,7 +8,12 @@ import { getCatalog } from '~/modules/Food/services/catalog';
 import { addFoodPath } from '~/types/Navigation';
 import { filterCatalogFoods, formatFoodCount, type FoodFilter } from './filterCatalogFoods';
 
-const SearchFood = () => {
+type SearchFoodProps = {
+  onBack: () => void;
+  onClose?: () => void;
+};
+
+const SearchFood = ({ onBack, onClose }: SearchFoodProps) => {
   const navigate = useNavigate();
   const [params] = useSearchParams();
   const mealId = params.get('mealId') ?? '';
@@ -25,11 +30,12 @@ const SearchFood = () => {
     <main>
       <ScreenHeader.Root>
         <ScreenHeader.Row>
-          <ScreenHeader.Back onClick={() => navigate(-1)} />
+          <ScreenHeader.Back onClick={onBack} />
           <ScreenHeader.TextColumn>
             <ScreenHeader.Title>Buscar Alimento</ScreenHeader.Title>
             <ScreenHeader.Subtitle>{subtitle}</ScreenHeader.Subtitle>
           </ScreenHeader.TextColumn>
+          {onClose ? <ScreenHeader.Close onClick={onClose} /> : null}
         </ScreenHeader.Row>
       </ScreenHeader.Root>
       <div className="screen-body">

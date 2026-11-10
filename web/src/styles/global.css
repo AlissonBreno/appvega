@@ -198,7 +198,7 @@ input {
 .home-grid {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 32px;
 }
 
 .stat-row {

@@ -45,6 +45,7 @@ const PATHS = {
   ),
   'arrow-right': <path d="M5 12h14M13 6l6 6-6 6" />,
   'arrow-left': <path d="M19 12H5M11 6l-6 6 6 6" />,
+  x: <path d="M6 6l12 12M18 6 6 18" />,
   search: <path d="M11 19a8 8 0 1 1 0-16 8 8 0 0 1 0 16zm10 2-4.3-4.3" />,
   star: <path d="m12 3 2.5 6.5H21l-5 4.2 1.8 6.3L12 16.5 6.2 20l1.8-6.3L3 9.5h6.5z" fill="currentColor" stroke="none" />,
   'star-regular': <path d="m12 3 2.5 6.5H21l-5 4.2 1.8 6.3L12 16.5 6.2 20l1.8-6.3L3 9.5h6.5z" />,

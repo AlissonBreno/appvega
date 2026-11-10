@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { ScreenHeader } from '~/components/shared/ScreenHeader';
 import { Card } from '~/components/ui/Card';
+import { useMealsData } from '~/contexts/MealsDataContext';
 import { useSelectedDate } from '~/hooks/useSelectedDate';
 import { useToast } from '~/hooks/useToast';
 import { getCatalog } from '~/modules/Food/services/catalog';
@@ -17,15 +18,21 @@ import WeekDaySelector from './WeekDaySelector';
 const Home = () => {
   const navigate = useNavigate();
   const { selectedDate, setSelectedDate } = useSelectedDate();
+  const { revision } = useMealsData();
   const { showToast } = useToast();
   const [user, setUser] = useState<User | null>(null);
   const [meals, setMeals] = useState<Meal[] | null>(null);
   const [openMealId, setOpenMealId] = useState<string | null>(null);
+  const loadedDate = useRef<number | null>(null);
   const today = new Date();
 
   useEffect(() => {
     let active = true;
-    setMeals(null);
+    const dateKey = selectedDate.getTime();
+    if (loadedDate.current !== dateKey) {
+      setMeals(null);
+      loadedDate.current = dateKey;
+    }
     setUser(getUser());
     getMealsWithFoods(selectedDate).then(next => {
       if (active) {
@@ -36,7 +43,7 @@ const Home = () => {
     return () => {
       active = false;
     };
-  }, [selectedDate]);
+  }, [selectedDate, revision]);
 
   const totals = (meals ?? []).reduce(
     (sum, meal) => {

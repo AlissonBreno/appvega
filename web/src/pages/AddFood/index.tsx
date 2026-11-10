@@ -5,6 +5,7 @@ import { Button } from '~/components/ui/Button';
 import { Card } from '~/components/ui/Card';
 import { Collapse } from '~/components/ui/Collapse';
 import { Pill } from '~/components/ui/Pill';
+import { useMealsData } from '~/contexts/MealsDataContext';
 import { useSelectedDate } from '~/hooks/useSelectedDate';
 import { useToast } from '~/hooks/useToast';
 import { getCatalog } from '~/modules/Food/services/catalog';
@@ -23,6 +24,7 @@ const AddFood = () => {
   const navigate = useNavigate();
   const [params] = useSearchParams();
   const { selectedDate } = useSelectedDate();
+  const { markMealsChanged } = useMealsData();
   const { showToast } = useToast();
   const mealId = params.get('mealId') ?? '';
   const subtitle = params.get('subtitle') ?? '';
@@ -80,12 +82,14 @@ const AddFood = () => {
 
     if (mealFoodId) {
       await updateMealFoodEntry(mealId, entry, selectedDate);
+      markMealsChanged();
       showToast({ message: 'Alteração realizada com sucesso', variant: 'success' });
       navigate(-1);
       return;
     }
 
     await addMealFoodEntry(mealId, entry, selectedDate);
+    markMealsChanged();
     showToast({ message: 'Inclusão realizada com sucesso', variant: 'success' });
     navigate(routes.home);
   };
