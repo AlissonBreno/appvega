@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router';
 import { ScreenHeader } from '~/components/shared/ScreenHeader';
 import Icon from '~/components/ui/Icon';
@@ -10,7 +10,7 @@ import { filterCatalogFoods, formatFoodCount, type FoodFilter } from './filterCa
 import styles from './styles.module.css';
 
 type SearchFoodProps = {
-  onBack: () => void;
+  onBack?: () => void;
   onClose?: () => void;
   embedded?: boolean;
 };
@@ -27,6 +27,47 @@ const SearchFood = ({ onBack, onClose, embedded = false }: SearchFoodProps) => {
     () => new Set(catalog.filter(food => food.favorite).map(food => food.id)),
   );
   const foods = filterCatalogFoods({ foods: catalog, query, filter, favoriteIds });
+  const listRef = useRef<HTMLDivElement>(null);
+  const scrollThumbRef = useRef<HTMLSpanElement>(null);
+  const scrollTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => () => {
+    if (scrollTimer.current) {
+      clearTimeout(scrollTimer.current);
+    }
+  }, []);
+
+  const onListScroll = () => {
+    const list = listRef.current;
+    const thumb = scrollThumbRef.current;
+
+    if (!list || !thumb) {
+      return;
+    }
+
+    if (list.scrollHeight <= list.clientHeight + 1) {
+      thumb.hidden = true;
+      return;
+    }
+
+    const inset = 8;
+    const track = list.clientHeight - inset * 2;
+    const height = Math.max(28, (list.clientHeight / list.scrollHeight) * track);
+    const maxTop = Math.max(track - height, 0);
+    const top = inset + (list.scrollTop / (list.scrollHeight - list.clientHeight)) * maxTop;
+
+    thumb.hidden = false;
+    thumb.style.height = `${height}px`;
+    thumb.style.transform = `translateY(${top}px)`;
+
+    if (scrollTimer.current) {
+      clearTimeout(scrollTimer.current);
+    }
+
+    scrollTimer.current = setTimeout(() => {
+      thumb.hidden = true;
+    }, 700);
+  };
 
   return (
     <main
@@ -35,12 +76,14 @@ const SearchFood = ({ onBack, onClose, embedded = false }: SearchFoodProps) => {
       <div className={styles.chrome}>
         <ScreenHeader.Root>
           <ScreenHeader.Row>
-            <ScreenHeader.Back
-              onClick={onBack}
-              className={styles.headerButton}
-              iconSize={20}
-            />
-            <ScreenHeader.TextColumn>
+            {onBack ? (
+              <ScreenHeader.Back
+                onClick={onBack}
+                className={styles.headerButton}
+                iconSize={20}
+              />
+            ) : null}
+            <ScreenHeader.TextColumn className={onBack ? undefined : styles.headerText}>
               <ScreenHeader.Title>Buscar Alimento</ScreenHeader.Title>
               <ScreenHeader.Subtitle>{subtitle}</ScreenHeader.Subtitle>
             </ScreenHeader.TextColumn>
@@ -76,8 +119,9 @@ const SearchFood = ({ onBack, onClose, embedded = false }: SearchFoodProps) => {
           </div>
         </div>
       </div>
-      <div className={styles.listCard}>
-        {foods.map(food => {
+      <div className={styles.listFrame}>
+        <div ref={listRef} className={styles.listCard} onScroll={onListScroll}>
+          {foods.map(food => {
           const isFavorite = favoriteIds.has(food.id);
 
           return (
@@ -131,8 +175,10 @@ const SearchFood = ({ onBack, onClose, embedded = false }: SearchFoodProps) => {
               </span>
             </button>
           );
-        })}
-        <p className={styles.foodCount}>{formatFoodCount(foods.length)}</p>
+          })}
+          <p className={styles.foodCount}>{formatFoodCount(foods.length)}</p>
+        </div>
+        <span ref={scrollThumbRef} aria-hidden hidden className={styles.scrollThumb} />
       </div>
     </main>
   );

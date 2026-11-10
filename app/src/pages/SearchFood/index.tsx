@@ -225,7 +225,8 @@ const SearchFood = ({ navigation, route }: SearchFoodProps) => {
         ListFooterComponent={<FoodCountFooter count={filtered.length} />}
         keyboardDismissMode="on-drag"
         keyboardShouldPersistTaps="handled"
-        showsVerticalScrollIndicator={false}
+        showsVerticalScrollIndicator
+        persistentScrollbar={false}
       />
     </View>
   );
