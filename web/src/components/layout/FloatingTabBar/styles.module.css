@@ -1,0 +1,63 @@
+.host {
+  position: fixed;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.horizontal {
+  left: 50%;
+  bottom: 16px;
+  transform: translateX(-50%);
+}
+
+.pill {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 72px;
+  pointer-events: auto;
+}
+
+.track {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 4px;
+  height: 64px;
+  border-radius: 9999px;
+  border: 1px solid var(--border);
+  background: var(--foreground);
+  z-index: 0;
+}
+
+.item {
+  width: 72px;
+  height: 72px;
+  display: grid;
+  place-items: center;
+  color: var(--secondary-text);
+  text-decoration: none;
+  border-radius: 9999px;
+  position: relative;
+  z-index: 1;
+}
+
+.activeCircle {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 72px;
+  height: 72px;
+  border-radius: 9999px;
+  background: var(--primary-text);
+  color: var(--foreground);
+  display: grid;
+  place-items: center;
+  z-index: 2;
+  pointer-events: none;
+  transition: transform 200ms ease;
+}

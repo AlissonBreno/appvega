@@ -1,0 +1,16 @@
+import type { User } from '../app/src/modules/User/types/User';
+
+export const userMock: User = {
+  id_user: 1,
+  email: 'alisson.goulart@example.com',
+  password: 'mock-password',
+  name: 'Alisson Goulart',
+  age: 27,
+  weight: 75,
+  goal_kcal: 2200,
+  goal_carb: 220,
+  goal_prot: 150,
+  goal_fat: 75,
+  created_at: '2026-01-01T00:00:00.000Z',
+  edited_at: '2026-01-01T00:00:00.000Z',
+};

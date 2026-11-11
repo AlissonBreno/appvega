@@ -1,0 +1,31 @@
+.card {
+  align-items: center;
+  background: var(--border);
+  padding-top: 36px;
+  padding-bottom: 36px;
+}
+
+.title {
+  font-size: 20px;
+  text-align: center;
+}
+
+.version {
+  color: var(--secondary-text);
+  font-family: "Circular Std", sans-serif;
+  font-size: 13px;
+  font-weight: 300;
+  line-height: 20px;
+  text-align: center;
+  width: 100%;
+}
+
+.body {
+  color: var(--secondary-text);
+  font-family: "Circular Std", sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 21px;
+  text-align: center;
+  width: 100%;
+}

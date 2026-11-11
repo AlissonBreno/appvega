@@ -1,0 +1,10 @@
+.save {
+  width: 100%;
+  opacity: 1;
+  border-width: 0;
+  background: var(--primary-text);
+}
+
+.saveLabel {
+  color: var(--background);
+}

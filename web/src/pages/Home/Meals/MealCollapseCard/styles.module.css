@@ -1,0 +1,229 @@
+.mealHeader {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.mealSummary {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  border: 0;
+  background: transparent;
+  text-align: left;
+  padding: 0;
+  cursor: pointer;
+  color: inherit;
+}
+
+.emoji {
+  font-size: 28px;
+  line-height: 32px;
+}
+
+.titleColumn {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.title,
+.value {
+  font-size: 16px;
+  line-height: 21px;
+  font-weight: 700;
+  color: var(--primary-text);
+}
+
+.caption {
+  font-size: 12px;
+  line-height: 17px;
+  color: var(--secondary-text);
+}
+
+.kcalColumn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.mealPlus {
+  width: 36px;
+  height: 36px;
+  border-radius: 9999px;
+  border: 0;
+  background: var(--primary-text);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.collapseButton {
+  width: 24px;
+  height: 36px;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  color: inherit;
+}
+
+.macroTrack {
+  display: flex;
+  height: 6px;
+  gap: 2px;
+  margin-top: 12px;
+  background: var(--border);
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.macroTrack i {
+  display: block;
+  height: 100%;
+  border-radius: 9999px;
+}
+
+.foodList {
+  margin-top: 12px;
+}
+
+.foodRow {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 0;
+  border-top: 1px solid var(--border);
+}
+
+.foodGripHidden,
+.foodRow:hover .foodGrip,
+.foodRow:focus-within .foodGrip {
+  display: none;
+}
+
+.foodActions {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.foodActionsRevealed,
+.foodRow:hover .foodActions,
+.foodRow:focus-within .foodActions {
+  display: flex;
+}
+
+.foodEmoji {
+  width: 32px;
+  font-size: 24px;
+  line-height: 28px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.foodBody {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.foodTitleRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.quantity {
+  font-size: 16px;
+  line-height: 21px;
+  color: var(--secondary-text);
+}
+
+.macros {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.macro {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.macroLetter {
+  font-size: 12px;
+  line-height: 17px;
+  font-weight: 500;
+}
+
+.macroValue {
+  font-size: 12px;
+  line-height: 17px;
+  color: var(--secondary-text);
+}
+
+.foodGrip {
+  width: 24px;
+  height: 44px;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.foodAction {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  background: var(--border);
+  color: var(--primary-text);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: transform 120ms ease, filter 120ms ease;
+}
+
+.foodAction:hover {
+  transform: scale(0.96);
+  filter: brightness(0.86);
+}
+
+.foodActionDelete {
+  background: color-mix(in srgb, var(--error) 10%, transparent);
+  border-color: var(--error);
+  color: var(--error);
+}
+
+.subtotal {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin: 0 -16px -16px;
+  padding: 16px;
+  background: var(--border);
+}
+
+.mealCard.mealCard {
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 16px;
+  gap: 0;
+  overflow: hidden;
+}

@@ -1,0 +1,16 @@
+.card {
+  border-radius: 20px;
+  background: var(--foreground);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.sectionTitle {
+  margin: 0;
+  font-size: 24px;
+  line-height: 21px;
+  font-weight: 700;
+  color: var(--primary-text);
+}

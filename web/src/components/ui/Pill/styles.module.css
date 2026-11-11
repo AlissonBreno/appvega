@@ -1,0 +1,26 @@
+.root {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 16px;
+  border-radius: 9999px;
+  border: 0;
+  background: var(--foreground);
+  cursor: pointer;
+}
+
+.selected {
+  background: var(--primary-text);
+}
+
+.label {
+  font-size: 14px;
+  line-height: 21px;
+  font-weight: 500;
+  color: var(--secondary-text);
+}
+
+.labelSelected {
+  color: var(--background);
+}

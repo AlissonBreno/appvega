@@ -1,0 +1,60 @@
+.layout {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.top {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.chart {
+  position: relative;
+  width: 128px;
+  height: 128px;
+  flex-shrink: 0;
+}
+
+.center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.kcal {
+  font-size: 32px;
+  line-height: 37px;
+  font-weight: 700;
+  color: var(--primary-text);
+}
+
+.unit {
+  font-size: 14px;
+  line-height: 21px;
+  color: var(--secondary-text);
+}
+
+.goalTitle {
+  margin: 0;
+  font-size: 24px;
+  line-height: 32px;
+  font-weight: 700;
+  color: var(--primary-text);
+}
+
+.goalValue {
+  margin: 0;
+  font-size: 14px;
+  line-height: 21px;
+  color: var(--secondary-text);
+}
+
+.macros {
+  display: flex;
+  gap: 16px;
+}
