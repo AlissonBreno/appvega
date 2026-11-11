@@ -1,0 +1,7 @@
+.git
+docs
+app/node_modules
+app/android
+app/ios
+**/node_modules
+**/dist
