@@ -41,7 +41,9 @@ type ItemProps = {
 };
 
 const isStackUnderHome = (pathname: string) =>
-  pathname.startsWith(routes.searchFood) || pathname.startsWith(routes.addFood);
+  pathname.startsWith(routes.searchFood) ||
+  pathname.startsWith(routes.addFood) ||
+  pathname.startsWith(routes.mealBatch);
 
 const Item = ({ to, icon, label, end }: ItemProps) => {
   const { pathname } = useLocation();
