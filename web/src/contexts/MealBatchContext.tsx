@@ -1,5 +1,5 @@
 import { createContext, useContext, useMemo, useState, type ReactNode } from 'react';
-import type { MealFood } from '../../../app/src/modules/Meal/types/MealView';
+import type { MealFood } from '~/modules/Meal/services/meal';
 import {
   addBatchItem,
   clearMealBatch,
@@ -7,7 +7,7 @@ import {
   removeBatchItem,
   updateBatchItem,
   type MealBatchMap,
-} from '../../../app/src/modules/Meal/utils/mealBatch';
+} from '~/modules/Meal/utils/mealBatch';
 
 type MealBatchValue = {
   items: (mealId: string) => MealFood[];
