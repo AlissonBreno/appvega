@@ -31,11 +31,9 @@ describe('mealBatch', () => {
     expect(gramsAreValid(50)).toBe(true);
   });
 
-  it('picks the portion footer from edit state and draft size', () => {
-    expect(portionScreenMode(true, 0)).toBe('edit');
-    expect(portionScreenMode(true, 2)).toBe('edit');
-    expect(portionScreenMode(false, 0)).toBe('both');
-    expect(portionScreenMode(false, 1)).toBe('batch-only');
+  it('picks the portion footer from edit state', () => {
+    expect(portionScreenMode(true)).toBe('edit');
+    expect(portionScreenMode(false)).toBe('batch');
   });
 
   it('adds, updates, removes, and totals rows without merging duplicates', () => {

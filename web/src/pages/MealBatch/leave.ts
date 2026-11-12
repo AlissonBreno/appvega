@@ -9,7 +9,14 @@ export const BATCH_FLOW_STATE = { fromBatch: true } as const;
 
 export const shouldConfirmBatchLeave = (count: number) => count > 0;
 
+/** Com itens no rascunho, a busca oferece voltar ao lote em vez de sair do fluxo. */
+export const searchReturnsToBatch = (draftCount: number) => draftCount > 0;
+
 export const BATCH_DISCARD_MESSAGE = 'Descartar o lote?';
+
+export const SEARCH_BACK_TO_BATCH_LABEL = 'Voltar ao lote';
+
+export const SEARCH_CLOSE_BATCH_LABEL = 'Fechar e descartar o lote';
 
 export const batchLeaveAction = (count: number, saving: boolean): BatchLeaveAction => {
   if (saving) {

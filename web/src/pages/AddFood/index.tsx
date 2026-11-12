@@ -13,7 +13,7 @@ import { useMealsData } from '~/contexts/MealsDataContext';
 import { useSelectedDate } from '~/hooks/useSelectedDate';
 import { useToast } from '~/hooks/useToast';
 import { getCatalog } from '~/modules/Food/services/catalog';
-import { addMealFoodEntry, getMealsWithFoods, updateMealFoodEntry } from '~/modules/Meal/services/meal';
+import { getMealsWithFoods, updateMealFoodEntry } from '~/modules/Meal/services/meal';
 import { scalePortion } from '~/modules/Meal/utils/portion';
 import { getUser } from '~/modules/User/services/user';
 import { mealBatchPath, routes } from '~/types/Navigation';
@@ -53,7 +53,7 @@ const AddFood = ({
   const { selectedDate } = useSelectedDate();
   const { markMealsChanged } = useMealsData();
   const { showToast } = useToast();
-  const { items: batchItemsFor, addItem } = useMealBatch();
+  const { addItem } = useMealBatch();
   const mealId = params.get('mealId') ?? '';
   const subtitle = params.get('subtitle') ?? '';
   const catalogFoodId = params.get('catalogFoodId') ?? '';
@@ -143,9 +143,7 @@ const AddFood = ({
 
   const portion = scalePortion(food, grams);
   const user = getUser();
-  const batchCount = mealFoodId ? 0 : batchItemsFor(mealId).length;
-  const mode = portionScreenMode(Boolean(mealFoodId), batchCount);
-  const actionLabel = mealFoodId ? 'SALVAR NA REFEIÇÃO' : 'ADICIONAR À REFEIÇÃO';
+  const mode = portionScreenMode(Boolean(mealFoodId));
   const macros = {
     carb: portion.carb,
     protein: portion.protein,
@@ -171,13 +169,13 @@ const AddFood = ({
     navigate(mealBatchPath({ mealId, subtitle }));
   };
 
-  const confirm = async () => {
-    if (!mealFoodId && !gramsAreValid(grams)) {
+  const saveEdit = async () => {
+    if (!mealFoodId) {
       return;
     }
 
     const entry = {
-      id: mealFoodId ?? `${food.id}-${Date.now()}`,
+      id: mealFoodId,
       catalogFoodId: food.id,
       name: food.name,
       emoji: food.emoji,
@@ -188,17 +186,11 @@ const AddFood = ({
       fat: portion.fat,
     };
 
-    const saveDestination = addFoodSaveDestination(presentation, Boolean(mealFoodId));
+    const saveDestination = addFoodSaveDestination(presentation, true);
 
-    if (mealFoodId) {
-      await updateMealFoodEntry(mealId, entry, selectedDate);
-      markMealsChanged();
-      showToast({ message: 'Alteração realizada com sucesso', variant: 'success' });
-    } else {
-      await addMealFoodEntry(mealId, entry, selectedDate);
-      markMealsChanged();
-      showToast({ message: 'Inclusão realizada com sucesso', variant: 'success' });
-    }
+    await updateMealFoodEntry(mealId, entry, selectedDate);
+    markMealsChanged();
+    showToast({ message: 'Alteração realizada com sucesso', variant: 'success' });
 
     if (saveDestination === 'home') {
       navigate(routes.home);
@@ -208,34 +200,20 @@ const AddFood = ({
     navigate(-1);
   };
 
-  const primaryButton = (label: string, onClick: () => void) => (
-    <Button.Root
-      className={styles.confirm}
-      accessibilityLabel={label}
-      onClick={onClick}
-    >
-      <Button.Icon name="plus" color="var(--background)" />
-      <Button.Label className={styles.confirmLabel}>{label}</Button.Label>
-    </Button.Root>
-  );
+  const actionLabel =
+    mode === 'edit' ? 'SALVAR NA REFEIÇÃO' : 'ADICIONAR';
+  const onAction = mode === 'edit' ? saveEdit : addToBatch;
 
   const confirmButton = (
     <div className={styles.actions}>
-      {mode === 'edit' ? primaryButton(actionLabel, confirm) : null}
-      {mode === 'both' ? (
-        <>
-          {primaryButton('ADIÇÃO EM LOTE', addToBatch)}
-          <Button.Root
-            className={styles.quickAdd}
-            accessibilityLabel="ADIÇÃO RÁPIDA"
-            onClick={confirm}
-          >
-            <Button.Icon name="plus" />
-            <Button.Label>ADIÇÃO RÁPIDA</Button.Label>
-          </Button.Root>
-        </>
-      ) : null}
-      {mode === 'batch-only' ? primaryButton('ADICIONAR AO LOTE', addToBatch) : null}
+      <Button.Root
+        className={styles.confirm}
+        accessibilityLabel={actionLabel}
+        onClick={onAction}
+      >
+        <Button.Icon name="plus" color="var(--background)" />
+        <Button.Label className={styles.confirmLabel}>{actionLabel}</Button.Label>
+      </Button.Root>
     </div>
   );
 

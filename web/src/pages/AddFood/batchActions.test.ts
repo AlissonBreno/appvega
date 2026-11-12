@@ -2,12 +2,11 @@ import { describe, expect, it } from 'vitest';
 import { portionScreenMode } from '../../../../app/src/modules/Meal/utils/mealBatch';
 
 describe('portionScreenMode', () => {
-  it('keeps edit mode independent of the draft', () => {
-    expect(portionScreenMode(true, 3)).toBe('edit');
+  it('keeps edit mode for saving an existing meal food', () => {
+    expect(portionScreenMode(true)).toBe('edit');
   });
 
-  it('offers both actions only when the draft is empty', () => {
-    expect(portionScreenMode(false, 0)).toBe('both');
-    expect(portionScreenMode(false, 2)).toBe('batch-only');
+  it('always sends a new food into the batch screen', () => {
+    expect(portionScreenMode(false)).toBe('batch');
   });
 });

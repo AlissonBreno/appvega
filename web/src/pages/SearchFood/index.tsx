@@ -12,10 +12,18 @@ import styles from './styles.module.css';
 type SearchFoodProps = {
   onBack?: () => void;
   onClose?: () => void;
+  backLabel?: string;
+  closeLabel?: string;
   embedded?: boolean;
 };
 
-const SearchFood = ({ onBack, onClose, embedded = false }: SearchFoodProps) => {
+const SearchFood = ({
+  onBack,
+  onClose,
+  backLabel,
+  closeLabel,
+  embedded = false,
+}: SearchFoodProps) => {
   const navigate = useNavigate();
   const [params] = useSearchParams();
   const mealId = params.get('mealId') ?? '';
@@ -79,6 +87,7 @@ const SearchFood = ({ onBack, onClose, embedded = false }: SearchFoodProps) => {
             {onBack ? (
               <ScreenHeader.Back
                 onClick={onBack}
+                accessibilityLabel={backLabel}
                 className={styles.headerButton}
                 iconSize={20}
               />
@@ -90,6 +99,7 @@ const SearchFood = ({ onBack, onClose, embedded = false }: SearchFoodProps) => {
             {onClose ? (
               <ScreenHeader.Close
                 onClick={onClose}
+                accessibilityLabel={closeLabel}
                 className={styles.headerButton}
                 iconSize={20}
               />

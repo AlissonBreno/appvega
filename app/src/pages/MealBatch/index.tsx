@@ -252,6 +252,16 @@ const MealBatch = ({ navigation, route }: MealBatchProps) => {
             />
           ))}
         </View>
+        <Button.Root
+          accessibilityLabel="Adicionar mais alimentos"
+          onPress={saving ? undefined : goToSearch}
+          style={[styles.addMore, saving && styles.disabled]}
+        >
+          <Button.Icon name="plus" color={theme.colors.primaryText} />
+          <Button.Label style={styles.addMoreLabel}>
+            Adicionar mais alimentos
+          </Button.Label>
+        </Button.Root>
       </ScrollView>
       <View style={[styles.footer, { paddingBottom: insets.bottom + 16 }]}>
         <Button.Root
@@ -260,15 +270,6 @@ const MealBatch = ({ navigation, route }: MealBatchProps) => {
           style={[styles.confirm, saving && styles.disabled]}
         >
           <Button.Label style={styles.confirmLabel}>Confirmar lote</Button.Label>
-        </Button.Root>
-        <Button.Root
-          accessibilityLabel="Adicionar mais alimentos"
-          onPress={saving ? undefined : goToSearch}
-          style={[styles.secondary, saving && styles.disabled]}
-        >
-          <Button.Label style={styles.secondaryLabel}>
-            Adicionar mais alimentos
-          </Button.Label>
         </Button.Root>
       </View>
     </View>

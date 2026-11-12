@@ -189,6 +189,21 @@
   filter: brightness(0.86);
 }
 
+.addMore {
+  width: 100%;
+  opacity: 1;
+  border: 1px solid var(--border);
+  background: var(--background2);
+}
+
+.addMore:disabled {
+  opacity: 0.6;
+}
+
+.addMoreLabel {
+  color: var(--primary-text);
+}
+
 .footer {
   flex-shrink: 0;
   display: flex;
@@ -216,19 +231,4 @@
 
 .confirmLabel {
   color: var(--background);
-}
-
-.secondary {
-  width: 100%;
-  opacity: 1;
-  border: 1px solid var(--border);
-  background: var(--background2);
-}
-
-.secondary:disabled {
-  opacity: 0.6;
-}
-
-.secondaryLabel {
-  color: var(--primary-text);
 }

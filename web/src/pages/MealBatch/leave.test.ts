@@ -1,11 +1,21 @@
 import { describe, expect, it } from 'vitest';
 import { mealFlowPresentation } from '~/config/viewport';
-import { batchLeaveAction, searchDismissDestination, shouldConfirmBatchLeave } from './leave';
+import {
+  batchLeaveAction,
+  searchDismissDestination,
+  searchReturnsToBatch,
+  shouldConfirmBatchLeave,
+} from './leave';
 
 describe('meal batch leave', () => {
   it('asks to discard only when the draft has items', () => {
     expect(shouldConfirmBatchLeave(0)).toBe(false);
     expect(shouldConfirmBatchLeave(2)).toBe(true);
+  });
+
+  it('returns to the batch screen only while the draft has items', () => {
+    expect(searchReturnsToBatch(0)).toBe(false);
+    expect(searchReturnsToBatch(3)).toBe(true);
   });
 
   it('uses the same breakpoint as the other meal screens', () => {

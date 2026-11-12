@@ -231,8 +231,8 @@ type AddFoodProps = StackScreenProps<StackParamList, 'AddFood'>;
 const AddFood = ({ navigation, route }: AddFoodProps) => {
   const { mealId, subtitle, catalogFoodId, mealFoodId } = route.params;
   const catalogFood = catalog.find(food => food.id === catalogFoodId);
-  const { meals, addFood, updateFood } = useMeals();
-  const { items: batchItemsFor, addItem } = useMealBatch();
+  const { meals, updateFood } = useMeals();
+  const { addItem } = useMealBatch();
   const { showToast } = useToast();
   const insets = useSafeAreaInsets();
   const { isDark, theme } = useNavigationTheme();
@@ -254,11 +254,9 @@ const AddFood = ({ navigation, route }: AddFoodProps) => {
   }
 
   const portion = scalePortion(catalogFood, grams);
-  const batchCount = mealFoodId ? 0 : batchItemsFor(mealId).length;
-  const mode = portionScreenMode(Boolean(mealFoodId), batchCount);
-  const actionLabel = mealFoodId
-    ? 'SALVAR NA REFEIÇÃO'
-    : 'ADICIONAR À REFEIÇÃO';
+  const mode = portionScreenMode(Boolean(mealFoodId));
+  const actionLabel =
+    mode === 'edit' ? 'SALVAR NA REFEIÇÃO' : 'ADICIONAR';
 
   const buildFood = (id: string): MealFood => ({
     id,
@@ -281,29 +279,17 @@ const AddFood = ({ navigation, route }: AddFoodProps) => {
     navigation.navigate('MealBatch', { mealId, subtitle });
   };
 
-  const confirm = () => {
-    if (mealFoodId) {
-      const food = buildFood(mealFoodId);
-
-      updateFood(mealId, mealFoodId, food);
-      showToast({
-        message: 'Alteração realizada com sucesso',
-        variant: 'success',
-      });
-      navigation.goBack();
+  const saveEdit = () => {
+    if (!mealFoodId) {
       return;
     }
 
-    if (!gramsAreValid(grams)) {
-      return;
-    }
-
-    addFood(mealId, buildFood(`${catalogFoodId}-${Date.now()}`));
+    updateFood(mealId, mealFoodId, buildFood(mealFoodId));
     showToast({
-      message: 'Inclusão realizada com sucesso',
+      message: 'Alteração realizada com sucesso',
       variant: 'success',
     });
-    navigation.popTo('Main');
+    navigation.goBack();
   };
 
   return (
@@ -333,54 +319,14 @@ const AddFood = ({ navigation, route }: AddFoodProps) => {
         <QuantityControl grams={grams} onChange={setGrams} />
       </ScrollView>
       <View style={[styles.footer, { paddingBottom: insets.bottom + 16 }]}>
-        {mode === 'edit' ? (
-          <Button.Root
-            accessibilityLabel={actionLabel}
-            onPress={confirm}
-            style={styles.confirm}
-          >
-            <Button.Icon name="plus" color={theme.colors.background} />
-            <Button.Label style={styles.confirmLabel}>
-              {actionLabel}
-            </Button.Label>
-          </Button.Root>
-        ) : null}
-        {mode === 'both' ? (
-          <>
-            <Button.Root
-              accessibilityLabel="ADIÇÃO EM LOTE"
-              onPress={addToBatch}
-              style={styles.confirm}
-            >
-              <Button.Icon name="plus" color={theme.colors.background} />
-              <Button.Label style={styles.confirmLabel}>
-                ADIÇÃO EM LOTE
-              </Button.Label>
-            </Button.Root>
-            <Button.Root
-              accessibilityLabel="ADIÇÃO RÁPIDA"
-              onPress={confirm}
-              style={styles.quickAdd}
-            >
-              <Button.Icon name="plus" color={theme.colors.primaryText} />
-              <Button.Label style={styles.quickAddLabel}>
-                ADIÇÃO RÁPIDA
-              </Button.Label>
-            </Button.Root>
-          </>
-        ) : null}
-        {mode === 'batch-only' ? (
-          <Button.Root
-            accessibilityLabel="ADICIONAR AO LOTE"
-            onPress={addToBatch}
-            style={styles.confirm}
-          >
-            <Button.Icon name="plus" color={theme.colors.background} />
-            <Button.Label style={styles.confirmLabel}>
-              ADICIONAR AO LOTE
-            </Button.Label>
-          </Button.Root>
-        ) : null}
+        <Button.Root
+          accessibilityLabel={actionLabel}
+          onPress={mode === 'edit' ? saveEdit : addToBatch}
+          style={styles.confirm}
+        >
+          <Button.Icon name="plus" color={theme.colors.background} />
+          <Button.Label style={styles.confirmLabel}>{actionLabel}</Button.Label>
+        </Button.Root>
       </View>
     </View>
   );

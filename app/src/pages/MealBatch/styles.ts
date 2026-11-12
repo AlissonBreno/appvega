@@ -48,6 +48,15 @@ const createStyles = (theme: Theme) => {
     list: {
       gap: 8,
     },
+    addMore: {
+      opacity: 1,
+      borderWidth: 1,
+      borderColor: colors.border,
+      backgroundColor: colors.background,
+    },
+    addMoreLabel: {
+      color: colors.primaryText,
+    },
     row: {
       flexDirection: 'row',
       alignItems: 'center',
@@ -124,15 +133,6 @@ const createStyles = (theme: Theme) => {
     },
     confirmLabel: {
       color: colors.background,
-    },
-    secondary: {
-      opacity: 1,
-      borderWidth: 1,
-      borderColor: colors.border,
-      backgroundColor: colors.background,
-    },
-    secondaryLabel: {
-      color: colors.primaryText,
     },
     disabled: {
       opacity: 0.6,

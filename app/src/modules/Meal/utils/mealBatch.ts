@@ -9,25 +9,13 @@ export type BatchTotals = {
   fat: number;
 };
 
-export type PortionScreenMode = 'both' | 'batch-only' | 'edit';
+export type PortionScreenMode = 'batch' | 'edit';
 
 export const gramsAreValid = (grams: number) =>
   Number.isFinite(grams) && grams > 0;
 
-export const portionScreenMode = (
-  editing: boolean,
-  batchCount: number,
-): PortionScreenMode => {
-  if (editing) {
-    return 'edit';
-  }
-
-  if (batchCount > 0) {
-    return 'batch-only';
-  }
-
-  return 'both';
-};
+export const portionScreenMode = (editing: boolean): PortionScreenMode =>
+  editing ? 'edit' : 'batch';
 
 export const itemsForMeal = (drafts: MealBatchMap, mealId: string) =>
   drafts[mealId] ?? [];

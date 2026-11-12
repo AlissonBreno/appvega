@@ -204,6 +204,18 @@ const MealBatch = ({ onBack, onSavingChange, onClose, embedded = false }: MealBa
             />
           ))}
         </ul>
+
+        <Button.Root
+          className={styles.addMore}
+          accessibilityLabel="Adicionar mais alimentos"
+          disabled={saving}
+          onClick={goToSearch}
+        >
+          <Button.Icon name="plus" />
+          <Button.Label className={styles.addMoreLabel}>
+            Adicionar mais alimentos
+          </Button.Label>
+        </Button.Root>
       </div>
 
       <div className={styles.footer}>
@@ -214,14 +226,6 @@ const MealBatch = ({ onBack, onSavingChange, onClose, embedded = false }: MealBa
           onClick={confirm}
         >
           <Button.Label className={styles.confirmLabel}>Confirmar lote</Button.Label>
-        </Button.Root>
-        <Button.Root
-          className={styles.secondary}
-          accessibilityLabel="Adicionar mais alimentos"
-          disabled={saving}
-          onClick={goToSearch}
-        >
-          <Button.Label className={styles.secondaryLabel}>Adicionar mais alimentos</Button.Label>
         </Button.Root>
       </div>
     </main>

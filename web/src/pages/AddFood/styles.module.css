@@ -318,11 +318,6 @@
   gap: 8px;
 }
 
-.quickAdd {
-  width: 100%;
-  opacity: 1;
-}
-
 .confirmLabel {
   color: var(--background);
 }

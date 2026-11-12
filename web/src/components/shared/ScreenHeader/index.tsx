@@ -32,18 +32,25 @@ type BackProps = {
   onClick?: () => void;
   className?: string;
   iconSize?: number;
+  accessibilityLabel?: string;
 };
 
 type CloseProps = {
   onClick: () => void;
   className?: string;
   iconSize?: number;
+  accessibilityLabel?: string;
 };
 
-const Close = ({ onClick, className, iconSize = 24 }: CloseProps) => (
+const Close = ({
+  onClick,
+  className,
+  iconSize = 24,
+  accessibilityLabel = 'Fechar',
+}: CloseProps) => (
   <button
     type="button"
-    aria-label="Fechar"
+    aria-label={accessibilityLabel}
     onClick={onClick}
     className={[styles.close, className].filter(Boolean).join(' ')}
   >
@@ -51,10 +58,15 @@ const Close = ({ onClick, className, iconSize = 24 }: CloseProps) => (
   </button>
 );
 
-const Back = ({ onClick, className, iconSize = 24 }: BackProps) => (
+const Back = ({
+  onClick,
+  className,
+  iconSize = 24,
+  accessibilityLabel = 'Voltar',
+}: BackProps) => (
   <button
     type="button"
-    aria-label="Voltar"
+    aria-label={accessibilityLabel}
     disabled={!onClick}
     onClick={onClick}
     className={[styles.back, className].filter(Boolean).join(' ')}
