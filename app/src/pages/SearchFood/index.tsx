@@ -1,6 +1,6 @@
 import type { StackScreenProps } from '@react-navigation/stack';
 import { useState } from 'react';
-import { FlatList, Keyboard, Pressable, Text, View } from 'react-native';
+import { Alert, FlatList, Keyboard, Pressable, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { ScreenHeader } from '~/components/shared/ScreenHeader';
@@ -8,6 +8,7 @@ import Icon from '~/components/ui/Icon';
 import { Input } from '~/components/ui/Input';
 import { Pill } from '~/components/ui/Pill';
 import { useNavigationTheme } from '~/hooks/useNavigationTheme';
+import { useMealBatch } from '~/modules/Meal/contexts/MealBatchContext';
 import type { StackParamList } from '~/types/Navigation';
 
 import { catalog } from 'mocks/catalog';
@@ -128,6 +129,7 @@ type SearchFoodProps = StackScreenProps<StackParamList, 'SearchFood'>;
 
 const SearchFood = ({ navigation, route }: SearchFoodProps) => {
   const { mealId, subtitle } = route.params;
+  const { items, clear } = useMealBatch();
   const insets = useSafeAreaInsets();
   const { isDark, theme } = useNavigationTheme();
   const styles = searchFoodStyles[isDark ? 'dark' : 'light'];
@@ -142,6 +144,25 @@ const SearchFood = ({ navigation, route }: SearchFoodProps) => {
     filter,
     favoriteIds,
   });
+
+  const goBack = () => {
+    if (items(mealId).length === 0) {
+      navigation.goBack();
+      return;
+    }
+
+    Alert.alert('Descartar o lote?', undefined, [
+      { text: 'Cancelar', style: 'cancel' },
+      {
+        text: 'Descartar',
+        style: 'destructive',
+        onPress: () => {
+          clear(mealId);
+          navigation.navigate('Main');
+        },
+      },
+    ]);
+  };
 
   const toggleFavorite = (id: string) => {
     setFavoriteIds(current => {
@@ -161,7 +182,7 @@ const SearchFood = ({ navigation, route }: SearchFoodProps) => {
     <View style={[styles.screen, { backgroundColor: theme.colors.background }]}>
       <ScreenHeader.Root>
         <ScreenHeader.Row>
-          <ScreenHeader.Back onPress={navigation.goBack} />
+          <ScreenHeader.Back onPress={goBack} />
           <ScreenHeader.TextColumn>
             <ScreenHeader.Title>Buscar Alimento</ScreenHeader.Title>
             <ScreenHeader.Subtitle>{subtitle}</ScreenHeader.Subtitle>

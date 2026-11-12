@@ -8,6 +8,7 @@ import AddFood from '~/pages/AddFood';
 import History from '~/pages/History';
 import Home from '~/pages/Home';
 import Login from '~/pages/Login';
+import MealBatch from '~/pages/MealBatch';
 import Profile from '~/pages/Profile';
 import SearchFood from '~/pages/SearchFood';
 import type { StackParamList, TabParamList } from '~/types/Navigation';
@@ -59,6 +60,11 @@ const Routes = () => {
         <Stack.Screen
           name="AddFood"
           component={AddFood}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="MealBatch"
+          component={MealBatch}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

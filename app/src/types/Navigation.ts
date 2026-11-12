@@ -8,6 +8,7 @@ export type StackParamList = {
     catalogFoodId: string;
     mealFoodId?: string;
   };
+  MealBatch: { mealId: string; subtitle: string };
 };
 
 export type TabParamList = {

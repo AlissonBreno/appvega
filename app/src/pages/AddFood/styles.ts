@@ -167,6 +167,7 @@ const createStyles = (theme: Theme) => {
       gap: 8,
     },
     footer: {
+      gap: 8,
       paddingHorizontal: 16,
       paddingTop: 16,
     },
@@ -177,6 +178,15 @@ const createStyles = (theme: Theme) => {
     },
     confirmLabel: {
       color: colors.background,
+    },
+    quickAdd: {
+      opacity: 1,
+      borderWidth: 1,
+      borderColor: colors.border,
+      backgroundColor: colors.foreground,
+    },
+    quickAddLabel: {
+      color: colors.primaryText,
     },
   });
 };

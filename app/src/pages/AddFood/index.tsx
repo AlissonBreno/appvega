@@ -11,7 +11,12 @@ import { Pill } from '~/components/ui/Pill';
 import { useMeals } from '~/hooks/useMeals';
 import { useNavigationTheme } from '~/hooks/useNavigationTheme';
 import { useToast } from '~/hooks/useToast';
+import { useMealBatch } from '~/modules/Meal/contexts/MealBatchContext';
 import type { MealFood } from '~/modules/Meal/types/MealView';
+import {
+  gramsAreValid,
+  portionScreenMode,
+} from '~/modules/Meal/utils/mealBatch';
 import { scalePortion } from '~/pages/Home/Meals/portion';
 import { catalog } from 'mocks/catalog';
 import type { NutritionFact } from '~/pages/SearchFood/types';
@@ -227,6 +232,7 @@ const AddFood = ({ navigation, route }: AddFoodProps) => {
   const { mealId, subtitle, catalogFoodId, mealFoodId } = route.params;
   const catalogFood = catalog.find(food => food.id === catalogFoodId);
   const { meals, addFood, updateFood } = useMeals();
+  const { items: batchItemsFor, addItem } = useMealBatch();
   const { showToast } = useToast();
   const insets = useSafeAreaInsets();
   const { isDark, theme } = useNavigationTheme();
@@ -248,24 +254,37 @@ const AddFood = ({ navigation, route }: AddFoodProps) => {
   }
 
   const portion = scalePortion(catalogFood, grams);
+  const batchCount = mealFoodId ? 0 : batchItemsFor(mealId).length;
+  const mode = portionScreenMode(Boolean(mealFoodId), batchCount);
   const actionLabel = mealFoodId
     ? 'SALVAR NA REFEIÇÃO'
     : 'ADICIONAR À REFEIÇÃO';
 
-  const confirm = () => {
-    const food: MealFood = {
-      id: mealFoodId ?? `${catalogFoodId}-${Date.now()}`,
-      catalogFoodId,
-      name: catalogFood.name,
-      emoji: catalogFood.emoji,
-      grams,
-      kcal: portion.kcal,
-      carb: portion.carb,
-      protein: portion.protein,
-      fat: portion.fat,
-    };
+  const buildFood = (id: string): MealFood => ({
+    id,
+    catalogFoodId,
+    name: catalogFood.name,
+    emoji: catalogFood.emoji,
+    grams,
+    kcal: portion.kcal,
+    carb: portion.carb,
+    protein: portion.protein,
+    fat: portion.fat,
+  });
 
+  const addToBatch = () => {
+    if (!gramsAreValid(grams)) {
+      return;
+    }
+
+    addItem(mealId, buildFood(`${catalogFoodId}-${Date.now()}`));
+    navigation.navigate('MealBatch', { mealId, subtitle });
+  };
+
+  const confirm = () => {
     if (mealFoodId) {
+      const food = buildFood(mealFoodId);
+
       updateFood(mealId, mealFoodId, food);
       showToast({
         message: 'Alteração realizada com sucesso',
@@ -275,7 +294,11 @@ const AddFood = ({ navigation, route }: AddFoodProps) => {
       return;
     }
 
-    addFood(mealId, food);
+    if (!gramsAreValid(grams)) {
+      return;
+    }
+
+    addFood(mealId, buildFood(`${catalogFoodId}-${Date.now()}`));
     showToast({
       message: 'Inclusão realizada com sucesso',
       variant: 'success',
@@ -310,14 +333,54 @@ const AddFood = ({ navigation, route }: AddFoodProps) => {
         <QuantityControl grams={grams} onChange={setGrams} />
       </ScrollView>
       <View style={[styles.footer, { paddingBottom: insets.bottom + 16 }]}>
-        <Button.Root
-          accessibilityLabel={actionLabel}
-          onPress={confirm}
-          style={styles.confirm}
-        >
-          <Button.Icon name="plus" color={theme.colors.background} />
-          <Button.Label style={styles.confirmLabel}>{actionLabel}</Button.Label>
-        </Button.Root>
+        {mode === 'edit' ? (
+          <Button.Root
+            accessibilityLabel={actionLabel}
+            onPress={confirm}
+            style={styles.confirm}
+          >
+            <Button.Icon name="plus" color={theme.colors.background} />
+            <Button.Label style={styles.confirmLabel}>
+              {actionLabel}
+            </Button.Label>
+          </Button.Root>
+        ) : null}
+        {mode === 'both' ? (
+          <>
+            <Button.Root
+              accessibilityLabel="ADIÇÃO EM LOTE"
+              onPress={addToBatch}
+              style={styles.confirm}
+            >
+              <Button.Icon name="plus" color={theme.colors.background} />
+              <Button.Label style={styles.confirmLabel}>
+                ADIÇÃO EM LOTE
+              </Button.Label>
+            </Button.Root>
+            <Button.Root
+              accessibilityLabel="ADIÇÃO RÁPIDA"
+              onPress={confirm}
+              style={styles.quickAdd}
+            >
+              <Button.Icon name="plus" color={theme.colors.primaryText} />
+              <Button.Label style={styles.quickAddLabel}>
+                ADIÇÃO RÁPIDA
+              </Button.Label>
+            </Button.Root>
+          </>
+        ) : null}
+        {mode === 'batch-only' ? (
+          <Button.Root
+            accessibilityLabel="ADICIONAR AO LOTE"
+            onPress={addToBatch}
+            style={styles.confirm}
+          >
+            <Button.Icon name="plus" color={theme.colors.background} />
+            <Button.Label style={styles.confirmLabel}>
+              ADICIONAR AO LOTE
+            </Button.Label>
+          </Button.Root>
+        ) : null}
       </View>
     </View>
   );
