@@ -3,4 +3,4 @@ export {
   commitBatch,
   gramsAreValid,
   portionScreenMode,
-} from '../../../../app/src/modules/Meal/utils/mealBatch';
+} from '~/modules/Meal/utils/mealBatch';
