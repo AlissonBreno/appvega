@@ -8,6 +8,7 @@ import Icon from '~/components/ui/Icon';
 import { Input } from '~/components/ui/Input';
 import { Pill } from '~/components/ui/Pill';
 import type { MealFlowPresentation } from '~/config/viewport';
+import { useMealBatch } from '~/contexts/MealBatchContext';
 import { useMealsData } from '~/contexts/MealsDataContext';
 import { useSelectedDate } from '~/hooks/useSelectedDate';
 import { useToast } from '~/hooks/useToast';
@@ -15,7 +16,8 @@ import { getCatalog } from '~/modules/Food/services/catalog';
 import { addMealFoodEntry, getMealsWithFoods, updateMealFoodEntry } from '~/modules/Meal/services/meal';
 import { scalePortion } from '~/modules/Meal/utils/portion';
 import { getUser } from '~/modules/User/services/user';
-import { routes } from '~/types/Navigation';
+import { mealBatchPath, routes } from '~/types/Navigation';
+import { gramsAreValid, portionScreenMode } from './batchActions';
 import { addFoodSaveDestination } from './navigation';
 import {
   decreaseGrams,
@@ -51,6 +53,7 @@ const AddFood = ({
   const { selectedDate } = useSelectedDate();
   const { markMealsChanged } = useMealsData();
   const { showToast } = useToast();
+  const { items: batchItemsFor, addItem } = useMealBatch();
   const mealId = params.get('mealId') ?? '';
   const subtitle = params.get('subtitle') ?? '';
   const catalogFoodId = params.get('catalogFoodId') ?? '';
@@ -140,6 +143,8 @@ const AddFood = ({
 
   const portion = scalePortion(food, grams);
   const user = getUser();
+  const batchCount = mealFoodId ? 0 : batchItemsFor(mealId).length;
+  const mode = portionScreenMode(Boolean(mealFoodId), batchCount);
   const actionLabel = mealFoodId ? 'SALVAR NA REFEIÇÃO' : 'ADICIONAR À REFEIÇÃO';
   const macros = {
     carb: portion.carb,
@@ -147,7 +152,30 @@ const AddFood = ({
     fat: portion.fat,
   };
 
+  const addToBatch = () => {
+    if (!gramsAreValid(grams)) {
+      return;
+    }
+
+    addItem(mealId, {
+      id: `${food.id}-${Date.now()}`,
+      catalogFoodId: food.id,
+      name: food.name,
+      emoji: food.emoji,
+      grams,
+      kcal: portion.kcal,
+      carb: portion.carb,
+      protein: portion.protein,
+      fat: portion.fat,
+    });
+    navigate(mealBatchPath({ mealId, subtitle }));
+  };
+
   const confirm = async () => {
+    if (!mealFoodId && !gramsAreValid(grams)) {
+      return;
+    }
+
     const entry = {
       id: mealFoodId ?? `${food.id}-${Date.now()}`,
       catalogFoodId: food.id,
@@ -180,15 +208,35 @@ const AddFood = ({
     navigate(-1);
   };
 
-  const confirmButton = (
+  const primaryButton = (label: string, onClick: () => void) => (
     <Button.Root
       className={styles.confirm}
-      accessibilityLabel={actionLabel}
-      onClick={confirm}
+      accessibilityLabel={label}
+      onClick={onClick}
     >
       <Button.Icon name="plus" color="var(--background)" />
-      <Button.Label className={styles.confirmLabel}>{actionLabel}</Button.Label>
+      <Button.Label className={styles.confirmLabel}>{label}</Button.Label>
     </Button.Root>
+  );
+
+  const confirmButton = (
+    <div className={styles.actions}>
+      {mode === 'edit' ? primaryButton(actionLabel, confirm) : null}
+      {mode === 'both' ? (
+        <>
+          {primaryButton('ADIÇÃO EM LOTE', addToBatch)}
+          <Button.Root
+            className={styles.quickAdd}
+            accessibilityLabel="ADIÇÃO RÁPIDA"
+            onClick={confirm}
+          >
+            <Button.Icon name="plus" />
+            <Button.Label>ADIÇÃO RÁPIDA</Button.Label>
+          </Button.Root>
+        </>
+      ) : null}
+      {mode === 'batch-only' ? primaryButton('ADICIONAR AO LOTE', addToBatch) : null}
+    </div>
   );
 
   return (
