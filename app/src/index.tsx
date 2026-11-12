@@ -8,6 +8,7 @@ import { ThemeProvider } from '~/contexts/ThemeContext';
 import { ToastProvider } from '~/contexts/ToastContext';
 import { UserProvider } from '~/contexts/UserContext';
 import { useThemePreference } from '~/hooks/useThemePreference';
+import { MealBatchProvider } from '~/modules/Meal/contexts/MealBatchContext';
 import { MealsProvider } from '~/modules/Meal/contexts/MealsContext';
 import Routes from '~/routes';
 
@@ -25,8 +26,10 @@ const App = () => {
           <ToastProvider>
             <UserProvider>
               <MealsProvider>
-                <ThemedStatusBar />
-                <Routes />
+                <MealBatchProvider>
+                  <ThemedStatusBar />
+                  <Routes />
+                </MealBatchProvider>
               </MealsProvider>
             </UserProvider>
           </ToastProvider>
