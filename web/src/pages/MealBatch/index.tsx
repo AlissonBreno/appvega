@@ -23,11 +23,12 @@ type MealBatchProps = {
 
 type BatchRowProps = {
   mealId: string;
+  onRemove: () => void;
   food: ReturnType<ReturnType<typeof useMealBatch>['items']>[number];
 };
 
-const BatchRow = ({ mealId, food }: BatchRowProps) => {
-  const { updateItem, removeItem } = useMealBatch();
+const BatchRow = ({ mealId, food, onRemove }: BatchRowProps) => {
+  const { updateItem } = useMealBatch();
   const [gramsText, setGramsText] = useState(String(food.grams));
 
   const applyGrams = (grams: number) => {
@@ -82,7 +83,7 @@ const BatchRow = ({ mealId, food }: BatchRowProps) => {
         type="button"
         className={styles.removeButton}
         aria-label={`Remover ${food.name}`}
-        onClick={() => removeItem(mealId, food.id)}
+        onClick={onRemove}
       >
         <Icon name="trash" size={14} color="var(--secondary-text)" />
       </button>
@@ -96,7 +97,7 @@ const MealBatch = ({ onBack, onClose, embedded = false }: MealBatchProps) => {
   const { selectedDate } = useSelectedDate();
   const { markMealsChanged } = useMealsData();
   const { showToast } = useToast();
-  const { items, clear } = useMealBatch();
+  const { items, clear, removeItem } = useMealBatch();
   const mealId = params.get('mealId') ?? '';
   const subtitle = params.get('subtitle') ?? '';
   const foods = items(mealId);
@@ -112,11 +113,15 @@ const MealBatch = ({ onBack, onClose, embedded = false }: MealBatchProps) => {
     }
   }, [startedEmpty, navigate, mealId, subtitle]);
 
-  useEffect(() => {
-    if (!startedEmpty && foods.length === 0 && !saving) {
-      navigate(searchFoodPath({ mealId, subtitle }));
+  const removeFood = (foodId: string) => {
+    const removedLast = foods.length === 1 && foods[0].id === foodId;
+
+    removeItem(mealId, foodId);
+
+    if (removedLast) {
+      goToSearch();
     }
-  }, [startedEmpty, foods.length, saving, navigate, mealId, subtitle]);
+  };
 
   const confirm = async () => {
     setSaving(true);
@@ -184,7 +189,12 @@ const MealBatch = ({ onBack, onClose, embedded = false }: MealBatchProps) => {
 
         <ul className={styles.list}>
           {foods.map(food => (
-            <BatchRow key={food.id} mealId={mealId} food={food} />
+            <BatchRow
+              key={food.id}
+              mealId={mealId}
+              food={food}
+              onRemove={() => removeFood(food.id)}
+            />
           ))}
         </ul>
       </div>
