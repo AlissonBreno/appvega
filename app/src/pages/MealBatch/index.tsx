@@ -1,11 +1,12 @@
 import type { StackScreenProps } from '@react-navigation/stack';
-import { useEffect, useState } from 'react';
-import { Alert, Pressable, ScrollView, Text, TextInput, View } from 'react-native';
+import { useEffect, useRef, useState } from 'react';
+import { Pressable, ScrollView, Text, TextInput, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { ScreenHeader } from '~/components/shared/ScreenHeader';
 import { Button } from '~/components/ui/Button';
 import Icon from '~/components/ui/Icon';
+import { useBatchDiscardGuard } from '~/hooks/useBatchDiscardGuard';
 import { useMeals } from '~/hooks/useMeals';
 import { useNavigationTheme } from '~/hooks/useNavigationTheme';
 import { useToast } from '~/hooks/useToast';
@@ -134,27 +135,24 @@ const MealBatch = ({ navigation, route }: MealBatchProps) => {
   const [startedEmpty] = useState(foods.length === 0);
   const [saving, setSaving] = useState(false);
 
-  const goToSearch = () => navigation.navigate('SearchFood', { mealId, subtitle });
+  const { withoutGuard } = useBatchDiscardGuard(navigation, mealId);
+  const leavingRef = useRef(false);
+
+  const goToSearch = () => {
+    leavingRef.current = true;
+    withoutGuard(() => navigation.popTo('SearchFood', { mealId, subtitle }));
+  };
 
   useEffect(() => {
     if (startedEmpty) {
-      navigation.navigate('SearchFood', { mealId, subtitle });
+      navigation.popTo('SearchFood', { mealId, subtitle });
+      return;
     }
-  }, [startedEmpty, navigation, mealId, subtitle]);
 
-  const requestLeave = () => {
-    Alert.alert('Descartar o lote?', undefined, [
-      { text: 'Cancelar', style: 'cancel' },
-      {
-        text: 'Descartar',
-        style: 'destructive',
-        onPress: () => {
-          clear(mealId);
-          navigation.navigate('Main');
-        },
-      },
-    ]);
-  };
+    if (foods.length === 0 && !leavingRef.current && navigation.canGoBack()) {
+      navigation.goBack();
+    }
+  }, [startedEmpty, foods.length, navigation, mealId, subtitle]);
 
   const removeFood = (foodId: string) => {
     const removedLast = foods.length === 1 && foods[0].id === foodId;
@@ -183,7 +181,8 @@ const MealBatch = ({ navigation, route }: MealBatchProps) => {
         message: 'Inclusão realizada com sucesso',
         variant: 'success',
       });
-      navigation.navigate('Main');
+      leavingRef.current = true;
+      navigation.popTo('Main');
     } catch {
       showToast({
         message: 'Não foi possível salvar o lote',
@@ -220,7 +219,7 @@ const MealBatch = ({ navigation, route }: MealBatchProps) => {
     <View style={[styles.screen, { backgroundColor: theme.colors.background }]}>
       <ScreenHeader.Root>
         <ScreenHeader.Row>
-          <ScreenHeader.Back onPress={requestLeave} />
+          <ScreenHeader.Back onPress={navigation.goBack} />
           <ScreenHeader.TextColumn>
             <ScreenHeader.Title>Confirmar lote</ScreenHeader.Title>
             <ScreenHeader.Subtitle>{subtitle}</ScreenHeader.Subtitle>

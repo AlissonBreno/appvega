@@ -3,7 +3,7 @@ import Dialog from '~/components/ui/Dialog';
 import { mealFlowDismiss, mealFlowPresentation } from '~/config/viewport';
 import { useMealBatch } from '~/contexts/MealBatchContext';
 import { useDesktop } from '~/hooks/useDesktop';
-import { BATCH_DISCARD_MESSAGE, shouldConfirmBatchLeave } from '../MealBatch/leave';
+import { BATCH_DISCARD_MESSAGE, shouldConfirmBatchLeave } from '~/pages/MealBatch/leave';
 import { routes, searchFoodPath } from '~/types/Navigation';
 import AddFood from '.';
 import { addFoodBackDestination } from './navigation';

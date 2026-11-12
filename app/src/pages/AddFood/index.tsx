@@ -303,7 +303,7 @@ const AddFood = ({ navigation, route }: AddFoodProps) => {
       message: 'Inclusão realizada com sucesso',
       variant: 'success',
     });
-    navigation.navigate('Main');
+    navigation.popTo('Main');
   };
 
   return (

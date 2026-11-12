@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router';
 import Dialog from '~/components/ui/Dialog';
 import { mealFlowPresentation } from '~/config/viewport';
@@ -5,7 +6,7 @@ import { useMealBatch } from '~/contexts/MealBatchContext';
 import { useDesktop } from '~/hooks/useDesktop';
 import { routes } from '~/types/Navigation';
 import MealBatch from '.';
-import { BATCH_DISCARD_MESSAGE, shouldConfirmBatchLeave } from './leave';
+import { BATCH_DISCARD_MESSAGE, batchLeaveAction } from './leave';
 
 const MealBatchRoute = () => {
   const desktop = useDesktop();
@@ -14,12 +15,12 @@ const MealBatchRoute = () => {
   const { items, clear } = useMealBatch();
   const presentation = mealFlowPresentation(desktop);
   const mealId = params.get('mealId') ?? '';
+  const [saving, setSaving] = useState(false);
 
   const requestLeave = () => {
-    if (
-      shouldConfirmBatchLeave(items(mealId).length) &&
-      !window.confirm(BATCH_DISCARD_MESSAGE)
-    ) {
+    const action = batchLeaveAction(items(mealId).length, saving);
+
+    if (action === 'ignore' || (action === 'confirm' && !window.confirm(BATCH_DISCARD_MESSAGE))) {
       return;
     }
 
@@ -28,12 +29,17 @@ const MealBatchRoute = () => {
   };
 
   if (presentation === 'page') {
-    return <MealBatch onBack={requestLeave} />;
+    return <MealBatch onBack={requestLeave} onSavingChange={setSaving} />;
   }
 
   return (
     <Dialog label="Confirmar lote" onClose={requestLeave}>
-      <MealBatch onBack={requestLeave} onClose={requestLeave} embedded />
+      <MealBatch
+        onBack={requestLeave}
+        onClose={requestLeave}
+        onSavingChange={setSaving}
+        embedded
+      />
     </Dialog>
   );
 };

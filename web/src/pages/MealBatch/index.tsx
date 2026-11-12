@@ -12,11 +12,13 @@ import { addMealFoodEntry } from '~/modules/Meal/services/meal';
 import { scalePortion } from '~/modules/Meal/utils/portion';
 import { routes, searchFoodPath } from '~/types/Navigation';
 import { batchTotals, commitBatch } from '../AddFood/batchActions';
+import { BATCH_FLOW_STATE } from './leave';
 import { formatOneDecimal, parseGramsInput } from '../AddFood/quantity';
 import styles from './styles.module.css';
 
 type MealBatchProps = {
   onBack: () => void;
+  onSavingChange?: (saving: boolean) => void;
   onClose?: () => void;
   embedded?: boolean;
 };
@@ -91,7 +93,7 @@ const BatchRow = ({ mealId, food, onRemove }: BatchRowProps) => {
   );
 };
 
-const MealBatch = ({ onBack, onClose, embedded = false }: MealBatchProps) => {
+const MealBatch = ({ onBack, onSavingChange, onClose, embedded = false }: MealBatchProps) => {
   const navigate = useNavigate();
   const [params] = useSearchParams();
   const { selectedDate } = useSelectedDate();
@@ -105,11 +107,16 @@ const MealBatch = ({ onBack, onClose, embedded = false }: MealBatchProps) => {
   const [startedEmpty] = useState(foods.length === 0);
   const [saving, setSaving] = useState(false);
 
-  const goToSearch = () => navigate(searchFoodPath({ mealId, subtitle }));
+  const goToSearch = () =>
+    navigate(searchFoodPath({ mealId, subtitle }), { replace: true, state: BATCH_FLOW_STATE });
+
+  useEffect(() => {
+    onSavingChange?.(saving);
+  }, [saving, onSavingChange]);
 
   useEffect(() => {
     if (startedEmpty) {
-      navigate(searchFoodPath({ mealId, subtitle }));
+      navigate(searchFoodPath({ mealId, subtitle }), { replace: true, state: BATCH_FLOW_STATE });
     }
   }, [startedEmpty, navigate, mealId, subtitle]);
 
