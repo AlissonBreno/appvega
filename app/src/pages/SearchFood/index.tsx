@@ -7,7 +7,9 @@ import { ScreenHeader } from '~/components/shared/ScreenHeader';
 import Icon from '~/components/ui/Icon';
 import { Input } from '~/components/ui/Input';
 import { Pill } from '~/components/ui/Pill';
+import { useBatchDiscardGuard } from '~/hooks/useBatchDiscardGuard';
 import { useNavigationTheme } from '~/hooks/useNavigationTheme';
+import { useMealBatch } from '~/modules/Meal/contexts/MealBatchContext';
 import type { StackParamList } from '~/types/Navigation';
 
 import { catalog } from 'mocks/catalog';
@@ -128,6 +130,9 @@ type SearchFoodProps = StackScreenProps<StackParamList, 'SearchFood'>;
 
 const SearchFood = ({ navigation, route }: SearchFoodProps) => {
   const { mealId, subtitle } = route.params;
+  const { withoutGuard } = useBatchDiscardGuard(navigation, mealId);
+  const { hasDraft } = useMealBatch();
+  const returnToBatch = hasDraft(mealId);
   const insets = useSafeAreaInsets();
   const { isDark, theme } = useNavigationTheme();
   const styles = searchFoodStyles[isDark ? 'dark' : 'light'];
@@ -157,15 +162,32 @@ const SearchFood = ({ navigation, route }: SearchFoodProps) => {
     });
   };
 
+  const goToBatch = () => {
+    withoutGuard(() => {
+      navigation.navigate('MealBatch', { mealId, subtitle });
+    });
+  };
+
   return (
     <View style={[styles.screen, { backgroundColor: theme.colors.background }]}>
       <ScreenHeader.Root>
         <ScreenHeader.Row>
-          <ScreenHeader.Back onPress={navigation.goBack} />
+          <ScreenHeader.Back
+            accessibilityLabel={
+              returnToBatch ? 'Voltar ao lote' : 'Voltar'
+            }
+            onPress={returnToBatch ? goToBatch : navigation.goBack}
+          />
           <ScreenHeader.TextColumn>
             <ScreenHeader.Title>Buscar Alimento</ScreenHeader.Title>
             <ScreenHeader.Subtitle>{subtitle}</ScreenHeader.Subtitle>
           </ScreenHeader.TextColumn>
+          {returnToBatch ? (
+            <ScreenHeader.Close
+              accessibilityLabel="Fechar e descartar o lote"
+              onPress={() => navigation.popTo('Main')}
+            />
+          ) : null}
         </ScreenHeader.Row>
       </ScreenHeader.Root>
       <View style={styles.toolbar}>

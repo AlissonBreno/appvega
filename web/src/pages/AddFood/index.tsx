@@ -8,14 +8,16 @@ import Icon from '~/components/ui/Icon';
 import { Input } from '~/components/ui/Input';
 import { Pill } from '~/components/ui/Pill';
 import type { MealFlowPresentation } from '~/config/viewport';
+import { useMealBatch } from '~/contexts/MealBatchContext';
 import { useMealsData } from '~/contexts/MealsDataContext';
 import { useSelectedDate } from '~/hooks/useSelectedDate';
 import { useToast } from '~/hooks/useToast';
 import { getCatalog } from '~/modules/Food/services/catalog';
-import { addMealFoodEntry, getMealsWithFoods, updateMealFoodEntry } from '~/modules/Meal/services/meal';
+import { getMealsWithFoods, updateMealFoodEntry } from '~/modules/Meal/services/meal';
 import { scalePortion } from '~/modules/Meal/utils/portion';
 import { getUser } from '~/modules/User/services/user';
-import { routes } from '~/types/Navigation';
+import { mealBatchPath, routes } from '~/types/Navigation';
+import { gramsAreValid, portionScreenMode } from './batchActions';
 import { addFoodSaveDestination } from './navigation';
 import {
   decreaseGrams,
@@ -51,6 +53,7 @@ const AddFood = ({
   const { selectedDate } = useSelectedDate();
   const { markMealsChanged } = useMealsData();
   const { showToast } = useToast();
+  const { addItem } = useMealBatch();
   const mealId = params.get('mealId') ?? '';
   const subtitle = params.get('subtitle') ?? '';
   const catalogFoodId = params.get('catalogFoodId') ?? '';
@@ -140,16 +143,39 @@ const AddFood = ({
 
   const portion = scalePortion(food, grams);
   const user = getUser();
-  const actionLabel = mealFoodId ? 'SALVAR NA REFEIÇÃO' : 'ADICIONAR À REFEIÇÃO';
+  const mode = portionScreenMode(Boolean(mealFoodId));
   const macros = {
     carb: portion.carb,
     protein: portion.protein,
     fat: portion.fat,
   };
 
-  const confirm = async () => {
+  const addToBatch = () => {
+    if (!gramsAreValid(grams)) {
+      return;
+    }
+
+    addItem(mealId, {
+      id: `${food.id}-${Date.now()}`,
+      catalogFoodId: food.id,
+      name: food.name,
+      emoji: food.emoji,
+      grams,
+      kcal: portion.kcal,
+      carb: portion.carb,
+      protein: portion.protein,
+      fat: portion.fat,
+    });
+    navigate(mealBatchPath({ mealId, subtitle }));
+  };
+
+  const saveEdit = async () => {
+    if (!mealFoodId) {
+      return;
+    }
+
     const entry = {
-      id: mealFoodId ?? `${food.id}-${Date.now()}`,
+      id: mealFoodId,
       catalogFoodId: food.id,
       name: food.name,
       emoji: food.emoji,
@@ -160,17 +186,11 @@ const AddFood = ({
       fat: portion.fat,
     };
 
-    const saveDestination = addFoodSaveDestination(presentation, Boolean(mealFoodId));
+    const saveDestination = addFoodSaveDestination(presentation, true);
 
-    if (mealFoodId) {
-      await updateMealFoodEntry(mealId, entry, selectedDate);
-      markMealsChanged();
-      showToast({ message: 'Alteração realizada com sucesso', variant: 'success' });
-    } else {
-      await addMealFoodEntry(mealId, entry, selectedDate);
-      markMealsChanged();
-      showToast({ message: 'Inclusão realizada com sucesso', variant: 'success' });
-    }
+    await updateMealFoodEntry(mealId, entry, selectedDate);
+    markMealsChanged();
+    showToast({ message: 'Alteração realizada com sucesso', variant: 'success' });
 
     if (saveDestination === 'home') {
       navigate(routes.home);
@@ -180,15 +200,21 @@ const AddFood = ({
     navigate(-1);
   };
 
+  const actionLabel =
+    mode === 'edit' ? 'SALVAR NA REFEIÇÃO' : 'ADICIONAR';
+  const onAction = mode === 'edit' ? saveEdit : addToBatch;
+
   const confirmButton = (
-    <Button.Root
-      className={styles.confirm}
-      accessibilityLabel={actionLabel}
-      onClick={confirm}
-    >
-      <Button.Icon name="plus" color="var(--background)" />
-      <Button.Label className={styles.confirmLabel}>{actionLabel}</Button.Label>
-    </Button.Root>
+    <div className={styles.actions}>
+      <Button.Root
+        className={styles.confirm}
+        accessibilityLabel={actionLabel}
+        onClick={onAction}
+      >
+        <Button.Icon name="plus" color="var(--background)" />
+        <Button.Label className={styles.confirmLabel}>{actionLabel}</Button.Label>
+      </Button.Root>
+    </div>
   );
 
   return (

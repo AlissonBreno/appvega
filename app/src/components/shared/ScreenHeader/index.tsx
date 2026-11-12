@@ -46,21 +46,45 @@ const Icon = ({ name }: IconProps) => {
 
 type BackProps = {
   onPress?: () => void;
+  accessibilityLabel?: string;
 };
 
-const Back = ({ onPress }: BackProps) => {
+type CloseProps = {
+  onPress: () => void;
+  accessibilityLabel?: string;
+};
+
+const Back = ({ onPress, accessibilityLabel = 'Voltar' }: BackProps) => {
   const { theme } = useNavigationTheme();
 
   return (
     <Pressable
       accessibilityRole="button"
-      accessibilityLabel="Voltar"
+      accessibilityLabel={accessibilityLabel}
       accessibilityState={{ disabled: !onPress }}
       disabled={!onPress}
       hitSlop={12}
       onPress={onPress}
     >
       <IconGlyph name="arrow-left" color={theme.colors.primaryText} size={24} />
+    </Pressable>
+  );
+};
+
+const Close = ({
+  onPress,
+  accessibilityLabel = 'Fechar',
+}: CloseProps) => {
+  const { theme } = useNavigationTheme();
+
+  return (
+    <Pressable
+      accessibilityRole="button"
+      accessibilityLabel={accessibilityLabel}
+      hitSlop={12}
+      onPress={onPress}
+    >
+      <IconGlyph name="x" color={theme.colors.primaryText} size={24} />
     </Pressable>
   );
 };
@@ -103,6 +127,7 @@ export const ScreenHeader = {
   Row,
   Icon,
   Back,
+  Close,
   TextColumn,
   Title,
   Subtitle,

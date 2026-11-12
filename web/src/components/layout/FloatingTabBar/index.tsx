@@ -16,7 +16,11 @@ type FloatingTabBarProps = {
 };
 
 const resolveActiveIndex = (pathname: string) => {
-  if (pathname.startsWith(routes.searchFood) || pathname.startsWith(routes.addFood)) {
+  if (
+    pathname.startsWith(routes.searchFood) ||
+    pathname.startsWith(routes.addFood) ||
+    pathname.startsWith(routes.mealBatch)
+  ) {
     return 0;
   }
 

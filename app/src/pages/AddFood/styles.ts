@@ -167,6 +167,7 @@ const createStyles = (theme: Theme) => {
       gap: 8,
     },
     footer: {
+      gap: 8,
       paddingHorizontal: 16,
       paddingTop: 16,
     },

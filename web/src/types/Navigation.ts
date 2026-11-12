@@ -5,11 +5,12 @@ export const routes = {
   login: '/login',
   searchFood: '/buscar',
   addFood: '/adicionar',
+  mealBatch: '/lote',
 } as const;
 
 export const tabPaths = [routes.home, routes.history, routes.profile] as const;
 
-export const stackPaths = [routes.searchFood, routes.addFood] as const;
+export const stackPaths = [routes.searchFood, routes.addFood, routes.mealBatch] as const;
 
 type SearchFoodParams = {
   mealId: string;
@@ -34,4 +35,9 @@ export const addFoodPath = ({ mealId, subtitle, catalogFoodId, mealFoodId }: Add
   }
 
   return `${routes.addFood}?${params.toString()}`;
+};
+
+export const mealBatchPath = ({ mealId, subtitle }: SearchFoodParams) => {
+  const params = new URLSearchParams({ mealId, subtitle });
+  return `${routes.mealBatch}?${params.toString()}`;
 };

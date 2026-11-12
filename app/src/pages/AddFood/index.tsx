@@ -11,7 +11,12 @@ import { Pill } from '~/components/ui/Pill';
 import { useMeals } from '~/hooks/useMeals';
 import { useNavigationTheme } from '~/hooks/useNavigationTheme';
 import { useToast } from '~/hooks/useToast';
+import { useMealBatch } from '~/modules/Meal/contexts/MealBatchContext';
 import type { MealFood } from '~/modules/Meal/types/MealView';
+import {
+  gramsAreValid,
+  portionScreenMode,
+} from '~/modules/Meal/utils/mealBatch';
 import { scalePortion } from '~/pages/Home/Meals/portion';
 import { catalog } from 'mocks/catalog';
 import type { NutritionFact } from '~/pages/SearchFood/types';
@@ -226,7 +231,8 @@ type AddFoodProps = StackScreenProps<StackParamList, 'AddFood'>;
 const AddFood = ({ navigation, route }: AddFoodProps) => {
   const { mealId, subtitle, catalogFoodId, mealFoodId } = route.params;
   const catalogFood = catalog.find(food => food.id === catalogFoodId);
-  const { meals, addFood, updateFood } = useMeals();
+  const { meals, updateFood } = useMeals();
+  const { addItem } = useMealBatch();
   const { showToast } = useToast();
   const insets = useSafeAreaInsets();
   const { isDark, theme } = useNavigationTheme();
@@ -248,39 +254,42 @@ const AddFood = ({ navigation, route }: AddFoodProps) => {
   }
 
   const portion = scalePortion(catalogFood, grams);
-  const actionLabel = mealFoodId
-    ? 'SALVAR NA REFEIÇÃO'
-    : 'ADICIONAR À REFEIÇÃO';
+  const mode = portionScreenMode(Boolean(mealFoodId));
+  const actionLabel =
+    mode === 'edit' ? 'SALVAR NA REFEIÇÃO' : 'ADICIONAR';
 
-  const confirm = () => {
-    const food: MealFood = {
-      id: mealFoodId ?? `${catalogFoodId}-${Date.now()}`,
-      catalogFoodId,
-      name: catalogFood.name,
-      emoji: catalogFood.emoji,
-      grams,
-      kcal: portion.kcal,
-      carb: portion.carb,
-      protein: portion.protein,
-      fat: portion.fat,
-    };
+  const buildFood = (id: string): MealFood => ({
+    id,
+    catalogFoodId,
+    name: catalogFood.name,
+    emoji: catalogFood.emoji,
+    grams,
+    kcal: portion.kcal,
+    carb: portion.carb,
+    protein: portion.protein,
+    fat: portion.fat,
+  });
 
-    if (mealFoodId) {
-      updateFood(mealId, mealFoodId, food);
-      showToast({
-        message: 'Alteração realizada com sucesso',
-        variant: 'success',
-      });
-      navigation.goBack();
+  const addToBatch = () => {
+    if (!gramsAreValid(grams)) {
       return;
     }
 
-    addFood(mealId, food);
+    addItem(mealId, buildFood(`${catalogFoodId}-${Date.now()}`));
+    navigation.navigate('MealBatch', { mealId, subtitle });
+  };
+
+  const saveEdit = () => {
+    if (!mealFoodId) {
+      return;
+    }
+
+    updateFood(mealId, mealFoodId, buildFood(mealFoodId));
     showToast({
-      message: 'Inclusão realizada com sucesso',
+      message: 'Alteração realizada com sucesso',
       variant: 'success',
     });
-    navigation.navigate('Main');
+    navigation.goBack();
   };
 
   return (
@@ -312,7 +321,7 @@ const AddFood = ({ navigation, route }: AddFoodProps) => {
       <View style={[styles.footer, { paddingBottom: insets.bottom + 16 }]}>
         <Button.Root
           accessibilityLabel={actionLabel}
-          onPress={confirm}
+          onPress={mode === 'edit' ? saveEdit : addToBatch}
           style={styles.confirm}
         >
           <Button.Icon name="plus" color={theme.colors.background} />

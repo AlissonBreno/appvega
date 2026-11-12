@@ -1,4 +1,5 @@
 import { BrowserRouter } from 'react-router';
+import { MealBatchProvider } from '~/contexts/MealBatchContext';
 import { MealsDataProvider } from '~/contexts/MealsDataContext';
 import { SelectedDateProvider } from '~/contexts/SelectedDateContext';
 import { ThemeProvider } from '~/contexts/ThemeContext';
@@ -11,7 +12,9 @@ export const App = () => (
       <ToastProvider>
         <SelectedDateProvider>
           <MealsDataProvider>
-            <AppRoutes />
+            <MealBatchProvider>
+              <AppRoutes />
+            </MealBatchProvider>
           </MealsDataProvider>
         </SelectedDateProvider>
       </ToastProvider>
