@@ -4,6 +4,7 @@ import AddFoodRoute from '~/pages/AddFood/AddFoodRoute';
 import History from '~/pages/History';
 import MealFlow from '~/pages/Home/MealFlow';
 import Login from '~/pages/Login';
+import MealBatchRoute from '~/pages/MealBatch/MealBatchRoute';
 import Profile from '~/pages/Profile';
 import SearchFoodRoute from '~/pages/SearchFood/SearchFoodRoute';
 import { routes } from '~/types/Navigation';
@@ -15,6 +16,7 @@ const AppRoutes = () => (
         <Route path={routes.home} element={null} />
         <Route path={routes.searchFood} element={<SearchFoodRoute />} />
         <Route path={routes.addFood} element={<AddFoodRoute />} />
+        <Route path={routes.mealBatch} element={<MealBatchRoute />} />
       </Route>
       <Route path={routes.history} element={<History />} />
       <Route path={routes.profile} element={<Profile />} />

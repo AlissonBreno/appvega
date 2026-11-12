@@ -1,4 +1,4 @@
-import type { MealFood } from '~/modules/Meal/types/MealView';
+import type { MealFood } from '../types/MealView';
 
 export type MealBatchMap = Record<string, MealFood[]>;
 
