@@ -77,3 +77,6 @@ app/.yarn/*
 .cursor/
 docs/
 .superpowers/
+.env
+backend/node_modules/
+backend/dist/
