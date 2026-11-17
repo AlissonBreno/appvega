@@ -1,3 +1,52 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * shadcn utilities → tokens Vega.
+ * Não reescreve --foreground/--background do app: no Vega, --foreground é
+ * superfície de card; no shadcn, "foreground" é texto (→ --primary-text).
+ */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--primary-text);
+  --color-card: var(--foreground);
+  --color-card-foreground: var(--primary-text);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary-surface);
+  --color-secondary-foreground: var(--primary-text);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--secondary-text);
+  --color-accent: var(--accent-surface);
+  --color-accent-foreground: var(--primary-text);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --font-sans: "Circular Std", sans-serif;
+}
+
+:root {
+  --radius: 12px;
+  --popover: var(--foreground);
+  --popover-foreground: var(--primary-text);
+  --primary-foreground: #f8fafc;
+  --secondary-surface: var(--background2);
+  --muted: var(--background2);
+  --accent-surface: var(--background2);
+  --destructive: var(--error);
+  --input: var(--border);
+  --ring: var(--primary);
+}
+
 * {
   box-sizing: border-box;
 }

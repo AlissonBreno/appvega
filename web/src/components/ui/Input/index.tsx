@@ -4,6 +4,9 @@ import type {
   ReactNode,
 } from 'react';
 
+import { Input as ShadcnInput } from '~/components/ui/shadcn/input';
+import { cn } from '~/lib/utils';
+
 import IconGlyph, { type IconName } from '../Icon';
 
 import styles from './styles.module.css';
@@ -65,7 +68,13 @@ type TextInputProps = InputHTMLAttributes<HTMLInputElement> & {
 };
 
 const TextInput = ({ className, ...props }: TextInputProps) => (
-  <input {...props} className={[styles.input, className].filter(Boolean).join(' ')} />
+  <ShadcnInput
+    {...props}
+    className={cn(
+      'h-auto min-w-0 flex-1 rounded-none border-0 bg-transparent px-0 py-3.5 text-base font-normal text-[var(--primary-text)] shadow-none outline-none placeholder:text-muted-foreground focus-visible:border-0 focus-visible:ring-0 disabled:bg-transparent dark:bg-transparent dark:disabled:bg-transparent md:text-base',
+      className,
+    )}
+  />
 );
 
 export const Input = {

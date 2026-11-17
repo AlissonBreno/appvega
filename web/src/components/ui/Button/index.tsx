@@ -1,8 +1,9 @@
 import type { ButtonHTMLAttributes, CSSProperties, ReactNode } from 'react';
 
-import IconGlyph, { type IconName } from '../Icon';
+import { Button as ShadcnButton } from '~/components/ui/shadcn/button';
+import { cn } from '~/lib/utils';
 
-import styles from './styles.module.css';
+import IconGlyph, { type IconName } from '../Icon';
 
 type RootProps = {
   children: ReactNode;
@@ -26,16 +27,21 @@ const Root = ({
   const isDisabled = disabled ?? !onClick;
 
   return (
-    <button
+    <ShadcnButton
       type={type}
       aria-label={accessibilityLabel}
       disabled={isDisabled}
       onClick={onClick}
-      className={[styles.root, className].filter(Boolean).join(' ')}
+      variant="outline"
+      size="lg"
+      className={cn(
+        'h-[60px] min-h-[60px] w-auto gap-2 rounded-xl border-border bg-background px-4 text-base font-medium text-muted-foreground opacity-55 hover:bg-background hover:text-muted-foreground dark:border-border dark:bg-background dark:hover:bg-background',
+        className,
+      )}
       style={style}
     >
       {children}
-    </button>
+    </ShadcnButton>
   );
 };
 
@@ -63,7 +69,10 @@ type LabelProps = {
 };
 
 const Label = ({ children, className, style }: LabelProps) => (
-  <span className={[styles.label, className].filter(Boolean).join(' ')} style={style}>
+  <span
+    className={cn('text-base font-medium leading-[21px] text-muted-foreground', className)}
+    style={style}
+  >
     {children}
   </span>
 );

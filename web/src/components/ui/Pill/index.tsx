@@ -6,7 +6,8 @@ import {
   type ReactNode,
 } from 'react';
 
-import styles from './styles.module.css';
+import { Badge } from '~/components/ui/shadcn/badge';
+import { cn } from '~/lib/utils';
 
 type PillContextValue = {
   selected: boolean;
@@ -45,18 +46,27 @@ const Root = ({
 
   return (
     <PillContext.Provider value={value}>
-      <button
-        type="button"
-        aria-label={accessibilityLabel}
-        aria-pressed={selected}
-        onClick={onClick}
-        className={[styles.root, selected ? styles.selected : null, className]
-          .filter(Boolean)
-          .join(' ')}
-        style={style}
+      <Badge
+        variant={selected ? 'default' : 'secondary'}
+        render={
+          <button
+            type="button"
+            aria-label={accessibilityLabel}
+            aria-pressed={selected}
+            onClick={onClick}
+            style={style}
+          />
+        }
+        className={cn(
+          'h-auto cursor-pointer gap-1 rounded-full border-0 px-4 py-2 text-sm font-medium',
+          selected
+            ? 'bg-[var(--primary-text)] text-[var(--background)] hover:bg-[var(--primary-text)]'
+            : 'bg-card text-muted-foreground hover:bg-card hover:text-muted-foreground',
+          className,
+        )}
       >
         {children}
-      </button>
+      </Badge>
     </PillContext.Provider>
   );
 };
@@ -69,7 +79,12 @@ const Label = ({ children }: LabelProps) => {
   const { selected } = usePill();
 
   return (
-    <span className={[styles.label, selected ? styles.labelSelected : null].filter(Boolean).join(' ')}>
+    <span
+      className={cn(
+        'text-sm font-medium leading-[21px]',
+        selected ? 'text-[var(--background)]' : 'text-muted-foreground',
+      )}
+    >
       {children}
     </span>
   );

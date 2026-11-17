@@ -10,6 +10,13 @@ import {
   type ReactNode,
 } from 'react';
 
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from '~/components/ui/shadcn/collapsible';
+import { cn } from '~/lib/utils';
+
 import Icon from '../Icon';
 
 import styles from './styles.module.css';
@@ -39,19 +46,31 @@ type RootProps = {
 
 const Root = ({ children, expanded, onToggle }: RootProps) => {
   const [uncontrolledExpanded, setUncontrolledExpanded] = useState(false);
-  const isExpanded =
-    expanded !== undefined && onToggle !== undefined
-      ? expanded
-      : uncontrolledExpanded;
+  const isControlled = expanded !== undefined && onToggle !== undefined;
+  const isExpanded = isControlled ? expanded : uncontrolledExpanded;
 
   const toggle = useCallback(() => {
-    if (expanded !== undefined && onToggle) {
+    if (isControlled) {
       onToggle();
       return;
     }
 
     setUncontrolledExpanded(current => !current);
-  }, [expanded, onToggle]);
+  }, [isControlled, onToggle]);
+
+  const handleOpenChange = useCallback(
+    (open: boolean) => {
+      if (isControlled) {
+        if (open !== expanded) {
+          onToggle();
+        }
+        return;
+      }
+
+      setUncontrolledExpanded(open);
+    },
+    [expanded, isControlled, onToggle],
+  );
 
   const value = useMemo(
     () => ({ expanded: isExpanded, toggle }),
@@ -59,7 +78,11 @@ const Root = ({ children, expanded, onToggle }: RootProps) => {
   );
 
   return (
-    <CollapseContext.Provider value={value}>{children}</CollapseContext.Provider>
+    <CollapseContext.Provider value={value}>
+      <Collapsible open={isExpanded} onOpenChange={handleOpenChange}>
+        {children}
+      </Collapsible>
+    </CollapseContext.Provider>
   );
 };
 
@@ -106,23 +129,21 @@ type TriggerProps = {
 };
 
 const Trigger = ({ children, accessibilityLabel, className, style }: TriggerProps) => {
-  const { expanded, toggle } = useCollapse();
+  const { expanded } = useCollapse();
   const noun = accessibilityLabel ? undefined : chevronNoun(children);
   const label =
     accessibilityLabel ??
     (noun ? collapseActionLabel(noun, expanded) : undefined);
 
   return (
-    <button
+    <CollapsibleTrigger
       type="button"
       aria-label={label}
-      aria-expanded={expanded}
-      onClick={toggle}
       className={className}
       style={style}
     >
       {children}
-    </button>
+    </CollapsibleTrigger>
   );
 };
 
@@ -130,15 +151,9 @@ type PanelProps = {
   children: ReactNode;
 };
 
-const Panel = ({ children }: PanelProps) => {
-  const { expanded } = useCollapse();
-
-  if (!expanded) {
-    return null;
-  }
-
-  return children;
-};
+const Panel = ({ children }: PanelProps) => (
+  <CollapsibleContent className={cn('overflow-hidden')}>{children}</CollapsibleContent>
+);
 
 export const Collapse = {
   Root,

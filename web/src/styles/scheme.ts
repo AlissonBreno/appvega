@@ -26,11 +26,15 @@ export const colorVariables = (scheme: Scheme): Record<string, string> => {
 
 export const applyScheme = (
   scheme: Scheme,
-  target: { style: { setProperty: (name: string, value: string) => void } },
+  target: {
+    style: { setProperty: (name: string, value: string) => void };
+    classList?: { toggle: (token: string, force?: boolean) => void };
+  },
 ) => {
   Object.entries(colorVariables(scheme)).forEach(([name, value]) => {
     target.style.setProperty(name, value);
   });
+  target.classList?.toggle('dark', scheme === 'dark');
 };
 
 export const mountShell = (
