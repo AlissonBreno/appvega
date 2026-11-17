@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 import type { Meal, MealFood } from '~/modules/Meal/services/meal';
+import { Button } from '~/components/ui/Button';
 import { Card } from '~/components/ui/Card';
 import { Collapse } from '~/components/ui/Collapse';
 import Icon from '~/components/ui/Icon';
@@ -32,6 +33,7 @@ type MealCollapseCardProps = {
   onAdd: () => void;
   onEdit: (food: MealFood) => void;
   onRemove: (food: MealFood) => void;
+  removingFoodId?: string | null;
 };
 
 const share = (grams: number, goal: number) => (goal > 0 ? grams / goal : 0);
@@ -44,6 +46,7 @@ const MealCollapseCard = ({
   onAdd,
   onEdit,
   onRemove,
+  removingFoodId = null,
 }: MealCollapseCardProps) => {
   const mealKcal = meal.foods.reduce((sum, food) => sum + food.kcal, 0);
   const mealMacros = meal.foods.reduce(
@@ -114,6 +117,7 @@ const MealCollapseCard = ({
           <div className={styles.foodList}>
           {meal.foods.map(food => {
             const revealed = revealedFoodId === food.id;
+            const removing = removingFoodId === food.id;
 
             return (
               <div className={styles.foodRow} key={food.id}>
@@ -161,6 +165,7 @@ const MealCollapseCard = ({
                     className={styles.foodAction}
                     type="button"
                     aria-label={`Editar ${food.name}`}
+                    disabled={removingFoodId !== null}
                     onClick={() => onEdit(food)}
                   >
                     <Icon name="pencil" size={16} color="var(--primary-text)" />
@@ -169,9 +174,15 @@ const MealCollapseCard = ({
                     className={`${styles.foodAction} ${styles.foodActionDelete}`}
                     type="button"
                     aria-label={`Excluir ${food.name}`}
+                    aria-busy={removing || undefined}
+                    disabled={removingFoodId !== null}
                     onClick={() => onRemove(food)}
                   >
-                    <Icon name="trash" size={16} color="var(--error)" />
+                    {removing ? (
+                      <Button.Spinner />
+                    ) : (
+                      <Icon name="trash" size={16} color="var(--error)" />
+                    )}
                   </button>
                 </div>
               </div>

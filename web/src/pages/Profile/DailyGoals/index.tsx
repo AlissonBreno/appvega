@@ -78,6 +78,7 @@ const DailyGoals = ({ draft, weight, saving, changed, label, onChange, onSave }:
       <Button.Root
         className={active ? styles.save : undefined}
         disabled={!changed || saving}
+        loading={saving}
         onClick={onSave}
         accessibilityLabel={label}
       >

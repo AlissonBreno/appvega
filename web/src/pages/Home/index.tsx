@@ -23,6 +23,7 @@ const Home = () => {
   const [user, setUser] = useState<User | null>(null);
   const [meals, setMeals] = useState<Meal[] | null>(null);
   const [openMealId, setOpenMealId] = useState<string | null>(null);
+  const [removingFoodId, setRemovingFoodId] = useState<string | null>(null);
   const loadedDate = useRef<number | null>(null);
   const today = new Date();
 
@@ -77,9 +78,15 @@ const Home = () => {
       return;
     }
 
-    await removeMealFoodEntry(meal.id, food, selectedDate);
-    setMeals(await getMealsWithFoods(selectedDate));
-    showToast({ message: 'Exclusão realizada com sucesso', variant: 'success' });
+    setRemovingFoodId(food.id);
+
+    try {
+      await removeMealFoodEntry(meal.id, food, selectedDate);
+      setMeals(await getMealsWithFoods(selectedDate));
+      showToast({ message: 'Exclusão realizada com sucesso', variant: 'success' });
+    } finally {
+      setRemovingFoodId(null);
+    }
   };
 
   return (
@@ -127,6 +134,7 @@ const Home = () => {
                       }),
                     );
                   }}
+                  removingFoodId={removingFoodId}
                   onRemove={food => removeFood(meal, food)}
                 />
               ))}

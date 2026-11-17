@@ -32,6 +32,7 @@ type RootProps = {
   accessibilityLabel?: string;
   className?: string;
   style?: CSSProperties;
+  disabled?: boolean;
 };
 
 const Root = ({
@@ -41,6 +42,7 @@ const Root = ({
   accessibilityLabel,
   className,
   style,
+  disabled = false,
 }: RootProps) => {
   const value = useMemo(() => ({ selected }), [selected]);
 
@@ -53,6 +55,7 @@ const Root = ({
             type="button"
             aria-label={accessibilityLabel}
             aria-pressed={selected}
+            disabled={disabled}
             onClick={onClick}
             style={style}
           />

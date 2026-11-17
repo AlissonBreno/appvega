@@ -62,6 +62,7 @@ const AddFood = ({
   const [grams, setGrams] = useState(100);
   const [gramsText, setGramsText] = useState('100');
   const [ready, setReady] = useState(!mealFoodId);
+  const [saving, setSaving] = useState(false);
 
   const updateGrams = (next: number) => {
     setGrams(next);
@@ -170,7 +171,7 @@ const AddFood = ({
   };
 
   const saveEdit = async () => {
-    if (!mealFoodId) {
+    if (!mealFoodId || saving) {
       return;
     }
 
@@ -188,27 +189,38 @@ const AddFood = ({
 
     const saveDestination = addFoodSaveDestination(presentation, true);
 
-    await updateMealFoodEntry(mealId, entry, selectedDate);
-    markMealsChanged();
-    showToast({ message: 'Alteração realizada com sucesso', variant: 'success' });
+    setSaving(true);
 
-    if (saveDestination === 'home') {
-      navigate(routes.home);
-      return;
+    try {
+      await updateMealFoodEntry(mealId, entry, selectedDate);
+      markMealsChanged();
+      showToast({ message: 'Alteração realizada com sucesso', variant: 'success' });
+
+      if (saveDestination === 'home') {
+        navigate(routes.home);
+        return;
+      }
+
+      navigate(-1);
+    } finally {
+      setSaving(false);
     }
-
-    navigate(-1);
   };
 
-  const actionLabel =
-    mode === 'edit' ? 'SALVAR NA REFEIÇÃO' : 'ADICIONAR';
-  const onAction = mode === 'edit' ? saveEdit : addToBatch;
+  const editing = mode === 'edit';
+  const actionLabel = saving
+    ? 'Salvando...'
+    : editing
+      ? 'SALVAR NA REFEIÇÃO'
+      : 'ADICIONAR';
+  const onAction = editing ? saveEdit : addToBatch;
 
   const confirmButton = (
     <div className={styles.actions}>
       <Button.Root
         className={styles.confirm}
         accessibilityLabel={actionLabel}
+        loading={editing && saving}
         onClick={onAction}
       >
         <Button.Icon name="plus" color="var(--background)" />
@@ -301,7 +313,7 @@ const AddFood = ({
               type="button"
               className={styles.stepperButton}
               aria-label="Diminuir 10 gramas"
-              disabled={!gramsAtLeastTen(grams)}
+              disabled={saving || !gramsAtLeastTen(grams)}
               onClick={() => updateGrams(decreaseGrams(grams))}
             >
               <Icon name="minus" size={14} color="var(--secondary-text)" />
@@ -313,6 +325,7 @@ const AddFood = ({
                   aria-label="Quantidade em gramas"
                   inputMode="decimal"
                   value={gramsText}
+                  disabled={saving}
                   onChange={event => {
                     const next = event.target.value;
                     setGramsText(next);
@@ -336,6 +349,7 @@ const AddFood = ({
               type="button"
               className={styles.stepperButton}
               aria-label="Aumentar 10 gramas"
+              disabled={saving}
               onClick={() => updateGrams(grams + 10)}
             >
               <Icon name="plus" size={14} color="var(--secondary-text)" />
@@ -347,6 +361,7 @@ const AddFood = ({
                 key={pill}
                 selected={grams === pill}
                 accessibilityLabel={`${pill} gramas`}
+                disabled={saving}
                 onClick={() => updateGrams(pill)}
               >
                 <Pill.Label>{pill}g</Pill.Label>

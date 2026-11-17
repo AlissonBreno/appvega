@@ -4,6 +4,7 @@ import { Button as ShadcnButton } from '~/components/ui/shadcn/button';
 import { cn } from '~/lib/utils';
 
 import IconGlyph, { type IconName } from '../Icon';
+import styles from './styles.module.css';
 
 type RootProps = {
   children: ReactNode;
@@ -13,7 +14,10 @@ type RootProps = {
   style?: CSSProperties;
   type?: ButtonHTMLAttributes<HTMLButtonElement>['type'];
   disabled?: boolean;
+  loading?: boolean;
 };
+
+const Spinner = () => <span className={styles.spinner} aria-hidden />;
 
 const Root = ({
   children,
@@ -23,6 +27,7 @@ const Root = ({
   style,
   type = 'button',
   disabled,
+  loading = false,
 }: RootProps) => {
   const isDisabled = disabled ?? !onClick;
 
@@ -30,8 +35,9 @@ const Root = ({
     <ShadcnButton
       type={type}
       aria-label={accessibilityLabel}
-      disabled={isDisabled}
-      onClick={onClick}
+      aria-busy={loading || undefined}
+      disabled={isDisabled || loading}
+      onClick={loading ? undefined : onClick}
       variant="outline"
       size="lg"
       className={cn(
@@ -40,6 +46,7 @@ const Root = ({
       )}
       style={style}
     >
+      {loading ? <Spinner /> : null}
       {children}
     </ShadcnButton>
   );
@@ -81,4 +88,5 @@ export const Button = {
   Root,
   Icon,
   Label,
+  Spinner,
 };
