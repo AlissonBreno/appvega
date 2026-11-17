@@ -1,7 +1,10 @@
 import { Module } from "@nestjs/common";
-import { HealthController } from "./health.controller.js";
+import { FoodModule } from "./food/food.module.js";
+import { HealthModule } from "./health/health.module.js";
+import { MealModule } from "./meal/meal.module.js";
+import { UserModule } from "./user/user.module.js";
 
 @Module({
-  controllers: [HealthController],
+  imports: [HealthModule, UserModule, FoodModule, MealModule],
 })
 export class AppModule {}
