@@ -5,7 +5,7 @@ import { Card } from '~/components/ui/Card';
 import { useMealsData } from '~/contexts/MealsDataContext';
 import { useSelectedDate } from '~/hooks/useSelectedDate';
 import { useToast } from '~/hooks/useToast';
-import { getCatalog } from '~/modules/Food/services/catalog';
+import { getFoods } from '~/modules/Food/services/food';
 import { getMealsWithFoods, removeMealFoodEntry, type Meal, type MealFood } from '~/modules/Meal/services/meal';
 import { getUser, type User } from '~/modules/User/services/user';
 import { addFoodPath, searchFoodPath } from '~/types/Navigation';
@@ -124,7 +124,11 @@ const Home = () => {
                     navigate(searchFoodPath({ mealId: meal.id, subtitle: `${meal.emoji} ${meal.title}` }))
                   }
                   onEdit={food => {
-                    const catalogFoodId = resolveCatalogFoodId(food.catalogFoodId, food.name, getCatalog());
+                    const catalogFoodId = resolveCatalogFoodId(
+                      food.catalogFoodId,
+                      food.name,
+                      getFoods(),
+                    );
                     navigate(
                       addFoodPath({
                         mealId: meal.id,

@@ -1,6 +1,10 @@
-import { catalog } from 'mocks/catalog';
-import type { CatalogFood } from '../../../../../app/src/pages/SearchFood/types';
+import type { Food } from '../../../../../app/src/modules/Food/types/Food';
+import { getFoods } from './food';
 
-export type { CatalogFood };
+export type CatalogFood = Food & { favorite: boolean };
 
-export const getCatalog = (): CatalogFood[] => catalog;
+export const getCatalog = (favoriteIds: ReadonlySet<number>): CatalogFood[] =>
+  getFoods().map(food => ({
+    ...food,
+    favorite: favoriteIds.has(food.id_food),
+  }));

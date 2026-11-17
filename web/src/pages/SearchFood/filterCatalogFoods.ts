@@ -1,4 +1,5 @@
 import type { CatalogFood } from '~/modules/Food/services/catalog';
+import type { Food } from '~/modules/Food/services/food';
 
 export type FoodFilter = 'all' | 'favorites';
 
@@ -11,7 +12,7 @@ export const filterCatalogFoods = ({
   foods: CatalogFood[];
   query: string;
   filter: FoodFilter;
-  favoriteIds: Set<string>;
+  favoriteIds: Set<number>;
 }) => {
   const normalizedQuery = query.trim().toLocaleLowerCase('pt-BR');
 
@@ -19,7 +20,7 @@ export const filterCatalogFoods = ({
     const matchesQuery =
       normalizedQuery.length === 0 ||
       food.name.trim().toLocaleLowerCase('pt-BR').includes(normalizedQuery);
-    const matchesFavorite = filter === 'all' || favoriteIds.has(food.id);
+    const matchesFavorite = filter === 'all' || favoriteIds.has(food.id_food);
 
     return matchesQuery && matchesFavorite;
   });
@@ -31,11 +32,14 @@ export const formatFoodCount = (count: number) =>
 export const resolveCatalogFoodId = (
   catalogFoodId: string,
   name: string,
-  foods: CatalogFood[],
+  foods: Food[],
 ) => {
-  if (foods.some(item => item.id === catalogFoodId)) {
+  const idFood = Number(catalogFoodId);
+
+  if (foods.some(item => item.id_food === idFood)) {
     return catalogFoodId;
   }
 
-  return foods.find(item => item.name === name)?.id ?? catalogFoodId;
+  const match = foods.find(item => item.name === name);
+  return match ? String(match.id_food) : catalogFoodId;
 };

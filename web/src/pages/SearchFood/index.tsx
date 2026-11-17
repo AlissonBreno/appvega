@@ -28,12 +28,10 @@ const SearchFood = ({
   const [params] = useSearchParams();
   const mealId = params.get('mealId') ?? '';
   const subtitle = params.get('subtitle') ?? '';
-  const catalog = useMemo(() => getCatalog(), []);
   const [query, setQuery] = useState('');
   const [filter, setFilter] = useState<FoodFilter>('all');
-  const [favoriteIds, setFavoriteIds] = useState(
-    () => new Set(catalog.filter(food => food.favorite).map(food => food.id)),
-  );
+  const [favoriteIds, setFavoriteIds] = useState(() => new Set([1, 2, 4, 7]));
+  const catalog = useMemo(() => getCatalog(favoriteIds), [favoriteIds]);
   const foods = filterCatalogFoods({ foods: catalog, query, filter, favoriteIds });
   const listRef = useRef<HTMLDivElement>(null);
   const scrollThumbRef = useRef<HTMLSpanElement>(null);
@@ -133,15 +131,21 @@ const SearchFood = ({
         <div ref={listRef} className={styles.listScroll} onScroll={onListScroll}>
           <div className={styles.listCard}>
             {foods.map(food => {
-              const isFavorite = favoriteIds.has(food.id);
+              const isFavorite = favoriteIds.has(food.id_food);
 
               return (
                 <button
-                  key={food.id}
+                  key={food.id_food}
                   className={styles.foodRow}
                   type="button"
                   onClick={() =>
-                    navigate(addFoodPath({ mealId, subtitle, catalogFoodId: food.id }))
+                    navigate(
+                      addFoodPath({
+                        mealId,
+                        subtitle,
+                        catalogFoodId: String(food.id_food),
+                      }),
+                    )
                   }
                 >
                   <span className={styles.foodEmoji} aria-hidden>
@@ -169,10 +173,10 @@ const SearchFood = ({
                       event.stopPropagation();
                       setFavoriteIds(current => {
                         const next = new Set(current);
-                        if (next.has(food.id)) {
-                          next.delete(food.id);
+                        if (next.has(food.id_food)) {
+                          next.delete(food.id_food);
                         } else {
-                          next.add(food.id);
+                          next.add(food.id_food);
                         }
                         return next;
                       });

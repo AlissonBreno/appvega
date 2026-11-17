@@ -13,8 +13,17 @@ import {
 } from './pages/AddFood/quantity';
 import { scalePortion } from './modules/Meal/utils/portion';
 
+const emptyComposition = {
+  humidity: 0,
+  cholesterol: 0,
+  fiber: 0,
+  ash: 0,
+  calcium: 0,
+  magnesium: 0,
+};
+
 const aveia: CatalogFood = {
-  id: 'aveia',
+  id_food: 1,
   name: 'Aveia',
   emoji: '🌾',
   kcal: 389,
@@ -22,16 +31,30 @@ const aveia: CatalogFood = {
   protein: 16.9,
   fat: 6.9,
   favorite: true,
-  facts: [
-    { label: 'Umidade', amount: 70.1, unit: '%', scales: false },
-    { label: 'Fibra alimentar', amount: 2.7, unit: 'g', scales: true },
-    { label: 'Colesterol', amount: null, unit: 'mg', scales: false },
-  ],
+  ...emptyComposition,
+  humidity: 70.1,
+  fiber: 2.7,
+  ash: 0.5,
+  calcium: 5,
+  magnesium: 59,
 };
 
 describe('porção e quantidade', () => {
   it('escala kcal com 0 casas e macros com 1, sem mexer em fato que não escala', () => {
-    const scaled = scalePortion(aveia, 50);
+    const scaled = scalePortion(
+      {
+        kcal: 389,
+        carb: 66.3,
+        protein: 16.9,
+        fat: 6.9,
+        facts: [
+          { label: 'Umidade', amount: 70.1, unit: '%', scales: false },
+          { label: 'Fibra alimentar', amount: 2.7, unit: 'g', scales: true },
+          { label: 'Colesterol', amount: null, unit: 'mg', scales: false },
+        ],
+      },
+      50,
+    );
 
     expect(scaled.kcal).toBe(195);
     expect(scaled.carb).toBe(33.2);
@@ -86,10 +109,10 @@ describe('histórico e metas', () => {
 describe('busca', () => {
   it('filtra por nome e favorito e usa o singular só no 1', () => {
     const foods = filterCatalogFoods({
-      foods: [aveia, { ...aveia, id: 'banana', name: 'Banana', favorite: false }],
+      foods: [aveia, { ...aveia, id_food: 3, name: 'Banana', favorite: false }],
       query: '  BAN ',
       filter: 'all',
-      favoriteIds: new Set(['aveia']),
+      favoriteIds: new Set([1]),
     });
 
     expect(foods.map(food => food.name)).toEqual(['Banana']);

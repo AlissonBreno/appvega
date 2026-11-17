@@ -1,40 +1,27 @@
-import { catalog } from 'mocks/catalog';
 import { describe, expect, it } from 'vitest';
+import { getFoods } from './food';
 import { getCatalog } from './catalog';
 
 describe('getCatalog', () => {
-  it('devolve a mesma lista, na ordem do arquivo', () => {
-    const foods = getCatalog();
+  it('devolve foods na ordem de id_food 1–11 com favorite só nos ids passados', () => {
+    const favoriteIds = new Set([1, 2, 4, 7]);
+    const foods = getCatalog(favoriteIds);
+    const base = getFoods();
 
-    expect(foods).toBe(catalog);
-    expect(foods.map(food => food.id)).toEqual([
-      'aveia',
-      'iogurte-grego',
-      'banana',
-      'peito-de-frango',
-      'arroz-integral',
-      'batata-doce',
-      'ovo-cozido',
-      'abacate',
-      'salmao',
-      'maca',
-      'amendoas',
-    ]);
+    expect(foods.map(food => food.id_food)).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]);
+    expect(foods.filter(food => food.favorite).map(food => food.id_food)).toEqual([1, 2, 4, 7]);
+    expect(foods.every(food => !('facts' in food))).toBe(true);
+
+    foods.forEach((food, index) => {
+      const { favorite, ...rest } = food;
+      expect(rest).toEqual(base[index]);
+      expect(favorite).toBe(favoriteIds.has(food.id_food));
+    });
   });
 
-  it('mantém os favoritos iniciais e os fatos só na aveia', () => {
-    const foods = getCatalog();
-    const favorites = foods.filter(food => food.favorite).map(food => food.id);
+  it('marca favorite false quando o set está vazio', () => {
+    const foods = getCatalog(new Set());
 
-    expect(favorites).toEqual([
-      'aveia',
-      'iogurte-grego',
-      'peito-de-frango',
-      'ovo-cozido',
-    ]);
-    expect(foods.find(food => food.id === 'aveia')?.facts.length).toBeGreaterThan(0);
-    expect(
-      foods.filter(food => food.id !== 'aveia').every(food => food.facts.length === 0),
-    ).toBe(true);
+    expect(foods.every(food => food.favorite === false)).toBe(true);
   });
 });

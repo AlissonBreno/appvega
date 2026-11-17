@@ -7,7 +7,8 @@ import { useMealBatch } from '~/contexts/MealBatchContext';
 import { useMealsData } from '~/contexts/MealsDataContext';
 import { useSelectedDate } from '~/hooks/useSelectedDate';
 import { useToast } from '~/hooks/useToast';
-import { getCatalog } from '~/modules/Food/services/catalog';
+import { toNutritionFacts } from '~/modules/Food/services/facts';
+import { getFoods } from '~/modules/Food/services/food';
 import { addMealFoodEntry } from '~/modules/Meal/services/meal';
 import { scalePortion } from '~/modules/Meal/utils/portion';
 import { routes, searchFoodPath } from '~/types/Navigation';
@@ -35,13 +36,13 @@ const BatchRow = ({ mealId, food, onRemove, disabled = false }: BatchRowProps) =
   const [gramsText, setGramsText] = useState(String(food.grams));
 
   const applyGrams = (grams: number) => {
-    const base = getCatalog().find(item => item.id === food.catalogFoodId);
+    const base = getFoods().find(item => item.id_food === Number(food.catalogFoodId));
 
     if (!base) {
       return;
     }
 
-    const portion = scalePortion(base, grams);
+    const portion = scalePortion({ ...base, facts: toNutritionFacts(base) }, grams);
     updateItem(mealId, {
       ...food,
       grams,

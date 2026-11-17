@@ -12,7 +12,8 @@ import { useMealBatch } from '~/contexts/MealBatchContext';
 import { useMealsData } from '~/contexts/MealsDataContext';
 import { useSelectedDate } from '~/hooks/useSelectedDate';
 import { useToast } from '~/hooks/useToast';
-import { getCatalog } from '~/modules/Food/services/catalog';
+import { toNutritionFacts } from '~/modules/Food/services/facts';
+import { getFoods } from '~/modules/Food/services/food';
 import { getMealsWithFoods, updateMealFoodEntry } from '~/modules/Meal/services/meal';
 import { scalePortion } from '~/modules/Meal/utils/portion';
 import { getUser } from '~/modules/User/services/user';
@@ -58,7 +59,7 @@ const AddFood = ({
   const subtitle = params.get('subtitle') ?? '';
   const catalogFoodId = params.get('catalogFoodId') ?? '';
   const mealFoodId = params.get('mealFoodId');
-  const food = getCatalog().find(item => item.id === catalogFoodId);
+  const food = getFoods().find(item => item.id_food === Number(catalogFoodId));
   const [grams, setGrams] = useState(100);
   const [gramsText, setGramsText] = useState('100');
   const [ready, setReady] = useState(!mealFoodId);
@@ -142,7 +143,7 @@ const AddFood = ({
     return null;
   }
 
-  const portion = scalePortion(food, grams);
+  const portion = scalePortion({ ...food, facts: toNutritionFacts(food) }, grams);
   const user = getUser();
   const mode = portionScreenMode(Boolean(mealFoodId));
   const macros = {
@@ -157,8 +158,8 @@ const AddFood = ({
     }
 
     addItem(mealId, {
-      id: `${food.id}-${Date.now()}`,
-      catalogFoodId: food.id,
+      id: `${food.id_food}-${Date.now()}`,
+      catalogFoodId: String(food.id_food),
       name: food.name,
       emoji: food.emoji,
       grams,
@@ -177,7 +178,7 @@ const AddFood = ({
 
     const entry = {
       id: mealFoodId,
-      catalogFoodId: food.id,
+      catalogFoodId: String(food.id_food),
       name: food.name,
       emoji: food.emoji,
       grams,
