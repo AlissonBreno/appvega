@@ -1,7 +1,9 @@
 import type { ButtonHTMLAttributes, CSSProperties, ReactNode } from 'react';
 
-import IconGlyph, { type IconName } from '../Icon';
+import { Button as ShadcnButton } from '~/components/ui/shadcn/button';
+import { cn } from '~/lib/utils';
 
+import IconGlyph, { type IconName } from '../Icon';
 import styles from './styles.module.css';
 
 type RootProps = {
@@ -12,7 +14,10 @@ type RootProps = {
   style?: CSSProperties;
   type?: ButtonHTMLAttributes<HTMLButtonElement>['type'];
   disabled?: boolean;
+  loading?: boolean;
 };
+
+const Spinner = () => <span className={styles.spinner} aria-hidden />;
 
 const Root = ({
   children,
@@ -22,20 +27,28 @@ const Root = ({
   style,
   type = 'button',
   disabled,
+  loading = false,
 }: RootProps) => {
   const isDisabled = disabled ?? !onClick;
 
   return (
-    <button
+    <ShadcnButton
       type={type}
       aria-label={accessibilityLabel}
-      disabled={isDisabled}
-      onClick={onClick}
-      className={[styles.root, className].filter(Boolean).join(' ')}
+      aria-busy={loading || undefined}
+      disabled={isDisabled || loading}
+      onClick={loading ? undefined : onClick}
+      variant="outline"
+      size="lg"
+      className={cn(
+        'h-[60px] min-h-[60px] w-auto gap-2 rounded-xl border-border bg-background px-4 text-base font-medium text-muted-foreground opacity-55 hover:bg-background hover:text-muted-foreground dark:border-border dark:bg-background dark:hover:bg-background',
+        className,
+      )}
       style={style}
     >
+      {loading ? <Spinner /> : null}
       {children}
-    </button>
+    </ShadcnButton>
   );
 };
 
@@ -63,7 +76,10 @@ type LabelProps = {
 };
 
 const Label = ({ children, className, style }: LabelProps) => (
-  <span className={[styles.label, className].filter(Boolean).join(' ')} style={style}>
+  <span
+    className={cn('text-base font-medium leading-[21px] text-muted-foreground', className)}
+    style={style}
+  >
     {children}
   </span>
 );
@@ -72,4 +88,5 @@ export const Button = {
   Root,
   Icon,
   Label,
+  Spinner,
 };

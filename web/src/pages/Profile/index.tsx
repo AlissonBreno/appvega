@@ -49,21 +49,25 @@ const Profile = () => {
     const next = { ...draft, goal_kcal: String(sumMacroKcal(draft)) };
     setDraft(next);
     setSaving(true);
-    const updated = await updateUserGoals({
-      goal_kcal: Number(next.goal_kcal),
-      goal_carb: Number(next.goal_carb),
-      goal_prot: Number(next.goal_prot),
-      goal_fat: Number(next.goal_fat),
-    });
-    setUser(updated);
-    setDraft({
-      goal_kcal: String(updated.goal_kcal),
-      goal_carb: String(updated.goal_carb),
-      goal_prot: String(updated.goal_prot),
-      goal_fat: String(updated.goal_fat),
-    });
-    setSaving(false);
-    showToast({ message: 'alterações salvas!', variant: 'success' });
+
+    try {
+      const updated = await updateUserGoals({
+        goal_kcal: Number(next.goal_kcal),
+        goal_carb: Number(next.goal_carb),
+        goal_prot: Number(next.goal_prot),
+        goal_fat: Number(next.goal_fat),
+      });
+      setUser(updated);
+      setDraft({
+        goal_kcal: String(updated.goal_kcal),
+        goal_carb: String(updated.goal_carb),
+        goal_prot: String(updated.goal_prot),
+        goal_fat: String(updated.goal_fat),
+      });
+      showToast({ message: 'alterações salvas!', variant: 'success' });
+    } finally {
+      setSaving(false);
+    }
   };
 
   return (

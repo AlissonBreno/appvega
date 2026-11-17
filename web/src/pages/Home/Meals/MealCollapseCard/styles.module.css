@@ -204,6 +204,11 @@
   filter: brightness(0.86);
 }
 
+.foodAction:disabled {
+  cursor: default;
+  transform: none;
+}
+
 .foodActionDelete {
   background: color-mix(in srgb, var(--error) 10%, transparent);
   border-color: var(--error);

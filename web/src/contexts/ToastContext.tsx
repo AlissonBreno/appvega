@@ -1,7 +1,7 @@
-import { createContext, useContext, useMemo, useState, type ReactNode } from 'react';
-import type { ToastVariant } from '~/components/ui/Toast';
+import { createContext, useContext, useMemo, type ReactNode } from 'react';
+import { toast as sonnerToast } from 'sonner';
 
-type Toast = { id: number; message: string; variant: ToastVariant };
+import { ToastToaster, type ToastVariant } from '~/components/ui/Toast';
 
 type ShowToastInput = {
   message: string;
@@ -9,27 +9,43 @@ type ShowToastInput = {
 };
 
 type ToastValue = {
-  toast: Toast | null;
   showToast: (input: ShowToastInput) => void;
   dismissToast: () => void;
 };
 
 const ToastContext = createContext<ToastValue | null>(null);
 
-export const ToastProvider = ({ children }: { children: ReactNode }) => {
-  const [toast, setToast] = useState<Toast | null>(null);
+const showByVariant = (message: string, variant: ToastVariant) => {
+  const options = { duration: 3000 };
 
+  if (variant === 'success') {
+    sonnerToast.success(message, options);
+    return;
+  }
+
+  if (variant === 'danger') {
+    sonnerToast.error(message, options);
+    return;
+  }
+
+  sonnerToast.warning(message, options);
+};
+
+export const ToastProvider = ({ children }: { children: ReactNode }) => {
   const value = useMemo(
     () => ({
-      toast,
-      showToast: (input: ShowToastInput) =>
-        setToast({ id: Date.now(), message: input.message, variant: input.variant }),
-      dismissToast: () => setToast(null),
+      showToast: (input: ShowToastInput) => showByVariant(input.message, input.variant),
+      dismissToast: () => sonnerToast.dismiss(),
     }),
-    [toast],
+    [],
   );
 
-  return <ToastContext.Provider value={value}>{children}</ToastContext.Provider>;
+  return (
+    <ToastContext.Provider value={value}>
+      {children}
+      <ToastToaster />
+    </ToastContext.Provider>
+  );
 };
 
 export const useToast = () => {

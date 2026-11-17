@@ -26,10 +26,11 @@ type MealBatchProps = {
 type BatchRowProps = {
   mealId: string;
   onRemove: () => void;
+  disabled?: boolean;
   food: ReturnType<ReturnType<typeof useMealBatch>['items']>[number];
 };
 
-const BatchRow = ({ mealId, food, onRemove }: BatchRowProps) => {
+const BatchRow = ({ mealId, food, onRemove, disabled = false }: BatchRowProps) => {
   const { updateItem } = useMealBatch();
   const [gramsText, setGramsText] = useState(String(food.grams));
 
@@ -66,6 +67,7 @@ const BatchRow = ({ mealId, food, onRemove }: BatchRowProps) => {
           aria-label={`Quantidade em gramas de ${food.name}`}
           inputMode="decimal"
           value={gramsText}
+          disabled={disabled}
           onChange={event => {
             const next = event.target.value;
             setGramsText(next);
@@ -85,6 +87,7 @@ const BatchRow = ({ mealId, food, onRemove }: BatchRowProps) => {
         type="button"
         className={styles.removeButton}
         aria-label={`Remover ${food.name}`}
+        disabled={disabled}
         onClick={onRemove}
       >
         <Icon name="trash" size={14} color="var(--secondary-text)" />
@@ -131,6 +134,10 @@ const MealBatch = ({ onBack, onSavingChange, onClose, embedded = false }: MealBa
   };
 
   const confirm = async () => {
+    if (saving) {
+      return;
+    }
+
     setSaving(true);
 
     try {
@@ -200,6 +207,7 @@ const MealBatch = ({ onBack, onSavingChange, onClose, embedded = false }: MealBa
               key={food.id}
               mealId={mealId}
               food={food}
+              disabled={saving}
               onRemove={() => removeFood(food.id)}
             />
           ))}
@@ -221,11 +229,13 @@ const MealBatch = ({ onBack, onSavingChange, onClose, embedded = false }: MealBa
       <div className={styles.footer}>
         <Button.Root
           className={styles.confirm}
-          accessibilityLabel="Confirmar lote"
-          disabled={saving}
+          accessibilityLabel={saving ? 'Salvando...' : 'Confirmar lote'}
+          loading={saving}
           onClick={confirm}
         >
-          <Button.Label className={styles.confirmLabel}>Confirmar lote</Button.Label>
+          <Button.Label className={styles.confirmLabel}>
+            {saving ? 'Salvando...' : 'Confirmar lote'}
+          </Button.Label>
         </Button.Root>
       </div>
     </main>

@@ -2,11 +2,9 @@ import { useEffect, useState, type ReactNode } from 'react';
 import { useLocation } from 'react-router';
 import { showsTabBar, tabItems } from '~/config/navigation';
 import { DESKTOP_QUERY } from '~/config/viewport';
-import { useToast } from '~/hooks/useToast';
 import { getUser } from '~/modules/User/services/user';
 import { FloatingTabBar } from '~/components/layout/FloatingTabBar';
 import { Sidebar } from '~/components/layout/Sidebar';
-import Toast from '~/components/ui/Toast';
 
 type AppShellProps = {
   children: ReactNode;
@@ -14,19 +12,9 @@ type AppShellProps = {
 
 const AppShell = ({ children }: AppShellProps) => {
   const location = useLocation();
-  const { toast, dismissToast } = useToast();
   const [desktop, setDesktop] = useState(() => window.matchMedia(DESKTOP_QUERY).matches);
   const tabbed = showsTabBar(location.pathname, desktop);
   const user = getUser();
-
-  useEffect(() => {
-    if (!toast) {
-      return;
-    }
-
-    const timer = window.setTimeout(dismissToast, 3000);
-    return () => window.clearTimeout(timer);
-  }, [toast, dismissToast]);
 
   useEffect(() => {
     const media = window.matchMedia(DESKTOP_QUERY);
@@ -50,7 +38,6 @@ const AppShell = ({ children }: AppShellProps) => {
       ) : null}
       <div className={tabbed && desktop ? 'app-column' : undefined}>{children}</div>
       {!desktop && tabbed ? <FloatingTabBar pathname={location.pathname} /> : null}
-      {toast ? <Toast message={toast.message} variant={toast.variant} onDismiss={dismissToast} /> : null}
     </div>
   );
 };
