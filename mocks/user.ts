@@ -11,6 +11,6 @@ export const userMock: User = {
   goal_carb: 220,
   goal_prot: 150,
   goal_fat: 75,
-  created_at: '2026-01-01T00:00:00.000Z',
-  edited_at: '2026-01-01T00:00:00.000Z',
+  created_at: '2026-11-16T00:00:00.000Z',
+  edited_at: '2026-11-16T00:00:00.000Z',
 };
